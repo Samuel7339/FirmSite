@@ -69,6 +69,13 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'practice-areas': PracticeArea;
+    attorneys: Attorney;
+    posts: Post;
+    cases: Case;
+    testimonials: Testimonial;
+    faqs: Faq;
+    pages: Page;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +85,13 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'practice-areas': PracticeAreasSelect<false> | PracticeAreasSelect<true>;
+    attorneys: AttorneysSelect<false> | AttorneysSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    cases: CasesSelect<false> | CasesSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    faqs: FaqsSelect<false> | FaqsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +101,16 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+    header: Header;
+    footer: Footer;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -123,6 +145,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -164,6 +187,635 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "practice-areas".
+ */
+export interface PracticeArea {
+  id: string;
+  title: string;
+  sortOrder?: number | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Short description displayed on practice area cards.
+   */
+  shortDescription: string;
+  /**
+   * Full description displayed on the practice area detail page.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  services?:
+    | {
+        service: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "attorneys".
+ */
+export interface Attorney {
+  id: string;
+  name: string;
+  sortOrder?: number | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Example: Senior Partner, Managing Partner, Associate.
+   */
+  position: string;
+  portrait?: (string | null) | Media;
+  shortBio: string;
+  biography?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  practiceAreas?: (string | PracticeArea)[] | null;
+  qualifications?:
+    | {
+        qualification: string;
+        id?: string | null;
+      }[]
+    | null;
+  email?: string | null;
+  phone?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Short introduction displayed on article cards.
+   */
+  excerpt: string;
+  featuredImage: string | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  author?: (string | null) | Attorney;
+  publishedAt?: string | null;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cases".
+ */
+export interface Case {
+  id: string;
+  title: string;
+  sortOrder?: number | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Example: Corporate Dispute, Property Dispute.
+   */
+  caseType: string;
+  summary: string;
+  featuredImage?: (string | null) | Media;
+  practiceArea?: (string | null) | PracticeArea;
+  /**
+   * Publicly approved case outcome or result.
+   */
+  outcome?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  caseDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: string;
+  clientName: string;
+  sortOrder?: number | null;
+  /**
+   * Optional client designation or organization.
+   */
+  designation?: string | null;
+  testimonial: string;
+  clientImage?: (string | null) | Media;
+  /**
+   * Optional rating from 1 to 5.
+   */
+  rating?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs".
+ */
+export interface Faq {
+  id: string;
+  question: string;
+  answer: string;
+  category: 'general' | 'practice-areas' | 'attorneys' | 'cases' | 'consultation';
+  sortOrder?: number | null;
+  /**
+   * Optional: associate this FAQ with a practice area.
+   */
+  practiceArea?: (string | null) | PracticeArea;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Build your page by adding, editing, and arranging the available website sections.
+   */
+  layout: (
+    | HeroBlock
+    | AboutFirmBlock
+    | ContactBlock
+    | ConsultationFormBlock
+    | RecognitionBlock
+    | PracticeAreasGridBlock
+    | ProcessBlock
+    | AttorneysGridBlock
+    | CaseResultsBlock
+    | TestimonialsBlock
+    | InsightsBlock
+    | OurApproachBlock
+    | FAQsBlock
+    | StatisticsBlock
+    | OfficeLocationsBlock
+    | FinalCTABlock
+  )[];
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock".
+ */
+export interface HeroBlock {
+  /**
+   * Small uppercase text above the main heading.
+   */
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  backgroundImage?: (string | null) | Media;
+  primaryButton?: {
+    label?: string | null;
+    destinationType?: ('page' | 'custom') | null;
+    selectedPage?: ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+    customUrl?: string | null;
+  };
+  secondaryButton?: {
+    label?: string | null;
+    destinationType?: ('page' | 'custom') | null;
+    selectedPage?: ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+    customUrl?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'HomeHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutFirmBlock".
+ */
+export interface AboutFirmBlock {
+  eyebrow?: string | null;
+  heading: string;
+  image: string | Media;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  buttonLabel?: string | null;
+  destinationType?: ('page' | 'custom') | null;
+  selectedPage?: ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+  customUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutFirm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock".
+ */
+export interface ContactBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  image?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contact';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ConsultationFormBlock".
+ */
+export interface ConsultationFormBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  submitButtonLabel: string;
+  privacyNotice?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'consultationForm';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RecognitionBlock".
+ */
+export interface RecognitionBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  featuredAwards?:
+    | {
+        title: string;
+        organization?: string | null;
+        logo?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  recognitions?:
+    | {
+        title: string;
+        organization?: string | null;
+        logo?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'recognition';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PracticeAreasGridBlock".
+ */
+export interface PracticeAreasGridBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Choose specific practice areas or automatically display all published practice areas.
+   */
+  displayMode?: ('selected' | 'all') | null;
+  /**
+   * Select the practice areas to display in this section.
+   */
+  practiceAreas?: (string | PracticeArea)[] | null;
+  viewAllLabel?: string | null;
+  viewAllDestinationType?: ('page' | 'custom') | null;
+  selectedViewAllPage?:
+    ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+  viewAllUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'practiceAreasGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessBlock".
+ */
+export interface ProcessBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  steps?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'process';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AttorneysGridBlock".
+ */
+export interface AttorneysGridBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Choose specific attorneys or automatically display all published attorneys.
+   */
+  displayMode?: ('selected' | 'all') | null;
+  /**
+   * Select the attorneys to display in this section.
+   */
+  attorneys?: (string | Attorney)[] | null;
+  viewAllLabel?: string | null;
+  viewAllDestinationType?: ('page' | 'custom') | null;
+  selectedViewAllPage?:
+    ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+  viewAllUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'attorneysGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseResultsBlock".
+ */
+export interface CaseResultsBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Choose specific cases or automatically display all published cases.
+   */
+  displayMode?: ('selected' | 'all') | null;
+  /**
+   * Select the cases to display in this section.
+   */
+  cases?: (string | Case)[] | null;
+  viewAllLabel?: string | null;
+  viewAllDestinationType?: ('page' | 'custom') | null;
+  selectedViewAllPage?:
+    ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+  viewAllUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'caseResults';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock".
+ */
+export interface TestimonialsBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Select the testimonials to display in this section.
+   */
+  testimonials: (string | Testimonial)[];
+  viewAllLabel?: string | null;
+  viewAllDestinationType?: ('page' | 'custom') | null;
+  selectedViewAllPage?:
+    ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+  viewAllUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InsightsBlock".
+ */
+export interface InsightsBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Choose specific insights or automatically display all published posts.
+   */
+  displayMode?: ('selected' | 'all') | null;
+  /**
+   * Select the insights to display in this section.
+   */
+  posts?: (string | Post)[] | null;
+  viewAllLabel?: string | null;
+  viewAllDestinationType?: ('page' | 'custom') | null;
+  selectedViewAllPage?:
+    ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+  viewAllUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'insights';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurApproachBlock".
+ */
+export interface OurApproachBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (string | null) | Media;
+  buttonLabel?: string | null;
+  destinationType?: ('page' | 'custom') | null;
+  selectedPage?: ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+  customUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ourApproach';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQsBlock".
+ */
+export interface FAQsBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Select the FAQs to display in this section.
+   */
+  faqs: (string | Faq)[];
+  viewAllLabel?: string | null;
+  viewAllDestinationType?: ('page' | 'custom') | null;
+  selectedViewAllPage?:
+    ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/faqs' | '/contact') | null;
+  viewAllUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatisticsBlock".
+ */
+export interface StatisticsBlock {
+  eyebrow?: string | null;
+  heading?: string | null;
+  statistics?:
+    | {
+        /**
+         * Example: 20+, 500+, 95%.
+         */
+        value: string;
+        label: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'statistics';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfficeLocationsBlock".
+ */
+export interface OfficeLocationsBlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  offices?:
+    | {
+        officeName: string;
+        address: string;
+        phone?: string | null;
+        email?: string | null;
+        /**
+         * Google Maps location link.
+         */
+        mapUrl?: string | null;
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'officeLocations';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinalCTABlock".
+ */
+export interface FinalCTABlock {
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  buttonLabel: string;
+  destinationType?: ('page' | 'custom') | null;
+  selectedPage?: ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+  customUrl?: string | null;
+  backgroundImage?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'finalCTA';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -193,6 +845,34 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'practice-areas';
+        value: string | PracticeArea;
+      } | null)
+    | ({
+        relationTo: 'attorneys';
+        value: string | Attorney;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'cases';
+        value: string | Case;
+      } | null)
+    | ({
+        relationTo: 'testimonials';
+        value: string | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'faqs';
+        value: string | Faq;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -241,6 +921,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -276,6 +957,444 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "practice-areas_select".
+ */
+export interface PracticeAreasSelect<T extends boolean = true> {
+  title?: T;
+  sortOrder?: T;
+  generateSlug?: T;
+  slug?: T;
+  shortDescription?: T;
+  description?: T;
+  services?:
+    | T
+    | {
+        service?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "attorneys_select".
+ */
+export interface AttorneysSelect<T extends boolean = true> {
+  name?: T;
+  sortOrder?: T;
+  generateSlug?: T;
+  slug?: T;
+  position?: T;
+  portrait?: T;
+  shortBio?: T;
+  biography?: T;
+  practiceAreas?: T;
+  qualifications?:
+    | T
+    | {
+        qualification?: T;
+        id?: T;
+      };
+  email?: T;
+  phone?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  excerpt?: T;
+  featuredImage?: T;
+  content?: T;
+  author?: T;
+  publishedAt?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cases_select".
+ */
+export interface CasesSelect<T extends boolean = true> {
+  title?: T;
+  sortOrder?: T;
+  generateSlug?: T;
+  slug?: T;
+  caseType?: T;
+  summary?: T;
+  featuredImage?: T;
+  practiceArea?: T;
+  outcome?: T;
+  content?: T;
+  caseDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  clientName?: T;
+  sortOrder?: T;
+  designation?: T;
+  testimonial?: T;
+  clientImage?: T;
+  rating?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs_select".
+ */
+export interface FaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  category?: T;
+  sortOrder?: T;
+  practiceArea?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  layout?:
+    | T
+    | {
+        HomeHero?: T | HeroBlockSelect<T>;
+        aboutFirm?: T | AboutFirmBlockSelect<T>;
+        contact?: T | ContactBlockSelect<T>;
+        consultationForm?: T | ConsultationFormBlockSelect<T>;
+        recognition?: T | RecognitionBlockSelect<T>;
+        practiceAreasGrid?: T | PracticeAreasGridBlockSelect<T>;
+        process?: T | ProcessBlockSelect<T>;
+        attorneysGrid?: T | AttorneysGridBlockSelect<T>;
+        caseResults?: T | CaseResultsBlockSelect<T>;
+        testimonials?: T | TestimonialsBlockSelect<T>;
+        insights?: T | InsightsBlockSelect<T>;
+        ourApproach?: T | OurApproachBlockSelect<T>;
+        faqs?: T | FAQsBlockSelect<T>;
+        statistics?: T | StatisticsBlockSelect<T>;
+        officeLocations?: T | OfficeLocationsBlockSelect<T>;
+        finalCTA?: T | FinalCTABlockSelect<T>;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBlock_select".
+ */
+export interface HeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  backgroundImage?: T;
+  primaryButton?:
+    | T
+    | {
+        label?: T;
+        destinationType?: T;
+        selectedPage?: T;
+        customUrl?: T;
+      };
+  secondaryButton?:
+    | T
+    | {
+        label?: T;
+        destinationType?: T;
+        selectedPage?: T;
+        customUrl?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutFirmBlock_select".
+ */
+export interface AboutFirmBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  image?: T;
+  description?: T;
+  buttonLabel?: T;
+  destinationType?: T;
+  selectedPage?: T;
+  customUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactBlock_select".
+ */
+export interface ContactBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ConsultationFormBlock_select".
+ */
+export interface ConsultationFormBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  submitButtonLabel?: T;
+  privacyNotice?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RecognitionBlock_select".
+ */
+export interface RecognitionBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  featuredAwards?:
+    | T
+    | {
+        title?: T;
+        organization?: T;
+        logo?: T;
+        id?: T;
+      };
+  recognitions?:
+    | T
+    | {
+        title?: T;
+        organization?: T;
+        logo?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PracticeAreasGridBlock_select".
+ */
+export interface PracticeAreasGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  displayMode?: T;
+  practiceAreas?: T;
+  viewAllLabel?: T;
+  viewAllDestinationType?: T;
+  selectedViewAllPage?: T;
+  viewAllUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessBlock_select".
+ */
+export interface ProcessBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AttorneysGridBlock_select".
+ */
+export interface AttorneysGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  displayMode?: T;
+  attorneys?: T;
+  viewAllLabel?: T;
+  viewAllDestinationType?: T;
+  selectedViewAllPage?: T;
+  viewAllUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CaseResultsBlock_select".
+ */
+export interface CaseResultsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  displayMode?: T;
+  cases?: T;
+  viewAllLabel?: T;
+  viewAllDestinationType?: T;
+  selectedViewAllPage?: T;
+  viewAllUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialsBlock_select".
+ */
+export interface TestimonialsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  testimonials?: T;
+  viewAllLabel?: T;
+  viewAllDestinationType?: T;
+  selectedViewAllPage?: T;
+  viewAllUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "InsightsBlock_select".
+ */
+export interface InsightsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  displayMode?: T;
+  posts?: T;
+  viewAllLabel?: T;
+  viewAllDestinationType?: T;
+  selectedViewAllPage?: T;
+  viewAllUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OurApproachBlock_select".
+ */
+export interface OurApproachBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  content?: T;
+  image?: T;
+  buttonLabel?: T;
+  destinationType?: T;
+  selectedPage?: T;
+  customUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQsBlock_select".
+ */
+export interface FAQsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  faqs?: T;
+  viewAllLabel?: T;
+  viewAllDestinationType?: T;
+  selectedViewAllPage?: T;
+  viewAllUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatisticsBlock_select".
+ */
+export interface StatisticsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  statistics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "OfficeLocationsBlock_select".
+ */
+export interface OfficeLocationsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  offices?:
+    | T
+    | {
+        officeName?: T;
+        address?: T;
+        phone?: T;
+        email?: T;
+        mapUrl?: T;
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FinalCTABlock_select".
+ */
+export interface FinalCTABlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  buttonLabel?: T;
+  destinationType?: T;
+  selectedPage?: T;
+  customUrl?: T;
+  backgroundImage?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -316,6 +1435,155 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  siteName: string;
+  siteDescription?: string | null;
+  logo?: (string | null) | Media;
+  favicon?: (string | null) | Media;
+  contactInformation?: {
+    email?: string | null;
+    phone?: string | null;
+    address?: string | null;
+  };
+  socialLinks?:
+    | {
+        platform: 'facebook' | 'instagram' | 'linkedin' | 'youtube' | 'x';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: string;
+  /**
+   * Optional header logo. If empty, the Site Settings logo can be used.
+   */
+  logo?: (string | null) | Media;
+  navigation?:
+    | {
+        label: string;
+        destinationType: 'page' | 'custom';
+        selectedPage?: ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+        customUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  consultationButton?: {
+    enabled?: boolean | null;
+    label?: string | null;
+    destinationType?: ('page' | 'custom') | null;
+    selectedPage?: ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+    customUrl?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  firmName?: string | null;
+  description?: string | null;
+  exploreLinks?:
+    | {
+        label: string;
+        destinationType?: ('page' | 'custom') | null;
+        selectedPage?: ('/' | '/about' | '/practice-areas' | '/attorneys' | '/cases' | '/insights' | '/contact') | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  siteName?: T;
+  siteDescription?: T;
+  logo?: T;
+  favicon?: T;
+  contactInformation?:
+    | T
+    | {
+        email?: T;
+        phone?: T;
+        address?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
+  navigation?:
+    | T
+    | {
+        label?: T;
+        destinationType?: T;
+        selectedPage?: T;
+        customUrl?: T;
+        id?: T;
+      };
+  consultationButton?:
+    | T
+    | {
+        enabled?: T;
+        label?: T;
+        destinationType?: T;
+        selectedPage?: T;
+        customUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  firmName?: T;
+  description?: T;
+  exploreLinks?:
+    | T
+    | {
+        label?: T;
+        destinationType?: T;
+        selectedPage?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

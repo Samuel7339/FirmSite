@@ -4,10 +4,26 @@ export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
     useAsTitle: 'email',
+    group: 'Administration',
   },
+
   auth: true,
   fields: [
     // Email added by default
     // Add more fields as needed
+
+    {
+  name: 'role',
+  type: 'select',
+  required: true,
+  defaultValue: 'editor',
+  options: [
+    { label: 'Admin', value: 'admin' },
+    { label: 'Editor', value: 'editor' },
+  ],
+  access: {
+    update: ({ req: { user } }) => user?.role === 'admin',
+  },
+},
   ],
 }
