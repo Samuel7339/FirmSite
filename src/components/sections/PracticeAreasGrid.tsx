@@ -28,21 +28,24 @@ export function PracticeAreasGrid({
       : viewAllUrl
 
   return (
-    <section className="bg-[#F4F6F8] px-6 py-20 md:px-12 md:py-28">
+    <section className="bg-[#F8F6F0] px-6 py-20 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-14 max-w-3xl">
           {eyebrow && (
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-amber-700">
-              {eyebrow}
-            </p>
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-6 bg-[#D6A84B]" />
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+                {eyebrow}
+              </p>
+            </div>
           )}
 
-          <h2 className="font-serif text-3xl leading-tight text-[#17243A] md:text-5xl">
+          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-5 text-base leading-8 text-slate-600">
+            <p className="mt-5 text-base leading-relaxed text-stone-600">
               {description}
             </p>
           )}
@@ -53,30 +56,35 @@ export function PracticeAreasGrid({
             <Link
               key={item.id}
               href={`/practice-areas/${item.slug}`}
-              className="group border border-slate-200 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500 hover:shadow-lg"
+              className="group relative flex flex-col justify-between border border-stone-200/80 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A84B]/50 hover:shadow-xl"
             >
-              <div className="mb-6 h-1 w-12 bg-amber-600 transition-all duration-300 group-hover:w-20" />
+              <div>
+                <div className="mb-6 h-[2px] w-8 bg-[#D6A84B] transition-all duration-300 group-hover:w-14" />
 
-              <h3 className="font-serif text-2xl text-[#17243A]">
-                {item.title}
-              </h3>
+                <h3 className="font-serif text-2xl font-normal text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
+                  {item.title}
+                </h3>
 
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                {item.shortDescription}
-              </p>
+                {item.shortDescription && (
+                  <p className="mt-4 text-sm leading-relaxed text-stone-600">
+                    {item.shortDescription}
+                  </p>
+                )}
+              </div>
 
-              <span className="mt-7 inline-block text-sm font-semibold text-amber-700">
-                Explore Practice Area →
-              </span>
+              <div className="mt-8 flex items-center gap-2 pt-4 border-t border-stone-100 text-xs font-semibold uppercase tracking-[0.15em] text-[#C59A3F] transition-colors group-hover:text-[#0B1025]">
+                <span>Explore Practice Area</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </div>
             </Link>
           ))}
         </div>
 
         {viewAllLabel && buttonUrl && (
-          <div className="mt-12 text-center">
+          <div className="mt-14 text-center">
             <Link
               href={buttonUrl}
-              className="inline-flex items-center justify-center bg-[#17243A] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#263B5A]"
+              className="inline-flex min-h-12 items-center justify-center border border-[#0B1025] bg-[#0B1025] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-[#D6A84B] hover:bg-[#D6A84B] hover:text-[#0B1025]"
             >
               {viewAllLabel}
             </Link>

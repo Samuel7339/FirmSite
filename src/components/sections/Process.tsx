@@ -10,21 +10,25 @@ export function Process({
   steps,
 }: ProcessProps) {
   return (
-    <section className="bg-[#F4F6F8] px-6 py-20 md:px-12 md:py-28">
+    <section className="bg-[#F8F6F0] px-6 py-20 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           {eyebrow && (
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-amber-700">
-              {eyebrow}
-            </p>
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <span className="h-px w-6 bg-[#D6A84B]" />
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+                {eyebrow}
+              </p>
+              <span className="h-px w-6 bg-[#D6A84B]" />
+            </div>
           )}
 
-          <h2 className="font-serif text-4xl leading-tight text-[#17243A] md:text-5xl">
+          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-6 text-base leading-8 text-slate-600">
+            <p className="mt-5 text-base leading-relaxed text-stone-600">
               {description}
             </p>
           )}
@@ -34,19 +38,26 @@ export function Process({
           {(steps ?? []).map((step, index) => (
             <div
               key={step.id ?? index}
-              className="border-t-2 border-amber-600 bg-white p-8 shadow-sm"
+              className="group relative flex flex-col justify-between border border-stone-200/80 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A84B]/50 hover:shadow-xl"
             >
-              <span className="font-serif text-4xl text-amber-700">
-                {String(index + 1).padStart(2, '0')}
-              </span>
+              <div>
+                <div className="flex items-center justify-between border-b border-stone-100 pb-5">
+                  <span className="font-serif text-3xl font-normal text-[#C59A3F]">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span className="h-2 w-2 rounded-full bg-[#D6A84B]/40 group-hover:bg-[#D6A84B]" />
+                </div>
 
-              <h3 className="mt-6 font-serif text-2xl text-[#17243A]">
-                {step.title}
-              </h3>
+                <h3 className="mt-6 font-serif text-2xl font-normal text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
+                  {step.title}
+                </h3>
 
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                {step.description}
-              </p>
+                {step.description && (
+                  <p className="mt-4 text-sm leading-relaxed text-stone-600">
+                    {step.description}
+                  </p>
+                )}
+              </div>
             </div>
           ))}
         </div>

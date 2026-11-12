@@ -16,14 +16,25 @@ export const OurApproach: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      defaultValue: 'Preparation Before Argument',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          defaultValue: 'Preparation Before Argument',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -41,18 +52,29 @@ export const OurApproach: Block = {
 
     // Button
     {
-      name: 'buttonLabel',
-      type: 'text',
-      label: 'Button Label',
-    },
-    {
-      name: 'destinationType',
-      type: 'select',
-      label: 'Button Destination',
-      defaultValue: 'custom',
-      options: [
-        { label: 'Choose an Existing Page', value: 'page' },
-        { label: 'Enter a Custom URL', value: 'custom' },
+      type: 'row',
+      fields: [
+        {
+          name: 'buttonLabel',
+          type: 'text',
+          label: 'Button Label',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'destinationType',
+          type: 'select',
+          label: 'Button Destination',
+          defaultValue: 'custom',
+          options: [
+            { label: 'Choose an Existing Page', value: 'page' },
+            { label: 'Enter a Custom URL', value: 'custom' },
+          ],
+          admin: {
+            width: '50%',
+          },
+        },
       ],
     },
     {

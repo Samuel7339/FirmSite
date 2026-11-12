@@ -1,9 +1,4 @@
-
 import type { Block } from 'payload'
-
-type TestimonialsData = {
-  viewAllDestinationType?: 'page' | 'custom'
-}
 
 export const Testimonials: Block = {
   slug: 'testimonials',
@@ -16,14 +11,25 @@ export const Testimonials: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      defaultValue: 'What Our Clients Say',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          defaultValue: 'What Our Clients Say',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -44,61 +50,6 @@ export const Testimonials: Block = {
         }
 
         return true
-      },
-    },
-    {
-      type: 'row',
-      fields: [
-        {
-          name: 'viewAllLabel',
-          type: 'text',
-          defaultValue: 'View All Testimonials',
-          label: 'Button Label',
-          admin: {
-            width: '50%',
-          },
-        },
-        {
-          name: 'viewAllDestinationType',
-          type: 'select',
-          label: 'Button Destination',
-          defaultValue: 'custom',
-          options: [
-            { label: 'Choose an Existing Page', value: 'page' },
-            { label: 'Enter a Custom URL', value: 'custom' },
-          ],
-          admin: {
-            width: '50%',
-          },
-        },
-      ],
-    },
-    {
-      name: 'selectedViewAllPage',
-      type: 'select',
-      label: 'Select Page',
-      options: [
-        { label: 'Home', value: '/' },
-        { label: 'About Us', value: '/about' },
-        { label: 'Practice Areas', value: '/practice-areas' },
-        { label: 'Attorneys', value: '/attorneys' },
-        { label: 'Cases', value: '/cases' },
-        { label: 'Insights', value: '/insights' },
-        { label: 'Contact', value: '/contact' },
-      ],
-      admin: {
-        condition: (_, siblingData) =>
-          (siblingData as TestimonialsData)?.viewAllDestinationType === 'page',
-      },
-    },
-    {
-      name: 'viewAllUrl',
-      type: 'text',
-      label: 'Custom Button URL',
-      defaultValue: '/testimonials',
-      admin: {
-        condition: (_, siblingData) =>
-          (siblingData as TestimonialsData)?.viewAllDestinationType === 'custom',
       },
     },
   ],

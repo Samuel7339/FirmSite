@@ -1,4 +1,3 @@
-
 import type { Block } from 'payload'
 
 export const Statistics: Block = {
@@ -11,12 +10,23 @@ export const Statistics: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'statistics',
@@ -24,21 +34,33 @@ export const Statistics: Block = {
       minRows: 1,
       fields: [
         {
-          name: 'value',
-          type: 'text',
-          required: true,
-          admin: {
-            description: 'Example: 20+, 500+, 95%.',
-          },
-        },
-        {
-          name: 'label',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'text',
+          type: 'row',
+          fields: [
+            {
+              name: 'value',
+              type: 'text',
+              required: true,
+              admin: {
+                width: '30%',
+                description: 'Example: 20+, 500+, 95%.',
+              },
+            },
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+              admin: {
+                width: '30%',
+              },
+            },
+            {
+              name: 'description',
+              type: 'text',
+              admin: {
+                width: '40%',
+              },
+            },
+          ],
         },
       ],
     },

@@ -1,94 +1,89 @@
 @import "tailwindcss";
 
+@theme {
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-navy: #0B1025;
+  --color-gold: #D6A84B;
+  --color-gold-hover: #C59A3F;
+  --color-ivory: #FBF9F4;
+}
+
 :root {
-  --font-mono: 'Roboto Mono', monospace;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --color-navy: #0B1025;
+  --color-gold: #D6A84B;
+  --color-gold-hover: #C59A3F;
+  --color-ivory: #FBF9F4;
 }
 
-* {
-  box-sizing: border-box;
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-html {
-  font-size: 18px;
-  line-height: 32px;
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-  background: rgb(0, 0, 0);
-  -webkit-font-smoothing: antialiased;
-}
+  body {
+    margin: 0;
+    background-color: #FFFFFF;
+    color: #1E293B;
+    min-height: 100%;
+  }
 
-html,
-body,
-#app {
-  height: 100%;
-}
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
 
-body {
-  font-family: system-ui;
-  font-size: 18px;
-  line-height: 32px;
+  a {
+    color: currentColor;
+    text-decoration: none;
+  }
 
-  margin: 0;
-  color: rgb(1000, 1000, 1000);
-
-  @media (max-width: 1024px) {
-    font-size: 15px;
-    line-height: 24px;
+  svg {
+    vertical-align: middle;
   }
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-h1 {
-  margin: 40px 0;
-  font-size: 64px;
-  line-height: 70px;
-  font-weight: bold;
-
-  @media (max-width: 1024px) {
-    margin: 24px 0;
-    font-size: 42px;
-    line-height: 42px;
+@layer components {
+  /* Consistent High-Contrast Button System */
+  .btn-primary {
+    background-color: #182A3A !important;
+    color: #FFFFFF !important;
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: #34495A !important;
+    color: #FFFFFF !important;
   }
 
-  @media (max-width: 768px) {
-    font-size: 38px;
-    line-height: 38px;
+  .btn-light {
+    background-color: #F3EEE5 !important;
+    color: #182A3A !important;
+    transition: all 0.3s ease;
+  }
+  .btn-light:hover {
+    background-color: #D8C2A2 !important;
+    color: #182A3A !important;
   }
 
-  @media (max-width: 400px) {
-    font-size: 32px;
-    line-height: 32px;
+  .btn-outline {
+    background-color: transparent !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    transition: all 0.3s ease;
   }
-}
-
-p {
-  margin: 24px 0;
-
-  @media (max-width: 1024px) {
-    margin: calc(var(--base) * 0.75) 0;
+  .btn-outline:hover {
+    background-color: #34495A !important;
+    border-color: #B58B60 !important;
+    color: #FFFFFF !important;
   }
-}
-
-a {
-  color: currentColor;
-
-  &:focus {
-    opacity: 0.8;
-    outline: none;
-  }
-
-  &:active {
-    opacity: 0.7;
-    outline: none;
-  }
-}
-
-svg {
-  vertical-align: middle;
 }
 
 .home {

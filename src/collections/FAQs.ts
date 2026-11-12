@@ -1,4 +1,3 @@
-
 import type { CollectionConfig } from 'payload'
 
 import {
@@ -36,10 +35,10 @@ export const FAQs: CollectionConfig = {
     },
 
     {
-  name: 'answer',
-  type: 'textarea',
-  required: true,
-},
+      name: 'answer',
+      type: 'textarea',
+      required: true,
+    },
 
     {
       type: 'row',
@@ -56,26 +55,26 @@ export const FAQs: CollectionConfig = {
             { label: 'Cases', value: 'cases' },
             { label: 'Consultation', value: 'consultation' },
           ],
-          admin: { width: '60%' },
+          admin: { width: '30%' },
         },
         {
           name: 'sortOrder',
           type: 'number',
           defaultValue: 0,
-          admin: { width: '40%' },
+          admin: { width: '30%' },
+        },
+        {
+          name: 'practiceArea',
+          type: 'relationship',
+          relationTo: 'practice-areas',
+          admin: {
+            width: '40%',
+            description: 'Optional: associate this FAQ with a practice area.',
+            condition: (_, siblingData) =>
+              siblingData?.category === 'practice-areas',
+          },
         },
       ],
-    },
-
-    {
-      name: 'practiceArea',
-      type: 'relationship',
-      relationTo: 'practice-areas',
-      admin: {
-        description: 'Optional: associate this FAQ with a practice area.',
-        condition: (_, siblingData) =>
-          siblingData?.category === 'practice-areas',
-      },
     },
   ],
 }

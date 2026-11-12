@@ -45,21 +45,24 @@ export function AttorneysGrid({
       : viewAllUrl
 
   return (
-    <section className="bg-white px-6 py-20 md:px-12 md:py-28">
+    <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-14 max-w-3xl">
           {eyebrow && (
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-amber-700">
-              {eyebrow}
-            </p>
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-6 bg-[#D6A84B]" />
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+                {eyebrow}
+              </p>
+            </div>
           )}
 
-          <h2 className="font-serif text-4xl leading-tight text-[#17243A] md:text-5xl">
+          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-6 text-base leading-8 text-slate-600">
+            <p className="mt-5 text-base leading-relaxed text-stone-600">
               {description}
             </p>
           )}
@@ -73,38 +76,48 @@ export function AttorneysGrid({
               <Link
                 key={attorney.id}
                 href={`/attorneys/${attorney.slug}`}
-                className="group block"
+                className="group flex flex-col justify-between border border-stone-200/80 bg-stone-50/50 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A84B]/40 hover:bg-white hover:shadow-xl"
               >
-                <div className="flex aspect-[4/5] items-center justify-center overflow-hidden bg-[#E9E5DC]">
-                  {portraitUrl ? (
-                    <img
-                      src={portraitUrl}
-                      alt={attorney.name}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <span className="font-serif text-7xl font-medium tracking-wider text-[#263954] md:text-8xl">
-                      {getInitials(attorney.name)}
-                    </span>
-                  )}
+                <div>
+                  <div className="relative aspect-[4/5] overflow-hidden bg-[#F4F1EA]">
+                    {portraitUrl ? (
+                      <img
+                        src={portraitUrl}
+                        alt={attorney.name}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-b from-[#0B1025] to-[#1E293B]">
+                        <span className="font-serif text-5xl font-normal tracking-wider text-[#D6A84B]/80 md:text-6xl">
+                          {getInitials(attorney.name)}
+                        </span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B1025]/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  </div>
+
+                  <div className="pt-6 pb-2 px-2">
+                    <h3 className="font-serif text-2xl font-normal text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
+                      {attorney.name}
+                    </h3>
+
+                    {attorney.position && (
+                      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#C59A3F]">
+                        {attorney.position}
+                      </p>
+                    )}
+
+                    {attorney.shortBio && (
+                      <p className="mt-4 text-sm leading-relaxed text-stone-600 line-clamp-3">
+                        {attorney.shortBio}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
-                <div className="border-b border-stone-200 py-6">
-                  <h3 className="font-serif text-2xl text-[#17243A]">
-                    {attorney.name}
-                  </h3>
-
-                  <p className="mt-2 text-sm font-medium text-amber-700">
-                    {attorney.position}
-                  </p>
-
-                  <p className="mt-4 text-sm leading-7 text-slate-600">
-                    {attorney.shortBio}
-                  </p>
-
-                  <span className="mt-5 inline-block text-xs font-semibold uppercase tracking-wider text-[#17243A]">
-                    View Profile →
-                  </span>
+                <div className="mt-6 flex items-center gap-2 border-t border-stone-200/60 pt-4 px-2 text-xs font-semibold uppercase tracking-[0.15em] text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
+                  <span>View Profile</span>
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </div>
               </Link>
             )
@@ -112,10 +125,10 @@ export function AttorneysGrid({
         </div>
 
         {viewAllLabel && buttonUrl && (
-          <div className="mt-12 text-center">
+          <div className="mt-14 text-center">
             <Link
               href={buttonUrl}
-              className="inline-flex min-h-14 items-center justify-center bg-[#17243A] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#263954]"
+              className="inline-flex min-h-12 items-center justify-center border border-[#0B1025] bg-[#0B1025] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-[#D6A84B] hover:bg-[#D6A84B] hover:text-[#0B1025]"
             >
               {viewAllLabel}
             </Link>

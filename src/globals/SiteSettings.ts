@@ -1,4 +1,3 @@
-
 import type { GlobalConfig } from 'payload'
 
 export const SiteSettings: GlobalConfig = {
@@ -47,12 +46,23 @@ export const SiteSettings: GlobalConfig = {
       type: 'group',
       fields: [
         {
-          name: 'email',
-          type: 'email',
-        },
-        {
-          name: 'phone',
-          type: 'text',
+          type: 'row',
+          fields: [
+            {
+              name: 'email',
+              type: 'email',
+              admin: {
+                width: '50%',
+              },
+            },
+            {
+              name: 'phone',
+              type: 'text',
+              admin: {
+                width: '50%',
+              },
+            },
+          ],
         },
         {
           name: 'address',
@@ -69,21 +79,32 @@ export const SiteSettings: GlobalConfig = {
       },
       fields: [
         {
-          name: 'platform',
-          type: 'select',
-          required: true,
-          options: [
-            { label: 'Facebook', value: 'facebook' },
-            { label: 'Instagram', value: 'instagram' },
-            { label: 'LinkedIn', value: 'linkedin' },
-            { label: 'YouTube', value: 'youtube' },
-            { label: 'X', value: 'x' },
+          type: 'row',
+          fields: [
+            {
+              name: 'platform',
+              type: 'select',
+              required: true,
+              options: [
+                { label: 'Facebook', value: 'facebook' },
+                { label: 'Instagram', value: 'instagram' },
+                { label: 'LinkedIn', value: 'linkedin' },
+                { label: 'YouTube', value: 'youtube' },
+                { label: 'X', value: 'x' },
+              ],
+              admin: {
+                width: '50%',
+              },
+            },
+            {
+              name: 'url',
+              type: 'text',
+              required: true,
+              admin: {
+                width: '50%',
+              },
+            },
           ],
-        },
-        {
-          name: 'url',
-          type: 'text',
-          required: true,
         },
       ],
     },

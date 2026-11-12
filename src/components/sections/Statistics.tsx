@@ -9,40 +9,44 @@ export function Statistics({
   statistics,
 }: StatisticsProps) {
   return (
-    <section className="bg-[#111827] px-6 py-20 md:px-12 md:py-24">
+    <section className="border-y border-white/10 bg-[#0B1025] px-6 py-20 md:px-12 md:py-24 lg:px-20 text-white">
       <div className="mx-auto max-w-7xl">
         {(eyebrow || heading) && (
-          <div className="mb-14 text-center">
+          <div className="mb-16 text-center">
             {eyebrow && (
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[#D6A84B]">
-                {eyebrow}
-              </p>
+              <div className="mb-4 flex items-center justify-center gap-3">
+                <span className="h-px w-6 bg-[#D6A84B]" />
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#D6A84B]">
+                  {eyebrow}
+                </p>
+                <span className="h-px w-6 bg-[#D6A84B]" />
+              </div>
             )}
 
             {heading && (
-              <h2 className="font-serif text-3xl leading-tight text-white md:text-4xl">
+              <h2 className="font-serif text-3xl font-normal leading-tight text-[#FBF9F4] md:text-4xl">
                 {heading}
               </h2>
             )}
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
           {(statistics ?? []).map((statistic, index) => (
             <div
               key={statistic.id ?? index}
-              className="border-l border-[#D6A84B]/50 pl-6"
+              className="border-l-2 border-[#D6A84B] pl-6 transition-all duration-300 hover:pl-8"
             >
-              <p className="font-serif text-4xl text-[#D6A84B] md:text-5xl">
+              <p className="font-serif text-4xl font-normal text-[#D6A84B] sm:text-5xl lg:text-6xl">
                 {statistic.value}
               </p>
 
-              <h3 className="mt-4 text-sm font-semibold uppercase tracking-wider text-white">
+              <h3 className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#FBF9F4]">
                 {statistic.label}
               </h3>
 
               {statistic.description && (
-                <p className="mt-2 text-sm leading-6 text-slate-300">
+                <p className="mt-2 text-xs leading-relaxed text-stone-400">
                   {statistic.description}
                 </p>
               )}

@@ -63,21 +63,24 @@ export async function Insights({
       : viewAllUrl
 
   return (
-    <section className="bg-white px-6 py-20 md:px-12 md:py-28">
+    <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-14 max-w-3xl">
           {eyebrow && (
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-amber-700">
-              {eyebrow}
-            </p>
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-6 bg-[#D6A84B]" />
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+                {eyebrow}
+              </p>
+            </div>
           )}
 
-          <h2 className="font-serif text-4xl leading-tight text-[#17243A] md:text-5xl">
+          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-6 text-base leading-8 text-slate-600">
+            <p className="mt-5 text-base leading-relaxed text-stone-600">
               {description}
             </p>
           )}
@@ -95,58 +98,64 @@ export async function Insights({
               <Link
                 key={post.id}
                 href={`/insights/${post.slug}`}
-                className="group block"
+                className="group flex flex-col justify-between border border-stone-200/80 bg-stone-50/40 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A84B]/40 hover:bg-white hover:shadow-xl"
               >
-                <div className="aspect-[16/10] overflow-hidden bg-[#E9ECEF]">
-                  {imageUrl ? (
-                    <img
-                      src={imageUrl}
-                      alt={post.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#263954] to-[#17243A]">
-                      <div className="text-center">
-                        <div className="mx-auto mb-3 h-px w-12 bg-amber-400" />
-                        <span className="font-serif text-3xl tracking-widest text-amber-400">
-                          INSIGHTS
-                        </span>
-                        <div className="mx-auto mt-3 h-px w-12 bg-amber-400" />
+                <div>
+                  <div className="aspect-[16/10] overflow-hidden bg-[#F4F1EA]">
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt={post.title}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#0B1025] to-[#1E293B]">
+                        <div className="text-center p-4">
+                          <span className="font-serif text-2xl text-[#D6A84B]">⚖</span>
+                          <p className="mt-1 font-serif text-[10px] tracking-widest text-stone-300">
+                            LEGAL INSIGHTS
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
+
+                  <div className="pt-6 pb-2 px-2">
+                    {post.publishedAt && (
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#C59A3F]">
+                        {new Date(post.publishedAt).toLocaleDateString(
+                          'en-IN',
+                          {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                          },
+                        )}
+                      </p>
+                    )}
+
+                    <h3 className="mt-3 font-serif text-xl font-normal leading-snug text-[#0B1025] transition-colors group-hover:text-[#C59A3F] sm:text-2xl">
+                      {post.title}
+                    </h3>
+
+                    {post.excerpt && (
+                      <p className="mt-3 text-sm leading-relaxed text-stone-600 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
-                <div className="pt-6">
-                  {post.publishedAt && (
-                    <p className="text-xs font-medium uppercase tracking-wider text-amber-700">
-                      {new Date(post.publishedAt).toLocaleDateString(
-                        'en-IN',
-                        {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric',
-                        },
-                      )}
-                    </p>
-                  )}
+                <div className="mt-6 flex items-center justify-between border-t border-stone-200/60 pt-4 px-2">
+                  {author ? (
+                    <span className="text-xs text-stone-500">
+                      By <span className="font-medium text-[#0B1025]">{author.name}</span>
+                    </span>
+                  ) : <span />}
 
-                  <h3 className="mt-3 font-serif text-2xl leading-snug text-[#17243A]">
-                    {post.title}
-                  </h3>
-
-                  <p className="mt-4 text-sm leading-7 text-slate-600">
-                    {post.excerpt}
-                  </p>
-
-                  {author && (
-                    <p className="mt-5 text-xs font-medium text-slate-500">
-                      By {author.name}
-                    </p>
-                  )}
-
-                  <span className="mt-5 inline-block text-xs font-semibold uppercase tracking-wider text-[#17243A]">
-                    Read Article →
+                  <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
+                    <span>Read</span>
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </span>
                 </div>
               </Link>
@@ -155,10 +164,10 @@ export async function Insights({
         </div>
 
         {viewAllLabel && buttonUrl && (
-          <div className="mt-12 text-center">
+          <div className="mt-14 text-center">
             <Link
               href={buttonUrl}
-              className="inline-flex min-h-14 items-center justify-center bg-[#17243A] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#263954]"
+              className="inline-flex min-h-12 items-center justify-center border border-[#0B1025] bg-[#0B1025] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-[#D6A84B] hover:bg-[#D6A84B] hover:text-[#0B1025]"
             >
               {viewAllLabel}
             </Link>

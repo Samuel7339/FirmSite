@@ -1,3 +1,4 @@
+
 import type { Block } from 'payload'
 
 type AttorneysGridData = {
@@ -14,17 +15,28 @@ export const AttorneysGrid: Block = {
     singular: 'Attorneys Section',
     plural: 'Attorneys Sections',
   },
-  
+
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      defaultValue: 'Meet Our Attorneys',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          defaultValue: 'Meet Our Attorneys',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -137,4 +149,3 @@ export const AttorneysGrid: Block = {
     },
   ],
 }
-

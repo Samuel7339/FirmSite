@@ -16,15 +16,26 @@ export const AboutFirm: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-      defaultValue: 'Who We Are',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      defaultValue: 'About Our Firm',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          defaultValue: 'Who We Are',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          defaultValue: 'About Our Firm',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'image',
@@ -40,18 +51,29 @@ export const AboutFirm: Block = {
 
     // Button
     {
-      name: 'buttonLabel',
-      type: 'text',
-      label: 'Button Label',
-    },
-    {
-      name: 'destinationType',
-      type: 'select',
-      label: 'Button Destination',
-      defaultValue: 'page',
-      options: [
-        { label: 'Choose an Existing Page', value: 'page' },
-        { label: 'Enter a Custom URL', value: 'custom' },
+      type: 'row',
+      fields: [
+        {
+          name: 'buttonLabel',
+          type: 'text',
+          label: 'Button Label',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'destinationType',
+          type: 'select',
+          label: 'Button Destination',
+          defaultValue: 'page',
+          options: [
+            { label: 'Choose an Existing Page', value: 'page' },
+            { label: 'Enter a Custom URL', value: 'custom' },
+          ],
+          admin: {
+            width: '50%',
+          },
+        },
       ],
     },
     {

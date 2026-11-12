@@ -21,21 +21,24 @@ export function OfficeLocations({
   offices,
 }: OfficeLocationsProps) {
   return (
-    <section className="bg-[#F4F6F8] px-6 py-20 md:px-12 md:py-28">
+    <section className="bg-[#F8F6F0] px-6 py-20 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-14 max-w-3xl">
           {eyebrow && (
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-amber-700">
-              {eyebrow}
-            </p>
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-6 bg-[#D6A84B]" />
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+                {eyebrow}
+              </p>
+            </div>
           )}
 
-          <h2 className="font-serif text-3xl leading-tight text-[#111827] md:text-5xl">
+          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-6 text-base leading-8 text-slate-600">
+            <p className="mt-5 text-base leading-relaxed text-stone-600">
               {description}
             </p>
           )}
@@ -48,82 +51,71 @@ export function OfficeLocations({
             return (
               <article
                 key={office.id ?? index}
-                className="overflow-hidden bg-white shadow-sm"
+                className="group border border-stone-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A84B]/40 hover:shadow-xl"
               >
                 {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt={office.officeName}
-                    className="h-64 w-full object-cover"
-                  />
+                  <div className="relative aspect-[16/9] overflow-hidden bg-stone-100">
+                    <img
+                      src={imageUrl}
+                      alt={office.officeName}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
                 ) : (
-                  <div className="flex h-64 w-full items-center justify-center bg-gradient-to-br from-[#263954] to-[#17243A]">
-                    <div className="text-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.3"
-                        className="mx-auto h-12 w-12 text-amber-400"
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"
-                        />
-                        <circle cx="12" cy="10" r="2.5" />
-                      </svg>
-
-                      <p className="mt-4 font-serif text-lg tracking-widest text-amber-400">
-                        OUR OFFICE
+                  <div className="flex aspect-[16/9] w-full items-center justify-center bg-gradient-to-br from-[#0B1025] to-[#1E293B]">
+                    <div className="text-center p-6">
+                      <span className="font-serif text-3xl text-[#D6A84B]">⚖</span>
+                      <p className="mt-2 font-serif text-xs tracking-widest text-stone-300">
+                        OFFICE LOCATION
                       </p>
                     </div>
                   </div>
                 )}
 
                 <div className="p-8">
-                  <h3 className="font-serif text-2xl text-[#111827]">
+                  <h3 className="font-serif text-2xl font-normal text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
                     {office.officeName}
                   </h3>
 
-                  <p className="mt-4 whitespace-pre-line text-sm leading-7 text-slate-600">
+                  <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-stone-600">
                     {office.address}
                   </p>
 
-                  {office.phone && (
-                    <p className="mt-4 text-sm text-slate-700">
-                      <span className="font-semibold">Phone: </span>
-                      <a
-                        href={`tel:${office.phone}`}
-                        className="hover:text-amber-700"
-                      >
-                        {office.phone}
-                      </a>
-                    </p>
-                  )}
+                  <div className="mt-6 space-y-2 border-t border-stone-100 pt-5 text-sm text-stone-600">
+                    {office.phone && (
+                      <p>
+                        <span className="font-medium text-[#0B1025]">Phone: </span>
+                        <a
+                          href={`tel:${office.phone}`}
+                          className="transition-colors hover:text-[#C59A3F]"
+                        >
+                          {office.phone}
+                        </a>
+                      </p>
+                    )}
 
-                  {office.email && (
-                    <p className="mt-2 text-sm text-slate-700">
-                      <span className="font-semibold">Email: </span>
-                      <a
-                        href={`mailto:${office.email}`}
-                        className="hover:text-amber-700"
-                      >
-                        {office.email}
-                      </a>
-                    </p>
-                  )}
+                    {office.email && (
+                      <p>
+                        <span className="font-medium text-[#0B1025]">Email: </span>
+                        <a
+                          href={`mailto:${office.email}`}
+                          className="transition-colors hover:text-[#C59A3F]"
+                        >
+                          {office.email}
+                        </a>
+                      </p>
+                    )}
+                  </div>
 
                   {office.mapUrl && (
                     <Link
                       href={office.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-6 inline-flex text-sm font-semibold text-amber-700 transition-colors hover:text-[#111827]"
+                      className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-[#C59A3F] transition-colors hover:text-[#0B1025]"
                     >
-                      View on Google Maps →
+                      <span>View on Google Maps</span>
+                      <span>→</span>
                     </Link>
                   )}
                 </div>

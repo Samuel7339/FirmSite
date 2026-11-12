@@ -1,0 +1,2443 @@
+
+
+
+/* ==========================================================================
+   1. GLOBAL THEME VARIABLES
+   ========================================================================== */
+
+:root,
+html,
+html[data-theme='dark'],
+html[data-theme='light'],
+[data-theme='dark'],
+[data-theme='light'],
+body {
+  --color-deep-blue: #192B3D;
+  --color-slate-blue: #30465A;
+  --color-muted-gold: #A17C4B;
+  --color-champagne: #C4A16A;
+  --color-warm-ivory: #F5F1E9;
+  --color-soft-ivory: #F8F6F1;
+  --color-border: #E7E2D9;
+
+  --theme-bg: #F7F8FA !important;
+  --theme-input-bg: #FFFFFF !important;
+  --theme-text: #192B3D !important;
+  --theme-border-color: #E7E2D9 !important;
+
+  --theme-elevation-0: #FFFFFF !important;
+  --theme-elevation-50: #F8F9FA !important;
+  --theme-elevation-100: #F5F6F8 !important;
+  --theme-elevation-150: #E7E2D9 !important;
+  --theme-elevation-200: #D6D3CD !important;
+  --theme-elevation-250: #B8B5AE !important;
+  --theme-elevation-300: #92979E !important;
+  --theme-elevation-350: #7C8793 !important;
+  --theme-elevation-400: #687786 !important;
+  --theme-elevation-450: #536476 !important;
+  --theme-elevation-500: #405469 !important;
+  --theme-elevation-550: #34495A !important;
+  --theme-elevation-600: #30465A !important;
+  --theme-elevation-650: #283D52 !important;
+  --theme-elevation-700: #192B3D !important;
+  --theme-elevation-750: #192B3D !important;
+  --theme-elevation-800: #192B3D !important;
+  --theme-elevation-850: #192B3D !important;
+  --theme-elevation-900: #192B3D !important;
+  --theme-elevation-950: #192B3D !important;
+  --theme-elevation-1000: #192B3D !important;
+}
+
+body {
+  background-color: #F7F8FA !important;
+  color: #192B3D !important;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif !important;
+  margin: 0 !important;
+}
+
+/* Main admin content backgrounds */
+
+.template-default,
+.template-default > div,
+.collection-list,
+.collection-edit,
+.global-edit,
+.doc-tab,
+.document-fields {
+  background-color: #F7F8FA !important;
+}
+
+
+/* ==========================================================================
+   2. SIDEBAR NAVIGATION
+   ========================================================================== */
+
+aside.nav {
+  background-color: #192B3D !important;
+  border-right: 1px solid rgba(196, 161, 106, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+aside.nav .nav__scroll {
+  padding-top: 1rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.nav-group__toggle {
+  padding: 0.65rem 1rem !important;
+  color: #D8C2A2 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.18em !important;
+  transition: color 0.15s ease !important;
+}
+
+.nav-group__toggle:hover {
+  color: #FFFFFF !important;
+}
+
+.nav-group__indicator svg {
+  stroke: #C4A16A !important;
+}
+
+aside.nav .nav__link {
+  color: rgba(255, 255, 255, 0.82) !important;
+  padding: 0.55rem 0.95rem !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  margin: 2px 8px !important;
+  transition: all 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+}
+
+aside.nav .nav__link:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+}
+
+aside.nav .nav__link--active,
+aside.nav div.nav__link {
+  background-color: rgba(196, 161, 106, 0.18) !important;
+  color: #FFFFFF !important;
+  border-left: 3px solid #C4A16A !important;
+  font-weight: 600 !important;
+}
+
+aside.nav .nav__link-indicator {
+  background-color: #C4A16A !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  margin-right: 8px !important;
+}
+
+aside.nav .nav__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  padding: 1.25rem 1.25rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+aside.nav .nav__header .graphic-logo,
+aside.nav .nav__header .graphic-icon {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+
+/* ==========================================================================
+   3. APP HEADER
+   ========================================================================== */
+
+.app-header {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #E7E2D9 !important;
+  box-shadow: 0 1px 3px rgba(25, 43, 61, 0.04) !important;
+  min-height: 72px !important;
+}
+
+.app-header .gutter {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.app-header__controls-wrapper a,
+.app-header__controls-wrapper button {
+  color: #192B3D !important;
+}
+
+.app-header .graphic-logo,
+.app-header .graphic-icon {
+  flex-shrink: 0 !important;
+  margin-right: 10px !important;
+  
+}
+
+.app-header .icon--menu {
+  width: 20px !important;
+  height: 20px !important;
+  color: #192B3D !important;
+  
+}
+
+.app-header .gravatar-account {
+  width: 28px !important;
+  height: 28px !important;
+  border: 2px solid #E7E2D9 !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
+
+.app-header .step-nav {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+}
+
+.step-nav a {
+  color: #687786 !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease !important;
+  line-height: 1.5 !important;
+}
+
+.step-nav a:hover {
+  color: #A17C4B !important;
+}
+
+
+/* ==========================================================================
+   4. BLOCK EDITOR AND COLLAPSIBLES
+   ========================================================================== */
+
+.blocks-field__header-wrap {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.blocks-field__header-actions {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.blocks-field__header-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #687786 !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease !important;
+  margin: 0 !important;
+  padding: 2px 4px !important;
+}
+
+.blocks-field__header-action:hover {
+  color: #192B3D !important;
+  text-decoration: underline !important;
+}
+
+.collapsible {
+  position: relative !important;
+  margin-bottom: 0.75rem !important;
+  border-radius: 8px !important;
+}
+
+.collapsible__toggle-wrap {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: 48px !important;
+  padding: 8px 14px !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 8px !important;
+  gap: 12px !important;
+  box-shadow: 0 1px 2px rgba(25, 43, 61, 0.04) !important;
+  transition: all 0.15s ease !important;
+}
+
+.collapsible--collapsed .collapsible__toggle-wrap {
+  border-radius: 8px !important;
+}
+
+.collapsible:not(.collapsible--collapsed) .collapsible__toggle-wrap {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-color: #E7E2D9 !important;
+}
+
+.collapsible__toggle-wrap:hover {
+  border-color: #C4A16A !important;
+  background-color: #F8F6F1 !important;
+}
+
+.collapsible__drag {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  color: #92979E !important;
+  cursor: grab !important;
+  z-index: 2 !important;
+  opacity: 0.65 !important;
+  transition: opacity 0.15s ease !important;
+}
+
+.collapsible__drag:hover {
+  opacity: 1 !important;
+  color: #192B3D !important;
+}
+
+.collapsible__header-wrap,
+.blocks-field__block-header {
+  display: inline-flex !important;
+  align-items: center !important;
+  flex: 1 1 auto !important;
+  gap: 8px !important;
+  z-index: 2 !important;
+  min-width: 0 !important;
+}
+
+.blocks-field__block-number {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  color: #A17C4B !important;
+  background-color: #F5F1E9 !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 4px !important;
+  padding: 2px 7px !important;
+  margin-right: 4px !important;
+  flex-shrink: 0 !important;
+}
+
+.blocks-field__block-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #192B3D !important;
+  background-color: #F5F6F8 !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 4px !important;
+  padding: 3px 8px !important;
+  flex-shrink: 0 !important;
+}
+
+.section-title {
+  display: inline-flex !important;
+  align-items: center !important;
+  position: relative !important;
+  min-width: 80px !important;
+  max-width: 240px !important;
+  margin-left: 6px !important;
+  z-index: 2 !important;
+  overflow: visible !important;
+}
+
+.section-title__input {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px dashed #D6D3CD !important;
+  border-radius: 0 !important;
+  min-height: 22px !important;
+  height: 22px !important;
+  padding: 0 4px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #687786 !important;
+  box-shadow: none !important;
+  position: relative !important;
+  transition: all 0.15s ease !important;
+}
+
+.section-title__input:focus,
+.section-title__input:hover {
+  border-bottom-color: #A17C4B !important;
+  color: #192B3D !important;
+  outline: none !important;
+}
+
+.collapsible__actions-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  z-index: 2 !important;
+  flex-shrink: 0 !important;
+}
+
+.collapsible__indicator {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #687786 !important;
+  transition: transform 0.2s ease !important;
+}
+
+.collapsible__content {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E7E2D9 !important;
+  border-top: none !important;
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+  padding: 1.5rem !important;
+}
+
+.blocks-field__drawer-toggler .btn.btn--icon-style-with-border {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #192B3D !important;
+  border-radius: 0 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 0.65rem 1.25rem !important;
+  transition: color 0.15s ease !important;
+}
+
+.blocks-field__drawer-toggler .btn.btn--icon-style-with-border:hover {
+  background: transparent !important;
+  border: none !important;
+  color: #A17C4B !important;
+}
+
+/* ==========================================================================
+   5. FORM LABELS AND INPUTS
+   ========================================================================== */
+
+.field-label {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #192B3D !important;
+  margin-bottom: 6px !important;
+  letter-spacing: 0.01em !important;
+}
+
+.required-indicator {
+  color: #A17C4B !important;
+  margin-left: 2px !important;
+  font-weight: 700 !important;
+}
+
+/* TEXT INPUTS AND SELECTS */
+.field-type:not(.blocks-field) input[type="text"]:not(.section-title__input):not(.rs__input),
+.field-type:not(.blocks-field) input[type="email"],
+.field-type:not(.blocks-field) input[type="number"],
+.field-type:not(.blocks-field) input[type="password"],
+.field-type:not(.blocks-field) input[type="tel"],
+.field-type:not(.blocks-field) input[type="url"],
+.field-type:not(.blocks-field) select,
+.select__control {
+  min-height: 40px !important;
+  border: 1px solid #DCD5C9 !important;
+  border-radius: 6px !important;
+  background-color: #FFFFFF !important;
+  color: #192B3D !important;
+  font-size: 14px !important;
+  padding: 0.5rem 0.85rem !important;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease !important;
+}
+
+/* TEXTAREAS */
+.field-type:not(.blocks-field) textarea {
+  border: 1px solid #DCD5C9 !important;
+  border-radius: 6px !important;
+  background-color: #FFFFFF !important;
+  color: #192B3D !important;
+  font-size: 14px !important;
+  padding: 0.75rem !important;
+  line-height: 1.5 !important;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease !important;
+}
+
+/* FOCUS STYLES */
+.field-type:not(.blocks-field) input:not(.rs__input):focus,
+.field-type:not(.blocks-field) select:focus,
+.field-type:not(.blocks-field) textarea:focus,
+.select__control--is-focused {
+  border-color: #A17C4B !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(161, 124, 75, 0.16) !important;
+
+}
+
+
+/* ==========================================================================
+   6. PRIMARY AND SECONDARY BUTTONS
+   ========================================================================== */
+
+.btn--style-primary {
+  background-color: #192B3D !important;
+  color: #FFFFFF !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 12px !important;
+  letter-spacing: 0.12em !important;
+  padding: 0.65rem 1.4rem !important;
+  border: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn--style-primary:hover {
+  background-color: #30465A !important;
+  color: #FFFFFF !important;
+}
+
+.btn--style-secondary {
+  min-height: 38px !important;
+  height: 38px !important;
+  min-width: 100px !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background-color: #F5F1E9 !important;
+  color: #192B3D !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 6px !important;
+
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+
+  box-shadow: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn--style-secondary:hover {
+  background-color: #E9DDC9 !important;
+  color: #192B3D !important;
+  border-color: #D6C8B2 !important;
+}
+
+
+/* ==========================================================================
+   7. COLLECTION TABLES
+   ========================================================================== */
+
+.table {
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  background-color: #FFFFFF !important;
+  box-shadow: 0 1px 3px rgba(25, 43, 61, 0.04) !important;
+}
+
+.table thead th {
+  background-color: #F5F1E9 !important;
+  color: #192B3D !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.14em !important;
+  border-bottom: 1px solid #E7E2D9 !important;
+  padding: 0.85rem 1rem !important;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #F1F2F4 !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.table tbody tr:hover {
+  background-color: #F8F6F1 !important;
+}
+
+.table tbody td {
+  padding: 0.85rem 1rem !important;
+  font-size: 13px !important;
+  color: #192B3D !important;
+}
+
+
+/* ==========================================================================
+   8. LOGIN PAGE
+   ========================================================================== */
+
+.template-minimal {
+  min-height: 100vh !important;
+  height: auto !important;
+  padding: 24px 16px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background:
+    radial-gradient(
+      ellipse at 50% 15%,
+      rgba(196, 161, 106, 0.16),
+      transparent 55%
+    ),
+    #192B3D !important;
+}
+
+.template-minimal__wrap {
+  width: 100% !important;
+  max-width: 390px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  flex: 0 1 auto !important;
+  align-self: center !important;
+  margin: 0 auto !important;
+  padding: 30px 32px !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22) !important;
+}
+
+.template-minimal .login__brand,
+.template-minimal .login__brand img,
+.template-minimal .login__brand svg {
+  display: none !important;
+}
+
+.template-minimal__wrap::before {
+  content: "Welcome Back";
+  display: block !important;
+  margin: 0 0 25px !important;
+  padding: 0 !important;
+  color: #192B3D !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 25px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.4px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.template-minimal__wrap form {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.template-minimal__wrap .field-type {
+  margin-bottom: 17px !important;
+}
+
+.template-minimal__wrap label {
+  display: block !important;
+  margin-bottom: 6px !important;
+  color: #26394B !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+}
+
+.template-minimal__wrap input {
+  width: 100% !important;
+  min-height: 43px !important;
+  padding: 9px 12px !important;
+  box-sizing: border-box !important;
+  background: #FCFBF9 !important;
+  border: 1px solid #DED8CE !important;
+  border-radius: 6px !important;
+  color: #192B3D !important;
+  font-size: 13px !important;
+  box-shadow: none !important;
+}
+
+.template-minimal__wrap input:focus {
+  background: #FFFFFF !important;
+  border-color: #A17C4B !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(161, 124, 75, 0.12) !important;
+}
+
+.template-minimal__wrap .form-submit {
+  margin-top: 22px !important;
+}
+
+.template-minimal__wrap .form-submit button {
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 11px 16px !important;
+  background: #192B3D !important;
+  border: 1px solid #192B3D !important;
+  border-radius: 6px !important;
+  color: #FFFFFF !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease !important;
+}
+
+.template-minimal__wrap .form-submit button:hover {
+  background: #30465A !important;
+  border-color: #30465A !important;
+}
+
+.template-minimal__wrap a {
+  color: #A17C4B !important;
+  font-size: 12px !important;
+  text-decoration: none !important;
+}
+
+.template-minimal__wrap a:hover {
+  color: #806039 !important;
+  text-decoration: underline !important;
+}
+
+@media (max-width: 480px) {
+  .template-minimal {
+    padding: 18px 14px !important;
+  }
+
+  .template-minimal__wrap {
+    max-width: 360px !important;
+    padding: 26px 22px !important;
+  }
+
+  .template-minimal__wrap::before {
+    font-size: 23px !important;
+  }
+}
+
+
+/* ==========================================================================
+   9. PAYLOAD SELECT / REACT-SELECT FIELDS
+   ========================================================================== */
+
+.rs__control {
+  display: flex !important;
+  align-items: center !important;
+  min-height: 56px !important;
+  height: auto !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
+}
+
+.rs__value-container {
+  display: flex !important;
+  align-items: center !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  padding: 8px 10px !important;
+  overflow: hidden !important;
+}
+
+.rs__single-value {
+  position: absolute !important;
+  max-width: calc(100% - 8px) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+
+.rs__input-container {
+  display: inline-grid !important;
+  flex: 1 1 auto !important;
+  min-width: 2px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.rs__input-container input.rs__input {
+  width: 2px !important;
+  min-width: 2px !important;
+  height: 1.2em !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  font: inherit !important;
+}
+
+.rs__indicators {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  align-self: stretch !important;
+}
+
+.rs__indicator {
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px !important;
+}
+
+.rs__value-container--is-multi {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 5px !important;
+  overflow: visible !important;
+}
+
+.rs__multi-value {
+  display: flex !important;
+  align-items: center !important;
+  max-width: 100% !important;
+}
+
+.rs__menu {
+  z-index: 100 !important;
+}
+
+.rs__menu-list {
+  max-height: 250px !important;
+  overflow-y: auto !important;
+}
+
+
+/* ==========================================================================
+   10. ADMIN CONTENT SPACING AND ALIGNMENT
+   ========================================================================== */
+
+.template-default {
+  --gutter-h: clamp(20px, 3vw, 48px) !important;
+}
+
+.template-default .gutter {
+  padding-left: clamp(20px, 3vw, 48px) !important;
+  padding-right: clamp(20px, 3vw, 48px) !important;
+  box-sizing: border-box !important;
+}
+
+.template-default .collection-edit,
+.template-default .global-edit,
+.template-default .collection-list {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 1500px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(20px, 3vw, 48px) !important;
+  padding-right: clamp(20px, 3vw, 48px) !important;
+}
+
+.template-default .collection-edit *,
+.template-default .global-edit *,
+.template-default .collection-list * {
+  min-width: 0;
+}
+/*  */
+
+
+/* ==========================================================================
+   12. COLLECTION LIST HEADER AND CONTROLS
+   ========================================================================== */
+
+/* Collection heading and Create New row */
+
+.collection-list .list-header__title-and-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  width: 100% !important;
+  margin-bottom: 8px !important;
+}
+
+.collection-list .list-header__title {
+  margin: 0 !important;
+  color: #192B3D !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 30px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.4px !important;
+}
+
+.collection-list .list-header__title-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Smaller Create New button */
+
+.collection-list .list-create-new-doc__create-new-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 34px !important;
+  padding: 6px 13px !important;
+  background-color: #192B3D !important;
+  border: 1px solid #192B3D !important;
+  border-radius: 5px !important;
+  color: #FFFFFF !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.collection-list .list-create-new-doc__create-new-button:hover {
+  background-color: #30465A !important;
+  border-color: #30465A !important;
+  color: #FFFFFF !important;
+}
+
+.collection-list .list-create-new-doc__create-new-button .btn__content {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+
+.collection-list .list-create-new-doc__create-new-button .btn__label {
+  color: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+
+/* Bulk actions on a separate row below the heading */
+
+/* Move bulk selection actions below Create New */
+.collection-list .list-header__actions {
+  display: flex !important;
+  flex-basis: 100% !important;
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  margin-top: 10px !important;
+  clear: both !important;
+}
+
+.collection-list .list-selection {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+/* Search field */
+
+.collection-list .search-filter {
+  width: 100% !important;
+  max-width: 440px !important;
+  min-width: 240px !important;
+}
+
+.collection-list .search-filter__input {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 44px !important;
+  padding: 10px 14px 10px 40px !important;
+  box-sizing: border-box !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #DCD5C9 !important;
+  border-radius: 7px !important;
+  color: #192B3D !important;
+  font-size: 14px !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.collection-list .search-filter__input::placeholder {
+  color: #92979E !important;
+  opacity: 1 !important;
+}
+
+.collection-list .search-filter__input:focus {
+  border-color: #A17C4B !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(161, 124, 75, 0.12) !important;
+}
+
+/* Page information and Per Page controls */
+
+.collection-list .page-controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 14px !important;
+  width: 100% !important;
+  margin-top: 18px !important;
+}
+
+.collection-list .page-controls__page-info {
+  display: inline-flex !important;
+  align-items: center !important;
+  color: #687786 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  white-space: nowrap !important;
+}
+
+.collection-list .page-controls > span {
+  color: #687786 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+.collection-list .page-controls select {
+  min-height: 36px !important;
+  padding: 5px 28px 5px 10px !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #DCD5C9 !important;
+  border-radius: 6px !important;
+  color: #192B3D !important;
+  font-size: 13px !important;
+}
+
+/* Collection table width */
+
+.collection-list .table {
+  width: 100% !important;
+  margin-top: 12px !important;
+}
+
+
+
+/* ==========================================================================
+   13. RESPONSIVE ADMIN ALIGNMENT
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .app-header .gutter {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .template-default .gutter,
+  .template-default .collection-edit,
+  .template-default .global-edit,
+  .template-default .collection-list {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .collection-list .list-header__title-and-actions {
+    align-items: flex-start !important;
+  }
+
+  .collection-list .list-header__title {
+    font-size: 26px !important;
+  }
+
+  .collection-list .list-header__title-actions {
+    justify-content: flex-start !important;
+  }
+
+  .collection-list .search-filter {
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .collection-list .page-controls {
+    align-items: flex-start !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-list .list-header__title {
+    font-size: 24px !important;
+  }
+
+  .collection-list .list-create-new-doc__create-new-button {
+    min-height: 40px !important;
+    padding: 9px 15px !important;
+  }
+}
+
+
+/* =========================================
+   DESKTOP HEADER ALIGNMENT - REVISED
+   ========================================= */
+
+@media (min-width: 1024px) {
+  .app-header__wrapper {
+    padding-left: 60px !important;
+    padding-right: 28px !important;
+  }
+
+  .app-header__mobile-nav-toggler {
+    display: none !important;
+  }
+
+  .app-header__controls-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 16px !important;
+  }
+
+  .app-header__step-nav-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  .app-header__step-nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .app-header__step-nav .step-nav__home {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .app-header__step-nav .graphic-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .app-header__account {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+    margin-right: 8px !important;
+  }
+}
+
+/* Space between navbar and collection content */
+.list-header {
+  margin-top: 24px !important;
+}
+
+/* Create New button */
+.list-create-new-doc__create-new-button {
+  padding: 5px 12px !important;
+  min-height: 32px !important;
+  font-size: 12px !important;
+}
+
+.list-create-new-doc__create-new-button .btn__label {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.search-filter {
+  position: relative !important;
+}
+
+.search-filter__input {
+  padding: 10px 14px !important;
+  min-height: 44px !important;
+  background-image: none !important;
+  background-position: unset !important;
+}
+
+/* Collection list action buttons */
+.collection-list .search-bar__actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+}
+
+/* Columns and Filters buttons */
+.collection-list .list-controls__toggle-columns,
+.collection-list .list-controls__toggle-where {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-height: 36px !important;
+  padding: 7px 12px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+/* Button labels */
+.collection-list .list-controls__toggle-columns .pill__label,
+.collection-list .list-controls__toggle-where .pill__label {
+  line-height: 1.2 !important;
+}
+
+/* Chevron icons */
+.collection-list .search-bar__actions .pill__icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+}
+
+.collection-list .search-bar__actions .pill__icon svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* Column selector container */
+.collection-list .pill-selector {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-top: 12px !important;
+}
+
+/* Individual column pills */
+.collection-list .pill-selector__pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  min-height: 30px !important;
+  padding: 5px 10px !important;
+  border-radius: 5px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+}
+
+/* Column pill icons */
+.collection-list .pill-selector__pill .pill__icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 14px !important;
+  height: 14px !important;
+  margin: 0 !important;
+}
+
+.collection-list .pill-selector__pill .pill__icon svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+
+
+
+
+/* ==========================================================================
+   COLLECTION CHECKBOX — WHITE WITH BLACK TICK
+   ========================================================================== */
+
+/* Hide Payload's duplicate visual icon */
+.collection-list .checkbox-input__icon {
+  display: none !important;
+}
+
+/* Use the actual input as the checkbox */
+.collection-list .checkbox-input__input input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  opacity: 1 !important;
+  position: relative !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #B8B5AE !important;
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+
+/* Keep white background when selected */
+.collection-list .checkbox-input__input input[type="checkbox"]:checked {
+  background: #FFFFFF !important;
+  border-color: #B8B5AE !important;
+}
+
+/* Draw one small black tick */
+.collection-list .checkbox-input__input input[type="checkbox"]:checked::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 5px !important;
+  top: 1px !important;
+  width: 5px !important;
+  height: 9px !important;
+  /* border: solid #192B3D !important; */
+  border-width: 0 2px 2px 0 !important;
+  transform: rotate(45deg) !important;
+}
+
+/* ==========================================================================
+   GLOBAL CHECKBOX — WHITE WITH NAVY TICK
+   ========================================================================== */
+
+.global-edit .checkbox-input__icon {
+  display: none !important;
+}
+
+.global-edit .checkbox-input__input input[type="checkbox"] {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  opacity: 1 !important;
+  position: relative !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #B8B5AE !important;
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+
+.global-edit .checkbox-input__input input[type="checkbox"]:checked {
+  background: #FFFFFF !important;
+  border-color: #B8B5AE !important;
+}
+
+.global-edit .checkbox-input__input input[type="checkbox"]:checked::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 5px !important;
+  top: 1px !important;
+  width: 5px !important;
+  height: 9px !important;
+  border: solid #192B3D !important;
+  border-width: 0 2px 2px 0 !important;
+  transform: rotate(45deg) !important;
+}
+
+/* ==========================================================================
+   HEADER GLOBAL — ENABLED CHECKBOX
+   ========================================================================== */
+
+/* Hide Payload's visual checkbox icon */
+.checkbox-input:has(#field-consultationButton__enabled) .checkbox-input__icon {
+  display: none !important;
+}
+
+/* Checkbox appearance */
+#field-consultationButton__enabled {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  opacity: 1 !important;
+  position: relative !important;
+  display: inline-block !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  padding: 0 !important;
+
+  margin: 0 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #B8B5AE !important;
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+}
+
+/* Checked state */
+#field-consultationButton__enabled:checked {
+  background: #FFFFFF !important;
+  border-color: #B8B5AE !important;
+}
+
+/* Navy tick */
+#field-consultationButton__enabled:checked::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 5px !important;
+  top: 1px !important;
+  width: 5px !important;
+  height: 9px !important;
+  border: solid #192B3D !important;
+  border-width: 0 2px 2px 0 !important;
+  transform: rotate(45deg) !important;
+}
+
+/* Remove blue focus ring around Header checkbox */
+#field-consultationButton__enabled:focus,
+#field-consultationButton__enabled:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove focus glow from the checkbox wrapper */
+.checkbox-input:has(#field-consultationButton__enabled) {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Add space between checkbox and Enabled text */
+.checkbox-input:has(#field-consultationButton__enabled) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+
+/* Save Draft button */
+#action-save-draft {
+  min-height: 38px !important;
+  padding: 8px 18px !important;
+  border: 1px solid #DCD5C9 !important;
+  border-radius: 5px !important;
+  background-color: #F5F1E9 !important;
+  color: #192B3D !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+}
+
+#action-save-draft .btn__label {
+  color: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+
+/* Untitled block name input */
+.section-title__input {
+  color: #687786 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+.section-title__input::placeholder {
+  color: #687786 !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+}
+
+/* 
+.collapsible__toggle span {
+  display: none !important;
+}
+
+.collapsible__toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+} */
+
+.collapsible__toggle span {
+  font-size: 0 !important;
+}
+
+.collapsible__toggle span::after {
+  content: none !important;
+}
+
+
+.btn.btn--icon-style-with-border,
+.btn.btn--icon-style-with-border::before,
+.btn.btn--icon-style-with-border::after,
+.btn.btn--icon-style-with-border *,
+.btn.btn--icon-style-with-border *::before,
+.btn.btn--icon-style-with-border *::after {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+
+/* Expand the complete Slug field */
+.slug-field-component {
+  grid-column: 1 / -1 !important;
+  --field-width: 100% !important;
+  width: 100% !important;
+  max-width: none !important;
+  flex: 1 1 100% !important;
+  min-width: 0 !important;
+}
+
+.slug-field-component > .field-type {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+.slug-field-component .field-type__wrap {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+.slug-field-component #field-slug {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+
+/* Spacing between document fields */
+.collection-edit .document-fields__fields > .field-type {
+  margin-bottom: 28px !important;
+}
+
+/* Space below the title input */
+.collection-edit #field-title {
+  margin-bottom: 28px !important;
+}
+
+/* Space below the Layout description */
+.collection-edit .field-description-layout {
+  margin-top: 8px !important;
+  margin-bottom: 16px !important;
+}
+
+/* ==========================================================================
+   SEO FIELD SPACING AND DESIGN
+   ========================================================================== */
+
+/* SEO section container */
+.render-fields--margins-small {
+  gap: 0 !important;
+}
+
+/* Individual SEO groups */
+.render-fields--margins-small > div[style*="margin-bottom: 20px"] {
+  padding: 18px 20px !important;
+  margin-bottom: 16px !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 7px !important;
+  background: #FFFFFF !important;
+  box-sizing: border-box !important;
+}
+
+/* SEO labels and auto-generate */
+.plugin-seo__field {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 4px !important;
+  margin-bottom: 7px !important;
+}
+
+/* Label */
+.plugin-seo__field .field-label {
+  color: #192B3D !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+/* Auto-generate button */
+.plugin-seo__field button {
+  color: #A17C4B !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Helper descriptions */
+.render-fields--margins-small > div > div[style*="color: rgb(154, 154, 154)"] {
+  color: #7B8490 !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+  margin-top: 5px !important;
+  margin-bottom: 12px !important;
+}
+
+/* Input and textarea spacing */
+.render-fields--margins-small .field-type__wrap {
+  margin-top: 0 !important;
+}
+
+.render-fields--margins-small input,
+.render-fields--margins-small textarea {
+  box-sizing: border-box !important;
+}
+
+/* Character counter spacing */
+.render-fields--margins-small .field-type + div {
+  margin-top: 10px !important;
+}
+
+/* SEO preview */
+.render-fields--margins-small > div:last-child {
+  margin-top: 4px !important;
+}
+
+.render-fields--margins-small > div:last-child > div:last-child {
+  margin-top: 12px !important;
+}
+
+/* ==========================================================================
+   REACT SELECT DESIGN
+   ========================================================================== */
+
+.rs__control {
+  min-height: 36px !important;
+  height: 36px !important;
+  border: 1px solid #DCD5C9 !important;
+  border-radius: 6px !important;
+  background-color: #FFFFFF !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  transition: border-color 0.15s ease !important;
+}
+
+.rs__control:hover {
+  border-color: #B8AD9C !important;
+}
+
+.rs__control--is-focused {
+  border-color: #A17C4B !important;
+  box-shadow: 0 0 0 2px rgba(161, 124, 75, 0.12) !important;
+}
+
+.rs__value-container {
+  padding: 0 10px !important;
+}
+
+.rs__single-value,
+.rs__placeholder {
+  color: #192B3D !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+}
+
+.rs__placeholder {
+  color: #92979E !important;
+}
+
+.rs__input-container {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.rs__input {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.rs__indicators {
+  height: 34px !important;
+}
+
+.rs__indicator {
+  padding: 6px !important;
+  color: #687786 !important;
+}
+
+.rs__indicator:hover {
+  color: #A17C4B !important;
+}
+
+/* DROPDOWN MENU */
+.rs__menu {
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 12px rgba(25, 43, 61, 0.08) !important;
+}
+
+.rs__option {
+  padding: 9px 12px !important;
+  font-size: 13px !important;
+  color: #192B3D !important;
+  cursor: pointer !important;
+}
+
+.rs__option--is-focused {
+  background-color: #F5F1E9 !important;
+}
+
+.rs__option--is-selected {
+  background-color: #192B3D !important;
+  color: #FFFFFF !important;
+}
+
+
+/* ==========================================================================
+   LAYOUT BLOCK FIELD SPACING
+   ========================================================================== */
+
+/* Space between the main fields */
+.blocks-field__fields > .field-type {
+  margin-bottom: 22px !important;
+}
+
+/* ==========================================================================
+   PRIMARY AND SECONDARY BUTTON GROUPS
+   ========================================================================== */
+
+/* Group panel */
+.blocks-field__fields
+.group-field--within-collapsible[id$="__primaryButton"] .group-field__wrap,
+.blocks-field__fields
+.group-field--within-collapsible[id$="__secondaryButton"] .group-field__wrap {
+  padding: 16px !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 8px !important;
+  background: #F8F6F1 !important;
+}
+
+/* Section headings */
+.blocks-field__fields
+.group-field--within-collapsible[id$="__primaryButton"] .group-field__header,
+.blocks-field__fields
+.group-field--within-collapsible[id$="__secondaryButton"] .group-field__header {
+  padding: 11px 14px !important;
+  margin-bottom: 18px !important;
+  border-radius: 5px !important;
+  border-left: 3px solid #C4A16A !important;
+  background: #192B3D !important;
+}
+
+/* Heading text */
+.blocks-field__fields
+.group-field--within-collapsible[id$="__primaryButton"] .group-field__title .field-label,
+.blocks-field__fields
+.group-field--within-collapsible[id$="__secondaryButton"] .group-field__title .field-label {
+  display: block !important;
+  margin: 0 !important;
+  color: #FFFFFF !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Arrange fields vertically */
+.blocks-field__fields
+.group-field--within-collapsible[id$="__primaryButton"] .group-field__wrap > .render-fields,
+.blocks-field__fields
+.group-field--within-collapsible[id$="__secondaryButton"] .group-field__wrap > .render-fields {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 17px !important;
+}
+
+/* Remove inconsistent field spacing inside the groups */
+.blocks-field__fields
+.group-field--within-collapsible[id$="__primaryButton"] .render-fields > .field-type,
+.blocks-field__fields
+.group-field--within-collapsible[id$="__secondaryButton"] .render-fields > .field-type {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+/* Keep labels clearly separated from their controls */
+.blocks-field__fields
+.group-field--within-collapsible .field-type > .field-label {
+  display: block !important;
+  margin-bottom: 8px !important;
+}
+
+/* TWO-COLUMN ROW ALIGNMENT */
+.row__fields {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  column-gap: 16px !important;
+  row-gap: 18px !important;
+  align-items: start !important;
+}
+
+.row__fields > .field-type {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+/* MATCH SELECT HEIGHT TO TEXT INPUT */
+.row__fields .rs__control {
+  min-height: 40px !important;
+  height: 40px !important;
+  box-sizing: border-box !important;
+}
+
+/* CENTER SELECT CONTENT VERTICALLY */
+.row__fields .rs__value-container,
+.row__fields .rs__indicators {
+  align-items: center !important;
+}
+
+/* FIX SELECT TOP ALIGNMENT */
+.row__fields > .field-type.select {
+  margin-top: 0px !important;
+  align-self: start !important;
+}
+
+/* KEEP SELECT LABEL ALIGNED WITH INPUT LABEL */
+.row__fields > .field-type.select > .field-label {
+  margin-top: 0 !important;
+}
+
+
+/* ==========================================================================
+   RICH TEXT EDITOR
+   ========================================================================== */
+
+/* Editor container */
+.field-type.rich-text-lexical .rich-text-lexical__wrap {
+  border: 1px solid #DCD5C9 !important;
+  border-radius: 7px !important;
+  background: #FFFFFF !important;
+  overflow: visible !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+/* Editor content area */
+.field-type.rich-text-lexical .editor-container {
+  background: #FFFFFF !important;
+  overflow: visible !important;
+}
+
+.field-type.rich-text-lexical .editor-scroller {
+  padding: 14px 16px !important;
+  min-height: 180px !important;
+}
+
+/* Editable text */
+.field-type.rich-text-lexical .ContentEditable__root {
+  min-height: 150px !important;
+  color: #192B3D !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+  outline: none !important;
+}
+
+/* Paragraph spacing */
+.field-type.rich-text-lexical .ContentEditable__root p {
+  margin-bottom: 12px !important;
+}
+
+/* Focus appearance */
+.field-type.rich-text-lexical .rich-text-lexical__wrap:focus-within {
+  border-color: #A17C4B !important;
+  box-shadow: 0 0 0 3px rgba(161, 124, 75, 0.12) !important;
+}
+
+/* Separate the label from the editor */
+.field-type.rich-text-lexical .rich-text-lexical__label-row {
+  margin-bottom: 9px !important;
+}
+
+
+/* ==========================================================================
+   IMAGE UPLOAD FIELD
+   ========================================================================== */
+
+/* Upload dropzone */
+.upload__dropzoneContent {
+  padding: 24px !important;
+  border: 1px dashed #CFC6B8 !important;
+  border-radius: 8px !important;
+  background: #FAF9F6 !important;
+  text-align: center !important;
+}
+
+/* Upload buttons wrapper */
+.upload__dropzoneContent__buttons {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+/* Create New and Choose from existing */
+.upload__createNewToggler,
+.upload__listToggler {
+  min-height: 36px !important;
+  padding: 8px 15px !important;
+  border: 1px solid #E2DACE !important;
+  border-radius: 6px !important;
+  background: #F5F1E9 !important;
+  color: #192B3D !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  transition: all 0.15s ease !important;
+}
+
+/* Button hover */
+.upload__createNewToggler:hover,
+.upload__listToggler:hover {
+  background: #E9DDC9 !important;
+  border-color: #D6C8B2 !important;
+  color: #192B3D !important;
+}
+
+/* Button text */
+.upload__createNewToggler .btn__label,
+.upload__listToggler .btn__label {
+  color: inherit !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* OR text */
+.upload__dropzoneContent__orText {
+  color: #92979E !important;
+  font-size: 12px !important;
+}
+
+/* Drag and drop instruction */
+.upload__dragAndDropText {
+  margin-top: 16px !important;
+  color: #687786 !important;
+  font-size: 13px !important;
+}
+
+.field-type.upload .upload-field-card {
+  padding: 10px !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 8px !important;
+  background: #F8F6F1 !important;
+}
+
+
+/* ==========================================================================
+   DOCUMENT PAGE HEADING
+   ========================================================================== */
+
+.doc-header__title.render-title {
+  color: #192B3D !important;
+  font-size: 26px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.4px !important;
+  margin-bottom: 15px !important;
+  max-width: 100% !important;
+  margin-top: 15px;
+}
+
+
+/* ==========================================================================
+   USER SETTINGS - SECTION DESIGN
+   ========================================================================== */
+
+/* Common section spacing */
+.collection-edit .document-fields__edit > .auth-fields,
+.collection-edit .document-fields__edit > .document-fields__fields,
+.collection-edit .document-fields__edit > .payload-settings {
+  margin-bottom: 24px !important;
+  padding: 20px 22px !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important;
+  box-sizing: border-box !important;
+}
+
+/* Account Details section */
+.collection-edit .auth-fields {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 18px !important;
+}
+
+.collection-edit .auth-fields__controls {
+  display: flex !important;
+  align-items: flex-end !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+
+/* User Role section */
+.collection-edit .document-fields__fields {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+/* Payload Settings section */
+.collection-edit .payload-settings {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+}
+
+/* Section heading */
+.collection-edit .payload-settings > h3 {
+  margin: 0 0 4px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid #E7E2D9 !important;
+  color: #192B3D !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+}
+
+/* Language setting */
+.collection-edit .payload-settings__language {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+/* Admin Theme setting */
+.collection-edit .payload-settings .radio-group {
+  margin: 0 !important;
+}
+
+/* Responsive spacing */
+@media (max-width: 600px) {
+  .collection-edit .document-fields__edit > .auth-fields,
+  .collection-edit .document-fields__edit > .document-fields__fields,
+  .collection-edit .document-fields__edit > .payload-settings {
+    padding: 15px !important;
+    margin-bottom: 16px !important;
+  }
+}
+
+
+/* ==========================================================================
+   ADMIN THEME - RADIO OPTIONS
+   ========================================================================== */
+
+/* Options container */
+.payload-settings #field-theme.radio-group--group {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+}
+
+/* Each option */
+.payload-settings #field-theme > li {
+  margin: 0 !important;
+}
+
+.payload-settings #field-theme > li > label {
+  display: block !important;
+  cursor: pointer !important;
+}
+
+/* Option card */
+.payload-settings #field-theme .radio-input {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  min-width: 105px !important;
+  padding: 11px 14px !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 7px !important;
+  background: #FFFFFF !important;
+  transition: all 0.15s ease !important;
+}
+
+/* Hover */
+.payload-settings #field-theme .radio-input:hover {
+  border-color: #C4A16A !important;
+  background: #FAF9F6 !important;
+}
+
+/* Selected option */
+.payload-settings #field-theme .radio-input--is-selected {
+  border-color: #A17C4B !important;
+  background: #F8F6F1 !important;
+}
+
+/* Radio circle */
+.payload-settings #field-theme .radio-input__styled-radio {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 17px !important;
+  height: 17px !important;
+  min-width: 17px !important;
+  border: 1.5px solid #A9A49B !important;
+  border-radius: 50% !important;
+  background: #FFFFFF !important;
+  box-sizing: border-box !important;
+}
+
+/* Selected radio circle */
+.payload-settings #field-theme .radio-input--is-selected .radio-input__styled-radio {
+  border-color: #A17C4B !important;
+}
+
+/* Inner selected dot */
+.payload-settings #field-theme .radio-input__styled-radio::before {
+  content: "" !important;
+  position: absolute !important;
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: #A17C4B !important;
+  transform: scale(0) !important;
+  transition: transform 0.15s ease !important;
+}
+
+.payload-settings #field-theme .radio-input--is-selected .radio-input__styled-radio::before {
+  transform: scale(1) !important;
+}
+
+/* Option text */
+.payload-settings #field-theme .radio-input__label {
+  color: #192B3D !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+/* Common Popup Menu Styling */
+.popup__scroll-container {
+  padding: 6px !important;
+}
+
+.popup-button-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  padding: 4px !important;
+}
+
+.popup-button-list__button {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 38px !important;
+  padding: 9px 12px !important;
+  box-sizing: border-box !important;
+
+  border: 1px solid transparent !important;
+  border-radius: 5px !important;
+  background: transparent !important;
+
+  color: #192B3D !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  text-align: left !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease !important;
+}
+
+.popup-button-list__button:hover {
+  background: #F5F1E9 !important;
+  border-color: #E7E2D9 !important;
+  color: #192B3D !important;
+}
+
+/* Separate Popup Menu Items */
+.popup-button-list__button + .popup-button-list__button {
+  border-top: 1px solid #E7E2D9 !important;
+  border-radius: 0 !important;
+}
+
+.popup-button-list {
+  gap: 0 !important;
+}
+
+
+/* Version Pagination */
+.versions__page-controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  padding: 12px 0 !important;
+}
+
+.versions__page-controls .paginator {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+
+.versions__page-controls .clickable-arrow,
+.versions__page-controls .paginator__page {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  padding: 0 !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 5px !important;
+  background: #FFFFFF !important;
+  color: #192B3D !important;
+  box-shadow: none !important;
+}
+
+.versions__page-controls .paginator__page {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+.versions__page-controls .paginator__page--is-current {
+  border-color: #A17C4B !important;
+  background: #F5F1E9 !important;
+  color: #192B3D !important;
+  font-weight: 600 !important;
+}
+
+.versions__page-controls .clickable-arrow:hover:not(:disabled),
+.versions__page-controls .paginator__page:hover:not(.paginator__page--is-current) {
+  border-color: #C4A16A !important;
+  background: #F8F6F1 !important;
+}
+
+.versions__page-controls .clickable-arrow:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+}
+
+.versions__page-controls .versions__page-info {
+  color: #687786 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+}
+
+.versions__page-controls .per-page .popup-button {
+  min-height: 34px !important;
+  padding: 0 12px !important;
+  border: 1px solid #E7E2D9 !important;
+  border-radius: 5px !important;
+  background: #FFFFFF !important;
+  color: #192B3D !important;
+  font-size: 12px !important;
+  box-shadow: none !important;
+}
+
+.versions__page-controls .per-page .popup-button:hover {
+  border-color: #C4A16A !important;
+  background: #F8F6F1 !important;
+}
+
+.render-fields--margins-small .row__fields > .field-type + div {
+  margin-top: 0 !important;
+}
+
+
+/* // Keep selected relationship items inside the select control */
+.field-type.relationship {
+  .rs__control {
+    height: auto !important;
+    min-height: 40px;
+  }
+
+  .rs__value-container--is-multi {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 38px;
+    overflow: visible;
+  }
+}
+
+/* Hawthorne Legal admin navigation logo */
+.step-nav .step-nav__home {
+  width: 19px !important;
+  height: 64px !important;
+  /* min-width: 180px !important; */
+  flex: 0 0 0 !important;
+  gap: 0;
+}
+
+.step-nav .step-nav__home > span {
+  display: flex !important;
+  width: 180px !important;
+  height: 64px !important;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.step-nav .step-nav__home img {
+  display: block !important;
+  width: 40px !important;
+  height: 50px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  object-position: left center;
+}
+
+
+
+/* Sidebar toggle - default position when sidebar is closed */
+.template-default__nav-toggler-wrapper {
+  transition: left 0.2s ease;
+}
+
+/* Move toggle to sidebar's right edge only when sidebar is open */
+.template-default__nav-toggler-wrapper:has(
+  .nav-toggler--is-open
+) {
+  left: 250px !important;
+  right: auto !important;
+}
+
+/* Keep the toggle button properly centered inside its own area */
+.template-default__nav-toggler-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 12px;
+}
+
+.template-default__nav-toggler {
+  margin: 0 !important;
+}
+
+
+
+
+/* Logout button */
+aside.nav .nav__controls {
+  padding: 1rem 0.85rem !important;
+  margin-top: 0.75rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+aside.nav .nav__log-out {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  width: 100% !important;
+  min-height: 42px !important;
+  padding: 0.65rem 0.95rem !important;
+  border: 1px solid rgba(196, 161, 106, 0.3) !important;
+  border-radius: 7px !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #D8C2A2 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+aside.nav .nav__log-out:hover {
+  background-color: rgba(196, 161, 106, 0.16) !important;
+  border-color: #C4A16A !important;
+  color: #FFFFFF !important;
+}
+
+aside.nav .nav__log-out svg {
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0 !important;
+  stroke: #C4A16A !important;
+}
+
+aside.nav .nav__log-out:hover svg {
+  stroke: #FFFFFF !important;
+}
+
+
+/* Hawthorne Legal - Sidebar Heading */
+aside.nav .nav__scroll::before {
+  content: "HAWTHORNE LEGAL\A CONTENT MANAGEMENT";
+  display: block;
+  white-space: pre-line;
+  padding: 0.75rem 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #c49754;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.8;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+
+/* Payload CMS - Field Row Width Fix */
+.row__fields {
+  display: flex !important;
+  flex-flow: row wrap !important;
+  align-items: flex-start !important;
+  column-gap: 16px !important;
+  row-gap: 12px !important; 
+}
+
+.row__fields > .field-type {
+  width: calc(var(--field-width, 100%) - 11px) !important;
+  max-width: calc(var(--field-width, 100%) - 11px) !important;
+  min-width: 0 !important;
+  flex: 0 0 calc(var(--field-width, 100%) - 11px) !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.row__fields > .field-type .field-type__wrap,
+.row__fields > .field-type .react-select {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* ==========================================================================
+   PAYLOAD GROUP FIELD HEADINGS AND SPACING
+   ========================================================================== */
+
+/* Group heading */
+.field-type.group > .field-label {
+  display: block !important;
+  margin-bottom: 16px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+/* Space after a row inside a group */
+.field-type.group .field-type.row {
+  margin-bottom: 16px !important;
+}
+
+

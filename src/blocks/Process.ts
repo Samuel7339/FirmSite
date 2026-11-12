@@ -1,4 +1,3 @@
-
 import type { Block } from 'payload'
 
 export const Process: Block = {
@@ -11,13 +10,24 @@ export const Process: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',

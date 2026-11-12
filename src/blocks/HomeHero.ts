@@ -16,16 +16,25 @@ export const HomeHero: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-      admin: {
-        description: 'Small uppercase text above the main heading.',
-      },
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '40%',
+            description: 'Small uppercase text above the main heading.',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          admin: {
+            width: '60%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -44,18 +53,29 @@ export const HomeHero: Block = {
       label: 'Primary Button',
       fields: [
         {
-          name: 'label',
-          type: 'text',
-          label: 'Button Label',
-        },
-        {
-          name: 'destinationType',
-          type: 'select',
-          label: 'Button Destination',
-          defaultValue: 'custom',
-          options: [
-            { label: 'Choose an Existing Page', value: 'page' },
-            { label: 'Enter a Custom URL', value: 'custom' },
+          type: 'row',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              label: 'Button Label',
+              admin: {
+                width: '50%',
+              },
+            },
+            {
+              name: 'destinationType',
+              type: 'select',
+              label: 'Button Destination',
+              defaultValue: 'custom',
+              options: [
+                { label: 'Choose an Existing Page', value: 'page' },
+                { label: 'Enter a Custom URL', value: 'custom' },
+              ],
+              admin: {
+                width: '50%',
+              },
+            },
           ],
         },
         {
@@ -95,18 +115,29 @@ export const HomeHero: Block = {
       label: 'Secondary Button',
       fields: [
         {
-          name: 'label',
-          type: 'text',
-          label: 'Button Label',
-        },
-        {
-          name: 'destinationType',
-          type: 'select',
-          label: 'Button Destination',
-          defaultValue: 'custom',
-          options: [
-            { label: 'Choose an Existing Page', value: 'page' },
-            { label: 'Enter a Custom URL', value: 'custom' },
+          type: 'row',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              label: 'Button Label',
+              admin: {
+                width: '50%',
+              },
+            },
+            {
+              name: 'destinationType',
+              type: 'select',
+              label: 'Button Destination',
+              defaultValue: 'custom',
+              options: [
+                { label: 'Choose an Existing Page', value: 'page' },
+                { label: 'Enter a Custom URL', value: 'custom' },
+              ],
+              admin: {
+                width: '50%',
+              },
+            },
           ],
         },
         {

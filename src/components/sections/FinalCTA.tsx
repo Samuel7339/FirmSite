@@ -1,18 +1,8 @@
 
 import Link from 'next/link'
-import type { FinalCTABlock, Media } from '@/payload-types'
+import type { FinalCTABlock } from '@/payload-types'
 
 type FinalCTAProps = FinalCTABlock
-
-function getImageUrl(
-  image: string | number | Media | null | undefined,
-): string | undefined {
-  if (typeof image === 'object' && image !== null) {
-    return image.url || undefined
-  }
-
-  return undefined
-}
 
 export function FinalCTA({
   eyebrow,
@@ -22,49 +12,50 @@ export function FinalCTA({
   destinationType,
   selectedPage,
   customUrl,
-  backgroundImage,
 }: FinalCTAProps) {
-  const imageUrl = getImageUrl(backgroundImage)
-
   const buttonUrl =
     destinationType === 'page' ? selectedPage : customUrl
 
   return (
-    <section className="relative overflow-hidden bg-[#111827] px-6 py-24 md:px-12 md:py-32">
-      {imageUrl && (
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url("${imageUrl}")` }}
-          aria-hidden="true"
-        />
-      )}
+    <section className="relative overflow-hidden bg-[#263B50] px-6 py-14 text-white sm:py-16 md:py-20 lg:px-8">
+      {/* Atmospheric overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#263B50]/95 via-[#263B50]/90 to-[#263B50]" />
 
-      <div className="absolute inset-0 bg-[#111827]/80" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#B58B60]/15 via-transparent to-transparent opacity-70" />
 
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
         {eyebrow && (
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-[#D6A84B]">
-            {eyebrow}
-          </p>
+          <div className="mb-3.5 flex items-center justify-center gap-3">
+            <span className="h-px w-6 bg-[#B58B60]/70" />
+
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B58B60]">
+              {eyebrow}
+            </p>
+
+            <span className="h-px w-6 bg-[#B58B60]/70" />
+          </div>
         )}
 
-        <h2 className="font-serif text-3xl leading-tight text-white md:text-5xl lg:text-6xl">
+        <h2 className="font-serif text-2xl font-normal leading-snug text-white sm:text-3xl md:text-4xl">
           {heading}
         </h2>
 
         {description && (
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-200 md:text-lg">
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[#F3EEE5]/85 sm:text-base">
             {description}
           </p>
         )}
 
         {buttonLabel && buttonUrl && (
-          <Link
-            href={buttonUrl}
-            className="mt-10 inline-flex min-h-14 items-center justify-center bg-[#D6A84B] px-9 py-4 text-sm font-semibold text-[#111827] transition-colors hover:bg-[#e5bd6b]"
-          >
-            {buttonLabel}
-          </Link>
+          <div className="mt-8">
+            <Link
+              href={buttonUrl}
+              className="inline-flex min-h-11 items-center justify-center bg-[#D8C2A2] px-8 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#182A3A] shadow-md transition-all duration-300 hover:bg-[#B58B60] hover:text-white"
+            >
+              {buttonLabel}
+            </Link>
+          </div>
         )}
       </div>
     </section>

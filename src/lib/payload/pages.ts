@@ -1,14 +1,14 @@
 
 import 'server-only'
 
-import { draftMode, headers } from 'next/headers'
+import { headers } from 'next/headers'
 import { getPayloadClient } from '@/lib/payload/getPayloadClient'
 import { getAllAttorneys } from '@/lib/payload/attorneys'
 import { getAllPracticeAreas } from '@/lib/payload/practiceAreas'
+import { getAllFAQs } from '@/lib/payload/faqs'
 
 async function getPageBySlug(slug: string) {
   const payload = await getPayloadClient()
-  const { isEnabled } = await draftMode()
   const requestHeaders = await headers()
 
   const authResult = await payload.auth({
@@ -16,11 +16,13 @@ async function getPageBySlug(slug: string) {
     canSetHeaders: false,
   })
 
+  const isStaff = Boolean(authResult.user)
+
   const result = await payload.find({
     collection: 'pages',
     user: authResult.user ?? undefined,
     overrideAccess: false,
-    draft: isEnabled,
+    draft: isStaff,
     where: {
       slug: {
         equals: slug,
@@ -60,9 +62,12 @@ async function getPageBySlug(slug: string) {
     }),
   )
 
+  const allFaqs = slug === 'faqs' ? await getAllFAQs() : undefined
+
   return {
     ...page,
     layout,
+    allFaqs,
   }
 }
 

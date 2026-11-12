@@ -12,15 +12,26 @@ export const Contact: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-      defaultValue: 'Get In Touch',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      defaultValue: 'Let Us Discuss Your Legal Needs',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          defaultValue: 'Get In Touch',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          defaultValue: 'Let Us Discuss Your Legal Needs',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -31,7 +42,14 @@ export const Contact: Block = {
       type: 'upload',
       relationTo: 'media',
     },
+    {
+      name: 'form',
+      type: 'relationship',
+      relationTo: 'forms',
+      required: true,
+      admin: {
+        description: 'Select the form to display in this contact section.',
+      },
+    },
   ],
 }
-
-

@@ -1,4 +1,3 @@
-
 import Link from 'next/link'
 import { getPayloadClient } from '@/lib/payload/getPayloadClient'
 
@@ -17,31 +16,41 @@ export async function Footer() {
   ])
 
   return (
-    <footer className="bg-[#111827] text-gray-300">
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-4">
-          {/* Firm Information */}
-          <div className="md:col-span-1">
-            <h2 className="font-serif text-2xl font-semibold text-white">
-              {siteSettings.siteName}
-            </h2>
+    <footer className="border-t border-[#B58B60]/20 bg-[#182A3A] text-stone-300">
+      <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-8">
+        {/* Main Columns Grid with Balanced Proportions */}
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+          {/* Column 1: Firm Information (Span 4) */}
+          <div className="space-y-4 sm:col-span-2 lg:col-span-4 lg:pr-6">
+            <div className="flex items-center gap-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#B58B60] font-serif text-xs text-[#B58B60]">
+                ⚖
+              </span>
+              <h2 className="font-serif text-lg font-normal tracking-[0.14em] uppercase text-white">
+                {siteSettings.siteName}
+              </h2>
+            </div>
 
-            <p className="mt-2 text-sm text-[#D6A84B]">
-              {footer.firmName}
-            </p>
+            {footer.firmName && (
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#B58B60]">
+                {footer.firmName}
+              </p>
+            )}
 
-            <p className="mt-5 text-sm leading-7 text-gray-400">
-              {footer.description}
-            </p>
+            {footer.description && (
+              <p className="max-w-sm text-xs leading-relaxed text-stone-400">
+                {footer.description}
+              </p>
+            )}
           </div>
 
-          {/* Explore Links */}
-          <div>
-            <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-white">
-              Explore
+          {/* Column 2: Explore Links (Span 3) */}
+          <div className="lg:col-span-3">
+            <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B58B60]">
+              Navigation
             </h3>
 
-            <ul className="space-y-4">
+            <ul className="space-y-2.5">
               {footer.exploreLinks?.map((item, index) => {
                 const href =
                   item.destinationType === 'custom'
@@ -54,7 +63,7 @@ export async function Footer() {
                   <li key={item.id || index}>
                     <Link
                       href={href}
-                      className="text-sm transition hover:text-[#D6A84B]"
+                      className="inline-block text-sm text-stone-300 transition-colors duration-200 hover:text-[#D8C2A2]"
                     >
                       {item.label}
                     </Link>
@@ -64,20 +73,25 @@ export async function Footer() {
             </ul>
           </div>
 
-          {/* Contact Information */}
-          <div>
-            <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-white">
+          {/* Column 3: Contact Information (Span 3) */}
+          <div className="lg:col-span-3">
+            <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B58B60]">
               Contact
             </h3>
 
-            <ul className="space-y-4 text-sm text-gray-400">
+            <ul className="space-y-2.5 text-sm text-stone-300">
               {siteSettings.contactInformation?.address && (
-                <li>{siteSettings.contactInformation.address}</li>
+                <li className="leading-relaxed">
+                  {siteSettings.contactInformation.address}
+                </li>
               )}
 
               {siteSettings.contactInformation?.phone && (
                 <li>
-                  <a href={`tel:${siteSettings.contactInformation.phone}`}>
+                  <a
+                    href={`tel:${siteSettings.contactInformation.phone}`}
+                    className="transition-colors duration-200 hover:text-[#D8C2A2]"
+                  >
                     {siteSettings.contactInformation.phone}
                   </a>
                 </li>
@@ -85,7 +99,10 @@ export async function Footer() {
 
               {siteSettings.contactInformation?.email && (
                 <li>
-                  <a href={`mailto:${siteSettings.contactInformation.email}`}>
+                  <a
+                    href={`mailto:${siteSettings.contactInformation.email}`}
+                    className="transition-colors duration-200 hover:text-[#D8C2A2]"
+                  >
                     {siteSettings.contactInformation.email}
                   </a>
                 </li>
@@ -93,34 +110,38 @@ export async function Footer() {
             </ul>
           </div>
 
-          {/* Social Links */}
-          <div>
-            <h3 className="mb-6 text-sm font-semibold uppercase tracking-widest text-white">
-              Follow Us
-            </h3>
+          {/* Column 4: Social Links (Span 2) */}
+          {siteSettings.socialLinks && siteSettings.socialLinks.length > 0 && (
+            <div className="lg:col-span-2">
+              <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#B58B60]">
+                Connect
+              </h3>
 
-            <ul className="space-y-4">
-              {siteSettings.socialLinks?.map((item, index) => (
-                <li key={item.id || index}>
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm capitalize transition hover:text-[#D6A84B]"
-                  >
-                    {item.platform}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+              <ul className="space-y-2.5">
+                {siteSettings.socialLinks.map((item, index) => (
+                  <li key={item.id || index}>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-sm capitalize text-stone-300 transition-colors duration-200 hover:text-[#D8C2A2]"
+                    >
+                      {item.platform}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
-        {/* Copyright */}
-        <div className="mt-14 border-t border-gray-700 pt-6">
-          <p className="text-center text-sm text-gray-500">
-            © {new Date().getFullYear()} {siteSettings.siteName}.{' '}
-            All right recieved
+        {/* Subtle Divider & Copyright Section */}
+        <div className="mt-12 border-t border-white/10 pt-6 text-center sm:flex sm:items-center sm:justify-between sm:text-left">
+          <p className="text-[11px] text-stone-400">
+            © {new Date().getFullYear()} {siteSettings.siteName}. All rights reserved.
+          </p>
+          <p className="mt-2 text-[11px] tracking-wider uppercase text-stone-400 sm:mt-0">
+            Professional Legal Practice
           </p>
         </div>
       </div>

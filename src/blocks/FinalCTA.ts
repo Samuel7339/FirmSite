@@ -73,10 +73,5 @@ export const FinalCTA: Block = {
           (siblingData as ButtonData)?.destinationType === 'custom',
       },
     },
-    {
-      name: 'backgroundImage',
-      type: 'upload',
-      relationTo: 'media',
-    },
   ],
 }

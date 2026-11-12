@@ -18,14 +18,25 @@ export const Insights: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      defaultValue: 'Latest Insights',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          defaultValue: 'Latest Insights',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -57,14 +68,14 @@ export const Insights: Block = {
       },
       validate: (value, { siblingData }) => {
         const data = siblingData as InsightsData
-      
+
         if (
           data?.displayMode === 'selected' &&
           (!Array.isArray(value) || value.length === 0)
         ) {
           return 'Please select at least one insight.'
         }
-      
+
         return true
       },
     },

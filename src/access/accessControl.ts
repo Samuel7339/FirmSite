@@ -23,12 +23,23 @@ export const adminPublishEditorDraftUpdate: Access = ({ req: { user } }) => {
   return false
 }
 
+
+
 export const publishedOrStaff: Access = ({ req: { user } }) => {
   if (user) return true
 
   return {
-    _status: {
-      equals: 'published',
-    },
+    or: [
+      {
+        _status: {
+          equals: 'published',
+        },
+      },
+      {
+        _status: {
+          exists: false,
+        },
+      },
+    ],
   }
 }

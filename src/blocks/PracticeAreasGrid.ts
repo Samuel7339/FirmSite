@@ -1,3 +1,4 @@
+
 import type { Block } from 'payload'
 
 type PracticeAreasGridData = {
@@ -17,14 +18,25 @@ export const PracticeAreasGrid: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      defaultValue: 'Our Practice Areas',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          defaultValue: 'Our Practice Areas',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -137,4 +149,3 @@ export const PracticeAreasGrid: Block = {
     },
   ],
 }
-

@@ -61,27 +61,27 @@ export function FAQs({
         const isOpen = openFaqId === item.id
 
         return (
-            <div key={item.id}>
+            <div key={item.id} className="transition-colors">
                 <button
                     type="button"
                     onClick={() =>
                         setOpenFaqId(isOpen ? null : item.id)
                     }
                     aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-6 px-6 py-6 text-left md:px-8"
+                    className="flex w-full items-center justify-between gap-6 px-6 py-6 text-left transition-colors hover:bg-stone-50 md:px-8"
                 >
-                    <span className="font-serif text-lg text-[#17243A] md:text-xl">
+                    <span className="font-serif text-lg font-normal text-[#0B1025] md:text-xl">
                         {item.question}
                     </span>
 
-                    <span className="shrink-0 text-2xl text-amber-700">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-stone-200 text-lg font-light text-[#C59A3F] transition-colors">
                         {isOpen ? '−' : '+'}
                     </span>
                 </button>
 
                 {isOpen && (
                     <div className="px-6 pb-7 md:px-8">
-                        <p className="text-sm leading-7 text-slate-600">
+                        <p className="text-sm leading-relaxed text-stone-600">
                             {item.answer}
                         </p>
                     </div>
@@ -91,21 +91,25 @@ export function FAQs({
     }
 
     return (
-        <section className="bg-[#F4F6F8] px-6 py-20 md:px-12 md:py-28">
-            <div className="mx-auto max-w-5xl">
-                <div className="mb-14 text-center">
+        <section className="bg-[#F8F6F0] px-6 py-20 md:px-12 md:py-28 lg:px-20">
+            <div className="mx-auto max-w-4xl">
+                <div className="mb-16 text-center">
                     {eyebrow && (
-                        <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-amber-700">
-                            {eyebrow}
-                        </p>
+                        <div className="mb-4 flex items-center justify-center gap-3">
+                            <span className="h-px w-6 bg-[#D6A84B]" />
+                            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+                                {eyebrow}
+                            </p>
+                            <span className="h-px w-6 bg-[#D6A84B]" />
+                        </div>
                     )}
 
-                    <h2 className="font-serif text-4xl leading-tight text-[#17243A] md:text-5xl">
+                    <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
                         {heading}
                     </h2>
 
                     {description && (
-                        <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-slate-600">
+                        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-stone-600">
                             {description}
                         </p>
                     )}
@@ -115,27 +119,27 @@ export function FAQs({
                     <div className="space-y-12">
                         {groupedFAQs.map((group) => (
                             <div key={group.value}>
-                                <h3 className="mb-5 font-serif text-2xl text-[#17243A] md:text-3xl">
+                                <h3 className="mb-5 font-serif text-2xl font-normal text-[#0B1025] md:text-3xl">
                                     {group.label}
                                 </h3>
 
-                                <div className="divide-y divide-stone-200 border-y border-stone-200 bg-white">
+                                <div className="divide-y divide-stone-200/80 border border-stone-200/80 bg-white shadow-sm">
                                     {group.faqs.map(renderFAQ)}
                                 </div>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div className="divide-y divide-stone-200 border-y border-stone-200 bg-white">
+                    <div className="divide-y divide-stone-200/80 border border-stone-200/80 bg-white shadow-sm">
                         {selectedItems.map(renderFAQ)}
                     </div>
                 )}
 
                 {!groupByCategory && viewAllLabel && buttonUrl && (
-                    <div className="mt-10 text-center">
+                    <div className="mt-14 text-center">
                         <Link
                             href={buttonUrl}
-                            className="inline-flex min-h-14 items-center justify-center bg-[#17243A] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#263954]"
+                            className="inline-flex min-h-12 items-center justify-center border border-[#0B1025] bg-[#0B1025] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-[#D6A84B] hover:bg-[#D6A84B] hover:text-[#0B1025]"
                         >
                             {viewAllLabel}
                         </Link>

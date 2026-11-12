@@ -1,3 +1,4 @@
+
 import type { Block } from 'payload'
 
 type CaseResultsData = {
@@ -17,14 +18,25 @@ export const CaseResults: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
-      defaultValue: 'Our Case Results',
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          defaultValue: 'Our Case Results',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -137,4 +149,3 @@ export const CaseResults: Block = {
     },
   ],
 }
-

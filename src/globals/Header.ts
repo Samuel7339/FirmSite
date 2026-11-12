@@ -39,6 +39,7 @@ export const Header: GlobalConfig = {
           'Optional header logo. If empty, the Site Settings logo can be used.',
       },
     },
+
     {
       name: 'navigation',
       type: 'array',
@@ -49,41 +50,55 @@ export const Header: GlobalConfig = {
       },
       fields: [
         {
-          name: 'label',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'destinationType',
-          type: 'select',
-          required: true,
-          defaultValue: 'page',
-          options: [
-            { label: 'Existing Page', value: 'page' },
-            { label: 'Custom URL', value: 'custom' },
+          type: 'row',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+              admin: {
+                width: '30%',
+              },
+            },
+            {
+              name: 'destinationType',
+              type: 'select',
+              required: true,
+              defaultValue: 'page',
+              options: [
+                { label: 'Existing Page', value: 'page' },
+                { label: 'Custom URL', value: 'custom' },
+              ],
+              admin: {
+                width: '30%',
+              },
+            },
+            {
+              name: 'selectedPage',
+              type: 'select',
+              label: 'Select Page',
+              options: pageOptions,
+              admin: {
+                width: '40%',
+                condition: (_, siblingData) =>
+                  (siblingData as HeaderLinkData)?.destinationType === 'page',
+              },
+            },
+            {
+              name: 'customUrl',
+              type: 'text',
+              label: 'Custom URL',
+              admin: {
+                width: '40%',
+                condition: (_, siblingData) =>
+                  (siblingData as HeaderLinkData)?.destinationType === 'custom',
+              },
+            },
           ],
-        },
-        {
-          name: 'selectedPage',
-          type: 'select',
-          label: 'Select Page',
-          options: pageOptions,
-          admin: {
-            condition: (_, siblingData) =>
-              (siblingData as HeaderLinkData)?.destinationType === 'page',
-          },
-        },
-        {
-          name: 'customUrl',
-          type: 'text',
-          label: 'Custom URL',
-          admin: {
-            condition: (_, siblingData) =>
-              (siblingData as HeaderLinkData)?.destinationType === 'custom',
-          },
         },
       ],
     },
+
     {
       name: 'consultationButton',
       type: 'group',
@@ -95,30 +110,39 @@ export const Header: GlobalConfig = {
           label: 'Enabled',
           defaultValue: true,
         },
+
         {
-          name: 'label',
-          type: 'text',
-          label: 'Button Label',
-          defaultValue: 'Book a Consultation',
-          admin: {
-            condition: (_, siblingData) =>
-              (siblingData as ConsultationButtonData)?.enabled === true,
-          },
-        },
-        {
-          name: 'destinationType',
-          type: 'select',
-          label: 'Destination Type',
-          defaultValue: 'page',
-          options: [
-            { label: 'Existing Page', value: 'page' },
-            { label: 'Custom URL', value: 'custom' },
+          type: 'row',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              label: 'Button Label',
+              defaultValue: 'Book a Consultation',
+              admin: {
+                width: '50%',
+                condition: (_, siblingData) =>
+                  (siblingData as ConsultationButtonData)?.enabled === true,
+              },
+            },
+            {
+              name: 'destinationType',
+              type: 'select',
+              label: 'Destination Type',
+              defaultValue: 'page',
+              options: [
+                { label: 'Existing Page', value: 'page' },
+                { label: 'Custom URL', value: 'custom' },
+              ],
+              admin: {
+                width: '50%',
+                condition: (_, siblingData) =>
+                  (siblingData as ConsultationButtonData)?.enabled === true,
+              },
+            },
           ],
-          admin: {
-            condition: (_, siblingData) =>
-              (siblingData as ConsultationButtonData)?.enabled === true,
-          },
         },
+
         {
           name: 'selectedPage',
           type: 'select',
@@ -132,6 +156,7 @@ export const Header: GlobalConfig = {
             },
           },
         },
+
         {
           name: 'customUrl',
           type: 'text',

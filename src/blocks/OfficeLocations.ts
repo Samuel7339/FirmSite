@@ -11,13 +11,24 @@ export const OfficeLocations: Block = {
 
   fields: [
     {
-      name: 'eyebrow',
-      type: 'text',
-    },
-    {
-      name: 'heading',
-      type: 'text',
-      required: true,
+      type: 'row',
+      fields: [
+        {
+          name: 'eyebrow',
+          type: 'text',
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'heading',
+          type: 'text',
+          required: true,
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'description',
@@ -29,9 +40,24 @@ export const OfficeLocations: Block = {
       minRows: 1,
       fields: [
         {
-          name: 'officeName',
-          type: 'text',
-          required: true,
+          type: 'row',
+          fields: [
+            {
+              name: 'officeName',
+              type: 'text',
+              required: true,
+              admin: {
+                width: '50%',
+              },
+            },
+            {
+              name: 'email',
+              type: 'email',
+              admin: {
+                width: '50%',
+              },
+            },
+          ],
         },
         {
           name: 'address',
@@ -39,19 +65,24 @@ export const OfficeLocations: Block = {
           required: true,
         },
         {
-          name: 'phone',
-          type: 'text',
-        },
-        {
-          name: 'email',
-          type: 'email',
-        },
-        {
-          name: 'mapUrl',
-          type: 'text',
-          admin: {
-            description: 'Google Maps location link.',
-          },
+          type: 'row',
+          fields: [
+            {
+              name: 'phone',
+              type: 'text',
+              admin: {
+                width: '50%',
+              },
+            },
+            {
+              name: 'mapUrl',
+              type: 'text',
+              admin: {
+                width: '50%',
+                description: 'Google Maps location link.',
+              },
+            },
+          ],
         },
         {
           name: 'image',

@@ -1,4 +1,3 @@
-
 import type { CollectionConfig } from 'payload'
 
 import {
@@ -48,11 +47,27 @@ export const Testimonials: CollectionConfig = {
     },
 
     {
-      name: 'designation',
-      type: 'text',
-      admin: {
-        description: 'Optional client designation or organization.',
-      },
+      type: 'row',
+      fields: [
+        {
+          name: 'designation',
+          type: 'text',
+          admin: {
+            width: '50%',
+            description: 'Optional client designation or organization.',
+          },
+        },
+        {
+          name: 'rating',
+          type: 'number',
+          min: 1,
+          max: 5,
+          admin: {
+            width: '50%',
+            description: 'Optional rating from 1 to 5.',
+          },
+        },
+      ],
     },
 
     {
@@ -66,17 +81,5 @@ export const Testimonials: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
     },
-
-    {
-      name: 'rating',
-      type: 'number',
-      min: 1,
-      max: 5,
-      admin: {
-        description: 'Optional rating from 1 to 5.',
-      },
-    },
-
-    
   ],
 }

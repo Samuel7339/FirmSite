@@ -1,14 +1,10 @@
-
 import type { GlobalConfig } from 'payload'
 
 type FooterLinkData = {
   destinationType?: 'page' | 'custom'
 }
 
-
 export const Footer: GlobalConfig = {
-
-    
   slug: 'footer',
 
   label: 'Footer',
@@ -48,7 +44,7 @@ export const Footer: GlobalConfig = {
               type: 'text',
               required: true,
               admin: {
-                width: '30%',
+                width: '20%',
               },
             },
             {
@@ -60,7 +56,7 @@ export const Footer: GlobalConfig = {
                 { label: 'Custom URL', value: 'custom' },
               ],
               admin: {
-                width: '30%',
+                width: '40%',
               },
             },
             {
@@ -68,14 +64,14 @@ export const Footer: GlobalConfig = {
               type: 'select',
               label: 'Select Page',
               options: [
-  { label: 'Home', value: '/' },
-  { label: 'About', value: '/about' },
-  { label: 'Practice Areas', value: '/practice-areas' },
-  { label: 'Attorneys', value: '/attorneys' },
-  { label: 'Cases', value: '/cases' },
-  { label: 'Insights', value: '/insights' },
-  { label: 'Contact', value: '/contact' },
-],
+                { label: 'Home', value: '/' },
+                { label: 'About', value: '/about' },
+                { label: 'Practice Areas', value: '/practice-areas' },
+                { label: 'Attorneys', value: '/attorneys' },
+                { label: 'Cases', value: '/cases' },
+                { label: 'Insights', value: '/insights' },
+                { label: 'Contact', value: '/contact' },
+              ],
               admin: {
                 width: '40%',
                 condition: (_, siblingData) =>
@@ -96,6 +92,5 @@ export const Footer: GlobalConfig = {
         },
       ],
     },
-    
   ],
 }

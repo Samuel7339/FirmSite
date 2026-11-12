@@ -1,5 +1,4 @@
 
-import Link from 'next/link'
 import type {
   Testimonial,
   TestimonialsBlock,
@@ -23,37 +22,32 @@ export function Testimonials({
   heading,
   description,
   testimonials,
-  viewAllLabel,
-  viewAllDestinationType,
-  selectedViewAllPage,
-  viewAllUrl,
 }: TestimonialsProps) {
   const items = (testimonials ?? []).filter(
     (item): item is Testimonial =>
       typeof item === 'object' && item !== null,
   )
 
-  const buttonUrl =
-    viewAllDestinationType === 'page'
-      ? selectedViewAllPage
-      : viewAllUrl
-
   return (
-    <section className="bg-[#F4F6F8] px-6 py-20 md:px-12 md:py-28">
+    <section className="bg-[#F8F6F0] px-6 py-20 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto mb-14 max-w-3xl text-center">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
           {eyebrow && (
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-amber-700">
-              {eyebrow}
-            </p>
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <span className="h-px w-6 bg-[#D6A84B]" />
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+                {eyebrow}
+              </p>
+              <span className="h-px w-6 bg-[#D6A84B]" />
+            </div>
           )}
 
-          <h2 className="font-serif text-4xl leading-tight text-[#17243A] md:text-5xl">
+          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-6 text-base leading-8 text-slate-600">
+            <p className="mt-5 text-base leading-relaxed text-stone-600">
               {description}
             </p>
           )}
@@ -66,67 +60,60 @@ export function Testimonials({
             return (
               <article
                 key={item.id}
-                className="flex flex-col bg-white p-8 shadow-sm"
+                className="group flex flex-col justify-between border border-stone-200/80 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A84B]/40 hover:shadow-xl"
               >
-                <div className="font-serif text-5xl leading-none text-amber-600">
-                  “
+                <div>
+                  <div className="font-serif text-5xl leading-none text-[#D6A84B]">
+                    “
+                  </div>
+
+                  <p className="mt-4 text-sm leading-relaxed text-stone-600 italic">
+                    {item.testimonial}
+                  </p>
                 </div>
 
-                <p className="mt-4 flex-1 text-sm leading-8 text-slate-600">
-                  {item.testimonial}
-                </p>
-
-                {typeof item.rating === 'number' && (
-                  <div
-                    className="mt-6 flex gap-1 text-amber-600"
-                    aria-label={`${item.rating} out of 5 stars`}
-                  >
-                    {Array.from({ length: item.rating }).map((_, index) => (
-                      <span key={index}>★</span>
-                    ))}
-                  </div>
-                )}
-
-                <div className="mt-7 flex items-center gap-4 border-t border-stone-200 pt-6">
-                  {imageUrl ? (
-                    <img
-                      src={imageUrl}
-                      alt={item.clientName}
-                      className="h-12 w-12 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E9ECEF] font-serif text-lg text-[#17243A]">
-                      {item.clientName.trim().charAt(0).toUpperCase()}
+                <div className="mt-8 border-t border-stone-100 pt-6">
+                  {typeof item.rating === 'number' && (
+                    <div
+                      className="mb-4 flex gap-1 text-sm text-[#D6A84B]"
+                      aria-label={`${item.rating} out of 5 stars`}
+                    >
+                      {Array.from({ length: item.rating }).map((_, index) => (
+                        <span key={index}>★</span>
+                      ))}
                     </div>
                   )}
 
-                  <div>
-                    <h3 className="font-semibold text-[#17243A]">
-                      {item.clientName}
-                    </h3>
-
-                    {item.designation && (
-                      <p className="mt-1 text-xs text-slate-500">
-                        {item.designation}
-                      </p>
+                  <div className="flex items-center gap-4">
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt={item.clientName}
+                        className="h-12 w-12 rounded-full border border-[#D6A84B]/40 object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0B1025] font-serif text-base text-[#D6A84B]">
+                        {item.clientName.trim().charAt(0).toUpperCase()}
+                      </div>
                     )}
+
+                    <div>
+                      <h3 className="font-serif text-base font-normal text-[#0B1025]">
+                        {item.clientName}
+                      </h3>
+
+                      {item.designation && (
+                        <p className="text-xs uppercase tracking-wider text-stone-500">
+                          {item.designation}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </article>
             )
           })}
         </div>
-
-        {viewAllLabel && buttonUrl && (
-          <div className="mt-12 text-center">
-            <Link
-              href={buttonUrl}
-              className="inline-flex min-h-14 items-center justify-center bg-[#17243A] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#263954]"
-            >
-              {viewAllLabel}
-            </Link>
-          </div>
-        )}
       </div>
     </section>
   )

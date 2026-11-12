@@ -1,5 +1,5 @@
 
-import type { Page } from '@/payload-types'
+import type { Page, Faq } from '@/payload-types'
 
 import { HomeHero } from '@/components/sections/HomeHero'
 import { AboutFirm } from '@/components/sections/AboutFirm'
@@ -20,10 +20,14 @@ import { FinalCTA } from '@/components/sections/FinalCTA'
 
 type PageLayoutRendererProps = {
   layout: Page['layout']
+  pageSlug?: string
+  allFaqs?: Faq[]
 }
 
 export function PageLayoutRenderer({
   layout,
+  pageSlug,
+  allFaqs,
 }: PageLayoutRendererProps) {
   return (
     <>
@@ -68,7 +72,14 @@ export function PageLayoutRenderer({
             return <OurApproach key={key} {...block} />
 
           case 'faqs':
-            return <FAQs key={key} {...block} />
+            return (
+              <FAQs
+                key={key}
+                {...block}
+                allFaqs={allFaqs}
+                groupByCategory={pageSlug === 'faqs'}
+              />
+            )
 
           case 'statistics':
             return <Statistics key={key} {...block} />
@@ -86,4 +97,3 @@ export function PageLayoutRenderer({
     </>
   )
 }
-
