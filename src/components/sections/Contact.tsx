@@ -2,9 +2,13 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { ContactBlock, Form, Media } from '@/payload-types'
 
-type ContactProps = ContactBlock
+type ContactProps = ContactBlock & {
+  editablePath: string
+}
+
 type FormField = NonNullable<Form['fields']>[number]
 
 function getImageUrl(
@@ -39,6 +43,7 @@ export function Contact({
   description,
   image,
   form,
+  editablePath,
 }: ContactProps) {
   const imageUrl = getImageUrl(image)
 
@@ -271,23 +276,35 @@ export function Contact({
           {eyebrow && (
             <div className="mb-4 flex items-center gap-3">
               <span className="h-px w-6 bg-[#D6A84B]" />
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+              <p
+                {...payloadEditable(`${editablePath}.eyebrow`)}
+                className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
+              >
                 {eyebrow}
               </p>
             </div>
           )}
 
-          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
+          <h2
+            {...payloadEditable(`${editablePath}.heading`)}
+            className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl"
+          >
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-5 text-base leading-relaxed text-stone-600">
+            <p
+              {...payloadEditable(`${editablePath}.description`)}
+              className="mt-5 text-base leading-relaxed text-stone-600"
+            >
               {description}
             </p>
           )}
 
-          <div className="mt-8 border border-stone-200/80 bg-[#F8F6F0] p-8 shadow-sm">
+          <div
+            {...payloadEditable(`${editablePath}.form`)}
+            className="mt-8 border border-stone-200/80 bg-[#F8F6F0] p-8 shadow-sm"
+          >
             <h3 className="font-serif text-2xl font-normal text-[#0B1025]">
               Get in Touch
             </h3>
@@ -337,6 +354,7 @@ export function Contact({
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative overflow-hidden bg-stone-100 shadow-xl">
               <img
+                {...payloadEditable(`${editablePath}.image`)}
                 src={imageUrl}
                 alt={heading}
                 className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-105"

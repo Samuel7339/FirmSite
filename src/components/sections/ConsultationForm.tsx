@@ -2,9 +2,13 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { ConsultationFormBlock, Form } from '@/payload-types'
 
-type ConsultationFormProps = ConsultationFormBlock
+type ConsultationFormProps = ConsultationFormBlock & {
+  editablePath: string
+}
+
 type FormField = NonNullable<Form['fields']>[number]
 
 function getRichTextText(value: unknown): string {
@@ -30,6 +34,7 @@ export function ConsultationForm({
   form,
   submitButtonLabel,
   privacyNotice,
+  editablePath,
 }: ConsultationFormProps) {
   const selectedForm =
     typeof form === 'object' && form !== null ? form : null
@@ -82,7 +87,7 @@ export function ConsultationForm({
           submissionData,
         }),
       })
-        
+
       const result = await response.json()
 
       if (!response.ok) {
@@ -260,17 +265,26 @@ export function ConsultationForm({
           {/* Left Column */}
           <div className="lg:col-span-5">
             {eyebrow && (
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#A77C50]">
+              <p
+                {...payloadEditable(`${editablePath}.eyebrow`)}
+                className="text-xs font-semibold uppercase tracking-[0.25em] text-[#A77C50]"
+              >
                 {eyebrow}
               </p>
             )}
 
-            <h2 className="mt-2 font-serif text-3xl font-normal leading-tight text-[#182A3A] sm:text-4xl">
+            <h2
+              {...payloadEditable(`${editablePath}.heading`)}
+              className="mt-2 font-serif text-3xl font-normal leading-tight text-[#182A3A] sm:text-4xl"
+            >
               {heading}
             </h2>
 
             {description && (
-              <p className="mt-4 text-sm leading-relaxed text-[#526171] sm:text-base">
+              <p
+                {...payloadEditable(`${editablePath}.description`)}
+                className="mt-4 text-sm leading-relaxed text-[#526171] sm:text-base"
+              >
                 {description}
               </p>
             )}
@@ -305,8 +319,12 @@ export function ConsultationForm({
                     htmlFor="consultation-privacy"
                     className="text-[11px] leading-tight text-[#526171]"
                   >
-                    {privacyNotice ||
-                      'I understand this communication does not create an attorney-client relationship.'}
+                    <span
+                      {...payloadEditable(`${editablePath}.privacyNotice`)}
+                    >
+                      {privacyNotice ||
+                        'I understand this communication does not create an attorney-client relationship.'}
+                    </span>
                   </label>
                 </div>
 
@@ -322,11 +340,15 @@ export function ConsultationForm({
                     disabled={isSubmitting}
                     className="inline-flex min-h-12 shrink-0 items-center justify-center bg-[#182A3A] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-md transition-all duration-300 hover:bg-[#34495A] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {isSubmitting
-                      ? 'Submitting...'
-                      : submitButtonLabel ||
-                        selectedForm.submitButtonLabel ||
-                        'Request Consultation'}
+                    <span
+                      {...payloadEditable(`${editablePath}.submitButtonLabel`)}
+                    >
+                      {isSubmitting
+                        ? 'Submitting...'
+                        : submitButtonLabel ||
+                          selectedForm.submitButtonLabel ||
+                          'Request Consultation'}
+                    </span>
                   </button>
                 </div>
               </form>

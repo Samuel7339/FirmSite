@@ -1,8 +1,11 @@
 
 import Link from 'next/link'
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { Media, OfficeLocationsBlock } from '@/payload-types'
 
-type OfficeLocationsProps = OfficeLocationsBlock
+type OfficeLocationsProps = OfficeLocationsBlock & {
+  editablePath: string
+}
 
 function getImageUrl(
   image: string | number | Media | null | undefined,
@@ -19,6 +22,7 @@ export function OfficeLocations({
   heading,
   description,
   offices,
+  editablePath,
 }: OfficeLocationsProps) {
   return (
     <section className="bg-[#F8F6F0] px-6 py-20 md:px-12 md:py-28 lg:px-20">
@@ -27,18 +31,27 @@ export function OfficeLocations({
           {eyebrow && (
             <div className="mb-4 flex items-center gap-3">
               <span className="h-px w-6 bg-[#D6A84B]" />
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+              <p
+                {...payloadEditable(`${editablePath}.eyebrow`)}
+                className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
+              >
                 {eyebrow}
               </p>
             </div>
           )}
 
-          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
+          <h2
+            {...payloadEditable(`${editablePath}.heading`)}
+            className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl"
+          >
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-5 text-base leading-relaxed text-stone-600">
+            <p
+              {...payloadEditable(`${editablePath}.description`)}
+              className="mt-5 text-base leading-relaxed text-stone-600"
+            >
               {description}
             </p>
           )}

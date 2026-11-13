@@ -1,4 +1,3 @@
-
 import 'server-only'
 
 import { draftMode, headers } from 'next/headers'
@@ -14,11 +13,14 @@ export async function getAllAttorneys() {
     canSetHeaders: false,
   })
 
+  const isStaff = Boolean(authResult.user)
+  const isDraft = isStaff || isEnabled
+
   const result = await payload.find({
     collection: 'attorneys',
     user: authResult.user ?? undefined,
     overrideAccess: false,
-    draft: isEnabled,
+    draft: isDraft,
     sort: 'sortOrder',
     depth: 1,
     limit: 100,
@@ -37,11 +39,14 @@ export async function getAttorneyBySlug(slug: string) {
     canSetHeaders: false,
   })
 
+  const isStaff = Boolean(authResult.user)
+  const isDraft = isStaff || isEnabled
+
   const result = await payload.find({
     collection: 'attorneys',
     user: authResult.user ?? undefined,
     overrideAccess: false,
-    draft: isEnabled,
+    draft: isDraft,
     where: {
       slug: {
         equals: slug,
@@ -51,5 +56,5 @@ export async function getAttorneyBySlug(slug: string) {
     limit: 1,
   })
 
-  return result.docs[0] ?? null
+  return result.docs[0] || null
 }

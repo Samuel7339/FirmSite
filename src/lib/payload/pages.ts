@@ -1,7 +1,6 @@
-
 import 'server-only'
 
-import { headers } from 'next/headers'
+import { draftMode, headers } from 'next/headers'
 import { getPayloadClient } from '@/lib/payload/getPayloadClient'
 import { getAllAttorneys } from '@/lib/payload/attorneys'
 import { getAllPracticeAreas } from '@/lib/payload/practiceAreas'
@@ -10,6 +9,7 @@ import { getAllFAQs } from '@/lib/payload/faqs'
 async function getPageBySlug(slug: string) {
   const payload = await getPayloadClient()
   const requestHeaders = await headers()
+  const { isEnabled: isDraftMode } = await draftMode()
 
   const authResult = await payload.auth({
     headers: requestHeaders,
@@ -17,12 +17,13 @@ async function getPageBySlug(slug: string) {
   })
 
   const isStaff = Boolean(authResult.user)
+  const isDraft = isStaff || isDraftMode
 
   const result = await payload.find({
     collection: 'pages',
     user: authResult.user ?? undefined,
     overrideAccess: false,
-    draft: isStaff,
+    draft: isDraft,
     where: {
       slug: {
         equals: slug,
@@ -47,7 +48,7 @@ async function getPageBySlug(slug: string) {
           attorneys: await getAllAttorneys(),
         }
       }
-
+      
       if (
         block.blockType === 'practiceAreasGrid' &&
         block.displayMode === 'all'
@@ -57,7 +58,7 @@ async function getPageBySlug(slug: string) {
           practiceAreas: await getAllPracticeAreas(),
         }
       }
-
+      
       return block
     }),
   )
@@ -70,7 +71,7 @@ async function getPageBySlug(slug: string) {
     allFaqs,
   }
 }
-
+   
 export async function getHomePageData() {
   return getPageBySlug('home')
 }

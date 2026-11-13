@@ -1,10 +1,14 @@
 
 import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import React from 'react'
 import './styles.css'
 
+import { VisualEditing } from '@payload-inline-visual-editor/react'
+
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { RefreshRouteOnSave } from '@/components/preview/RefreshRouteOnSave'
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -40,14 +44,25 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const { isEnabled } = await draftMode()
+
   return (
     <html lang="en">
       <body>
+        <RefreshRouteOnSave />
+
+        <VisualEditing
+          serverURL={
+            process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+          }
+          draft={isEnabled}
+        />
+
         <Header />
 
         {children}

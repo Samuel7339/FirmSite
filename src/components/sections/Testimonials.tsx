@@ -1,11 +1,14 @@
 
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type {
   Testimonial,
   TestimonialsBlock,
   Media,
 } from '@/payload-types'
 
-type TestimonialsProps = TestimonialsBlock
+type TestimonialsProps = TestimonialsBlock & {
+  editablePath: string
+}
 
 function getImageUrl(
   image: string | number | Media | null | undefined,
@@ -22,6 +25,7 @@ export function Testimonials({
   heading,
   description,
   testimonials,
+  editablePath,
 }: TestimonialsProps) {
   const items = (testimonials ?? []).filter(
     (item): item is Testimonial =>
@@ -35,19 +39,28 @@ export function Testimonials({
           {eyebrow && (
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-[#D6A84B]" />
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+              <p
+                {...payloadEditable(`${editablePath}.eyebrow`)}
+                className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
+              >
                 {eyebrow}
               </p>
               <span className="h-px w-6 bg-[#D6A84B]" />
             </div>
           )}
 
-          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
+          <h2
+            {...payloadEditable(`${editablePath}.heading`)}
+            className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl"
+          >
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-5 text-base leading-relaxed text-stone-600">
+            <p
+              {...payloadEditable(`${editablePath}.description`)}
+              className="mt-5 text-base leading-relaxed text-stone-600"
+            >
               {description}
             </p>
           )}

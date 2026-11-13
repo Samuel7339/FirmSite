@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPageData } from '@/lib/payload/pages'
 import { PageLayoutRenderer } from '@/components/layout/PageLayoutRenderer'
+// import page from '../page'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
@@ -11,11 +12,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageData('about')
 
   const title = page?.meta?.title || 'About Our Firm | Legal Services'
-
+  
   const description =
     page?.meta?.description ||
     'Learn about our law firm, our values, experience, and commitment to our clients.'
-
+  
   const image =
     typeof page?.meta?.image === 'object' && page.meta.image !== null
       ? page.meta.image
@@ -66,7 +67,7 @@ export default async function AboutPage() {
 
   return (
     <main>
-      <PageLayoutRenderer layout={page.layout} />
+      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
     </main>
   )
 }

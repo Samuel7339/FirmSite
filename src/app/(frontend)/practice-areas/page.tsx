@@ -63,7 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
         ],
       }),
     },
-
+    
     twitter: {
       card: imageUrl ? 'summary_large_image' : 'summary',
       title,
@@ -81,10 +81,10 @@ export default async function PracticeAreasPage() {
   if (!page) {
     notFound()
   }
-
+  
   return (
     <main>
-      <PageLayoutRenderer layout={page.layout} />
+      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
     </main>
   )
 }

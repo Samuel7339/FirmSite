@@ -83,7 +83,7 @@ export default async function AttorneysPage() {
 
   return (
     <main>
-      <PageLayoutRenderer layout={page.layout} />
+      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
     </main>
   )
 }

@@ -1,4 +1,3 @@
-
 import 'server-only'
 
 import { draftMode, headers } from 'next/headers'
@@ -14,11 +13,14 @@ export async function getAllPracticeAreas() {
     canSetHeaders: false,
   })
 
+  const isStaff = Boolean(authResult.user)
+  const isDraft = isStaff || isEnabled
+
   const result = await payload.find({
     collection: 'practice-areas',
     user: authResult.user ?? undefined,
     overrideAccess: false,
-    draft: isEnabled,
+    draft: isDraft,
     sort: 'sortOrder',
     depth: 1,
     limit: 100,
@@ -37,11 +39,14 @@ export async function getPracticeAreaBySlug(slug: string) {
     canSetHeaders: false,
   })
 
+  const isStaff = Boolean(authResult.user)
+  const isDraft = isStaff || isEnabled
+
   const result = await payload.find({
     collection: 'practice-areas',
     user: authResult.user ?? undefined,
     overrideAccess: false,
-    draft: isEnabled,
+    draft: isDraft,
     where: {
       slug: {
         equals: slug,

@@ -3,6 +3,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { visualEditor } from 'payload-inline-visual-editor'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -427,5 +428,8 @@ export default buildConfig({
         return getSEOImage(doc as RecordData, collectionSlug || '')
       },
     }),
+
+    // Inline Visual Editor
+    visualEditor(),
   ],
 })

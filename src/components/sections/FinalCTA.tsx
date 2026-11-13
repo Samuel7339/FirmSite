@@ -1,8 +1,11 @@
 
 import Link from 'next/link'
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { FinalCTABlock } from '@/payload-types'
 
-type FinalCTAProps = FinalCTABlock
+type FinalCTAProps = FinalCTABlock & {
+  editablePath: string
+}
 
 export function FinalCTA({
   eyebrow,
@@ -12,6 +15,7 @@ export function FinalCTA({
   destinationType,
   selectedPage,
   customUrl,
+  editablePath,
 }: FinalCTAProps) {
   const buttonUrl =
     destinationType === 'page' ? selectedPage : customUrl
@@ -29,7 +33,10 @@ export function FinalCTA({
           <div className="mb-3.5 flex items-center justify-center gap-3">
             <span className="h-px w-6 bg-[#B58B60]/70" />
 
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B58B60]">
+            <p
+              {...payloadEditable(`${editablePath}.eyebrow`)}
+              className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B58B60]"
+            >
               {eyebrow}
             </p>
 
@@ -37,12 +44,18 @@ export function FinalCTA({
           </div>
         )}
 
-        <h2 className="font-serif text-2xl font-normal leading-snug text-white sm:text-3xl md:text-4xl">
+        <h2
+          {...payloadEditable(`${editablePath}.heading`)}
+          className="font-serif text-2xl font-normal leading-snug text-white sm:text-3xl md:text-4xl"
+        >
           {heading}
         </h2>
 
         {description && (
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[#F3EEE5]/85 sm:text-base">
+          <p
+            {...payloadEditable(`${editablePath}.description`)}
+            className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[#F3EEE5]/85 sm:text-base"
+          >
             {description}
           </p>
         )}
@@ -53,7 +66,11 @@ export function FinalCTA({
               href={buttonUrl}
               className="inline-flex min-h-11 items-center justify-center bg-[#D8C2A2] px-8 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#182A3A] shadow-md transition-all duration-300 hover:bg-[#B58B60] hover:text-white"
             >
-              {buttonLabel}
+              <span
+                {...payloadEditable(`${editablePath}.buttonLabel`)}
+              >
+                {buttonLabel}
+              </span>
             </Link>
           </div>
         )}

@@ -1,4 +1,3 @@
-
 import 'server-only'
 
 import { draftMode, headers } from 'next/headers'
@@ -15,11 +14,14 @@ export async function getAllFAQs(): Promise<Faq[]> {
     canSetHeaders: false,
   })
 
+  const isStaff = Boolean(authResult.user)
+  const isDraft = isStaff || isEnabled
+
   const result = await payload.find({
     collection: 'faqs',
     user: authResult.user ?? undefined,
     overrideAccess: false,
-    draft: isEnabled,
+    draft: isDraft,
     sort: 'sortOrder',
     limit: 100,
     depth: 1,

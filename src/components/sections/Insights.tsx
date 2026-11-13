@@ -1,10 +1,13 @@
 
 import { draftMode, headers } from 'next/headers'
 import Link from 'next/link'
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { InsightsBlock, Media, Post, Attorney } from '@/payload-types'
 import { getPayloadClient } from '@/lib/payload/getPayloadClient'
 
-type InsightsProps = InsightsBlock
+type InsightsProps = InsightsBlock & {
+  editablePath: string
+}
 
 function getImageUrl(
   image: string | number | Media | null | undefined,
@@ -26,6 +29,7 @@ export async function Insights({
   viewAllDestinationType,
   selectedViewAllPage,
   viewAllUrl,
+  editablePath,
 }: InsightsProps) {
   let items: Post[] = []
 
@@ -39,11 +43,14 @@ export async function Insights({
       canSetHeaders: false,
     })
 
+    const isStaff = Boolean(authResult.user)
+    const isDraft = isStaff || isEnabled
+
     const result = await payload.find({
       collection: 'posts',
       user: authResult.user ?? undefined,
       overrideAccess: false,
-      draft: isEnabled,
+      draft: isDraft,
       sort: '-publishedAt',
       limit: 100,
       depth: 1,
@@ -69,18 +76,27 @@ export async function Insights({
           {eyebrow && (
             <div className="mb-4 flex items-center gap-3">
               <span className="h-px w-6 bg-[#D6A84B]" />
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+              <p
+                {...payloadEditable(`${editablePath}.eyebrow`)}
+                className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
+              >
                 {eyebrow}
               </p>
             </div>
           )}
 
-          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
+          <h2
+            {...payloadEditable(`${editablePath}.heading`)}
+            className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl"
+          >
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-5 text-base leading-relaxed text-stone-600">
+            <p
+              {...payloadEditable(`${editablePath}.description`)}
+              className="mt-5 text-base leading-relaxed text-stone-600"
+            >
               {description}
             </p>
           )}
@@ -111,7 +127,9 @@ export async function Insights({
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#0B1025] to-[#1E293B]">
                         <div className="text-center p-4">
-                          <span className="font-serif text-2xl text-[#D6A84B]">⚖</span>
+                          <span className="font-serif text-2xl text-[#D6A84B]">
+                            ⚖
+                          </span>
                           <p className="mt-1 font-serif text-[10px] tracking-widest text-stone-300">
                             LEGAL INSIGHTS
                           </p>
@@ -149,13 +167,20 @@ export async function Insights({
                 <div className="mt-6 flex items-center justify-between border-t border-stone-200/60 pt-4 px-2">
                   {author ? (
                     <span className="text-xs text-stone-500">
-                      By <span className="font-medium text-[#0B1025]">{author.name}</span>
+                      By{' '}
+                      <span className="font-medium text-[#0B1025]">
+                        {author.name}
+                      </span>
                     </span>
-                  ) : <span />}
+                  ) : (
+                    <span />
+                  )}
 
                   <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
                     <span>Read</span>
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
                   </span>
                 </div>
               </Link>
@@ -169,7 +194,11 @@ export async function Insights({
               href={buttonUrl}
               className="inline-flex min-h-12 items-center justify-center border border-[#0B1025] bg-[#0B1025] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-[#D6A84B] hover:bg-[#D6A84B] hover:text-[#0B1025]"
             >
-              {viewAllLabel}
+              <span
+                {...payloadEditable(`${editablePath}.viewAllLabel`)}
+              >
+                {viewAllLabel}
+              </span>
             </Link>
           </div>
         )}

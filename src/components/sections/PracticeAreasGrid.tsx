@@ -1,11 +1,14 @@
 
 import Link from 'next/link'
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type {
   PracticeAreasGridBlock,
   PracticeArea,
 } from '@/payload-types'
 
-type PracticeAreasGridProps = PracticeAreasGridBlock
+type PracticeAreasGridProps = PracticeAreasGridBlock & {
+  editablePath: string
+}
 
 export function PracticeAreasGrid({
   eyebrow,
@@ -16,6 +19,7 @@ export function PracticeAreasGrid({
   viewAllDestinationType,
   selectedViewAllPage,
   viewAllUrl,
+  editablePath,
 }: PracticeAreasGridProps) {
   const items = (practiceAreas ?? []).filter(
     (item): item is PracticeArea =>
@@ -34,18 +38,27 @@ export function PracticeAreasGrid({
           {eyebrow && (
             <div className="mb-4 flex items-center gap-3">
               <span className="h-px w-6 bg-[#D6A84B]" />
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+              <p
+                {...payloadEditable(`${editablePath}.eyebrow`)}
+                className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
+              >
                 {eyebrow}
               </p>
             </div>
           )}
 
-          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
+          <h2
+            {...payloadEditable(`${editablePath}.heading`)}
+            className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl"
+          >
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-5 text-base leading-relaxed text-stone-600">
+            <p
+              {...payloadEditable(`${editablePath}.description`)}
+              className="mt-5 text-base leading-relaxed text-stone-600"
+            >
               {description}
             </p>
           )}
@@ -84,6 +97,7 @@ export function PracticeAreasGrid({
           <div className="mt-14 text-center">
             <Link
               href={buttonUrl}
+              {...payloadEditable(`${editablePath}.viewAllLabel`)}
               className="inline-flex min-h-12 items-center justify-center border border-[#0B1025] bg-[#0B1025] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-[#D6A84B] hover:bg-[#D6A84B] hover:text-[#0B1025]"
             >
               {viewAllLabel}

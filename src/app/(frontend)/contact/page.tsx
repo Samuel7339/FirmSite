@@ -66,7 +66,7 @@ export default async function ContactPage() {
 
   return (
     <main>
-      <PageLayoutRenderer layout={page.layout} />
+      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
     </main>
   )
 }

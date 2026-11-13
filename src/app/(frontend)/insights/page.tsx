@@ -64,7 +64,7 @@ export default async function InsightsPage() {
 
   return (
     <main>
-      <PageLayoutRenderer layout={page.layout} />
+      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
     </main>
   )
 }

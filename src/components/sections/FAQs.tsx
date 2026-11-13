@@ -1,13 +1,16 @@
+
 'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 
 import type { Faq, FAQsBlock } from '@/payload-types'
 
 type FAQsProps = FAQsBlock & {
     allFaqs?: Faq[]
     groupByCategory?: boolean
+    editablePath: string
 }
 
 const categories = [
@@ -29,6 +32,7 @@ export function FAQs({
     viewAllDestinationType,
     selectedViewAllPage,
     viewAllUrl,
+    editablePath,
 }: FAQsProps) {
     const [openFaqId, setOpenFaqId] = useState<string | number | null>(
         null,
@@ -97,19 +101,28 @@ export function FAQs({
                     {eyebrow && (
                         <div className="mb-4 flex items-center justify-center gap-3">
                             <span className="h-px w-6 bg-[#D6A84B]" />
-                            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+                            <p
+                                {...payloadEditable(`${editablePath}.eyebrow`)}
+                                className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
+                            >
                                 {eyebrow}
                             </p>
                             <span className="h-px w-6 bg-[#D6A84B]" />
                         </div>
                     )}
 
-                    <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
+                    <h2
+                        {...payloadEditable(`${editablePath}.heading`)}
+                        className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl"
+                    >
                         {heading}
                     </h2>
 
                     {description && (
-                        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-stone-600">
+                        <p
+                            {...payloadEditable(`${editablePath}.description`)}
+                            className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-stone-600"
+                        >
                             {description}
                         </p>
                     )}
@@ -141,7 +154,11 @@ export function FAQs({
                             href={buttonUrl}
                             className="inline-flex min-h-12 items-center justify-center border border-[#0B1025] bg-[#0B1025] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-[#D6A84B] hover:bg-[#D6A84B] hover:text-[#0B1025]"
                         >
-                            {viewAllLabel}
+                            <span
+                                {...payloadEditable(`${editablePath}.viewAllLabel`)}
+                            >
+                                {viewAllLabel}
+                            </span>
                         </Link>
                     </div>
                 )}

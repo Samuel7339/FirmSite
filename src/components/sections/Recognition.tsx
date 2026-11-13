@@ -1,7 +1,10 @@
 
+import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { RecognitionBlock, Media } from '@/payload-types'
 
-type RecognitionProps = RecognitionBlock
+type RecognitionProps = RecognitionBlock & {
+  editablePath: string
+}
 
 function getMediaUrl(
   image: string | number | Media | null | undefined,
@@ -19,6 +22,7 @@ export function Recognition({
   description,
   featuredAwards,
   recognitions,
+  editablePath,
 }: RecognitionProps) {
   return (
     <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:px-20">
@@ -27,19 +31,28 @@ export function Recognition({
           {eyebrow && (
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-[#D6A84B]" />
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]">
+              <p
+                {...payloadEditable(`${editablePath}.eyebrow`)}
+                className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
+              >
                 {eyebrow}
               </p>
               <span className="h-px w-6 bg-[#D6A84B]" />
             </div>
           )}
 
-          <h2 className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl">
+          <h2
+            {...payloadEditable(`${editablePath}.heading`)}
+            className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl"
+          >
             {heading}
           </h2>
 
           {description && (
-            <p className="mt-5 text-base leading-relaxed text-stone-600">
+            <p
+              {...payloadEditable(`${editablePath}.description`)}
+              className="mt-5 text-base leading-relaxed text-stone-600"
+            >
               {description}
             </p>
           )}
@@ -53,6 +66,7 @@ export function Recognition({
               return (
                 <div
                   key={award.id ?? index}
+                  {...payloadEditable(`${editablePath}.featuredAwards.${index}`)}
                   className="group flex min-h-[220px] flex-col items-center justify-center border border-stone-200/80 bg-[#F8F6F0] p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A84B]/50 hover:bg-white hover:shadow-lg"
                 >
                   {logoUrl ? (
@@ -67,12 +81,18 @@ export function Recognition({
                     </div>
                   )}
 
-                  <h3 className="font-serif text-xl font-normal text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
+                  <h3
+                    {...payloadEditable(`${editablePath}.featuredAwards.${index}.title`)}
+                    className="font-serif text-xl font-normal text-[#0B1025] transition-colors group-hover:text-[#C59A3F]"
+                  >
                     {award.title}
                   </h3>
 
                   {award.organization && (
-                    <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">
+                    <p
+                      {...payloadEditable(`${editablePath}.featuredAwards.${index}.organization`)}
+                      className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500"
+                    >
                       {award.organization}
                     </p>
                   )}
@@ -90,6 +110,7 @@ export function Recognition({
               return (
                 <div
                   key={item.id ?? index}
+                  {...payloadEditable(`${editablePath}.recognitions.${index}`)}
                   className="flex flex-col items-center justify-center rounded-sm p-4 text-center transition-colors hover:bg-stone-50"
                 >
                   {logoUrl ? (
@@ -104,12 +125,18 @@ export function Recognition({
                     </div>
                   )}
 
-                  <h3 className="font-serif text-xs font-medium tracking-wide text-[#0B1025]">
+                  <h3
+                    {...payloadEditable(`${editablePath}.recognitions.${index}.title`)}
+                    className="font-serif text-xs font-medium tracking-wide text-[#0B1025]"
+                  >
                     {item.title}
                   </h3>
 
                   {item.organization && (
-                    <p className="mt-1 text-[11px] text-stone-500">
+                    <p
+                      {...payloadEditable(`${editablePath}.recognitions.${index}.organization`)}
+                      className="mt-1 text-[11px] text-stone-500"
+                    >
                       {item.organization}
                     </p>
                   )}

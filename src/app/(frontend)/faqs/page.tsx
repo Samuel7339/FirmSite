@@ -70,6 +70,7 @@ export default async function FAQsPage() {
       layout={page.layout ?? []}
       pageSlug="faqs"
       allFaqs={page.allFaqs ?? []}
+      pageId={page.id}
     />
   )
 }
