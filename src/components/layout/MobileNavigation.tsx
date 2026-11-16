@@ -34,7 +34,7 @@ export function MobileNavigation({
   logo,
 }: MobileNavigationProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const resolvedConsultationUrl = consultationUrl || '/contact'
+  const resolvedConsultationUrl = consultationUrl || '/#consultation-form'
 
   return (
     <div>

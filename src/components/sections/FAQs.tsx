@@ -85,9 +85,11 @@ export function FAQs({
 
                 {isOpen && (
                     <div className="px-6 pb-7 md:px-8">
-                        <p className="text-sm leading-relaxed text-stone-600">
+
+                        <p className="max-w-3xl pt-3 font-sans text-[14.5px] font-normal leading-[1.85] tracking-[0.01em] text-[#64717D] md:text-[15px] md:leading-[1.9]">
                             {item.answer}
                         </p>
+
                     </div>
                 )}
             </div>

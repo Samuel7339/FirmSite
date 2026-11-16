@@ -271,10 +271,16 @@ export function Contact({
 
   return (
     <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:px-20">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <div>
+      <div
+        className={`mx-auto grid max-w-7xl items-center gap-12 lg:gap-20 ${
+          imageUrl
+            ? 'lg:grid-cols-2'
+            : 'grid-cols-1'
+        }`}
+      >
+        <div className={imageUrl ? '' : 'mx-auto w-full max-w-[760px]'}>
           {eyebrow && (
-            <div className="mb-4 flex items-center gap-3">
+            <div className={`mb-4 flex items-center gap-3 ${!imageUrl ? 'justify-center' : ''}`}>
               <span className="h-px w-6 bg-[#D6A84B]" />
               <p
                 {...payloadEditable(`${editablePath}.eyebrow`)}
@@ -282,12 +288,17 @@ export function Contact({
               >
                 {eyebrow}
               </p>
+              {!imageUrl && (
+                <span className="h-px w-6 bg-[#D6A84B]" />
+              )}
             </div>
           )}
 
           <h2
             {...payloadEditable(`${editablePath}.heading`)}
-            className="font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl"
+            className={`font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl ${
+              !imageUrl ? 'text-center' : ''
+            }`}
           >
             {heading}
           </h2>
@@ -295,7 +306,9 @@ export function Contact({
           {description && (
             <p
               {...payloadEditable(`${editablePath}.description`)}
-              className="mt-5 text-base leading-relaxed text-stone-600"
+              className={`mt-5 text-base leading-relaxed text-stone-600 ${
+                !imageUrl ? 'mx-auto max-w-2xl text-center' : ''
+              }`}
             >
               {description}
             </p>
@@ -303,7 +316,7 @@ export function Contact({
 
           <div
             {...payloadEditable(`${editablePath}.form`)}
-            className="mt-8 border border-stone-200/80 bg-[#F8F6F0] p-8 shadow-sm"
+            className="mt-8 border border-stone-200/80 bg-[#F8F6F0] p-8 shadow-sm md:p-10"
           >
             <h3 className="font-serif text-2xl font-normal text-[#0B1025]">
               Get in Touch

@@ -5,6 +5,16 @@ type ButtonData = {
   destinationType?: 'page' | 'custom'
 }
 
+const pageOptions = [
+  { label: 'Home', value: '/' },
+  { label: 'About Us', value: '/about' },
+  { label: 'Practice Areas', value: '/practice-areas' },
+  { label: 'Attorneys', value: '/attorneys' },
+  { label: 'Cases', value: '/cases' },
+  { label: 'Insights', value: '/insights' },
+  { label: 'Contact', value: '/contact' },
+]
+
 export const AboutFirm: Block = {
   slug: 'aboutFirm',
   interfaceName: 'AboutFirmBlock',
@@ -15,6 +25,7 @@ export const AboutFirm: Block = {
   },
 
   fields: [
+    // Section Heading
     {
       type: 'row',
       fields: [
@@ -37,12 +48,14 @@ export const AboutFirm: Block = {
         },
       ],
     },
+
     {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
       required: true,
     },
+
     {
       name: 'description',
       type: 'richText',
@@ -58,7 +71,7 @@ export const AboutFirm: Block = {
           type: 'text',
           label: 'Button Label',
           admin: {
-            width: '50%',
+            width: '25%',
           },
         },
         {
@@ -71,37 +84,31 @@ export const AboutFirm: Block = {
             { label: 'Enter a Custom URL', value: 'custom' },
           ],
           admin: {
-            width: '50%',
+            width: '35%',
+          },
+        },
+        {
+          name: 'selectedPage',
+          type: 'select',
+          label: 'Select Page',
+          options: pageOptions,
+          admin: {
+            width: '40%',
+            condition: (_, siblingData) =>
+              (siblingData as ButtonData)?.destinationType === 'page',
+          },
+        },
+        {
+          name: 'customUrl',
+          type: 'text',
+          label: 'Custom Button URL',
+          admin: {
+            width: '40%',
+            condition: (_, siblingData) =>
+              (siblingData as ButtonData)?.destinationType === 'custom',
           },
         },
       ],
-    },
-    {
-      name: 'selectedPage',
-      type: 'select',
-      label: 'Select Page',
-      options: [
-        { label: 'Home', value: '/' },
-        { label: 'About Us', value: '/about' },
-        { label: 'Practice Areas', value: '/practice-areas' },
-        { label: 'Attorneys', value: '/attorneys' },
-        { label: 'Cases', value: '/cases' },
-        { label: 'Insights', value: '/insights' },
-        { label: 'Contact', value: '/contact' },
-      ],
-      admin: {
-        condition: (_, siblingData) =>
-          (siblingData as ButtonData)?.destinationType === 'page',
-      },
-    },
-    {
-      name: 'customUrl',
-      type: 'text',
-      label: 'Custom Button URL',
-      admin: {
-        condition: (_, siblingData) =>
-          (siblingData as ButtonData)?.destinationType === 'custom',
-      },
     },
   ],
 }

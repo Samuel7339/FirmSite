@@ -13,6 +13,12 @@ export function Process({
   steps,
   editablePath,
 }: ProcessProps) {
+  // Relationship fields can contain IDs or populated documents.
+  // Only populated documents can be rendered here.
+  const populatedSteps = (steps ?? []).filter(
+    (step) => typeof step === 'object' && step !== null,
+  )
+
   return (
     <section className="bg-[#F8F6F0] px-6 py-20 md:px-12 md:py-28 lg:px-20">
       <div className="mx-auto max-w-7xl">
@@ -20,12 +26,14 @@ export function Process({
           {eyebrow && (
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-[#D6A84B]" />
+
               <p
                 {...payloadEditable(`${editablePath}.eyebrow`)}
                 className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
               >
                 {eyebrow}
               </p>
+
               <span className="h-px w-6 bg-[#D6A84B]" />
             </div>
           )}
@@ -48,10 +56,9 @@ export function Process({
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {(steps ?? []).map((step, index) => (
+          {populatedSteps.map((step, index) => (
             <div
               key={step.id ?? index}
-              {...payloadEditable(`${editablePath}.steps.${index}`)}
               className="group relative flex flex-col justify-between border border-stone-200/80 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[#D6A84B]/50 hover:shadow-xl"
             >
               <div>
@@ -59,21 +66,16 @@ export function Process({
                   <span className="font-serif text-3xl font-normal text-[#C59A3F]">
                     {String(index + 1).padStart(2, '0')}
                   </span>
+
                   <span className="h-2 w-2 rounded-full bg-[#D6A84B]/40 group-hover:bg-[#D6A84B]" />
                 </div>
 
-                <h3
-                  {...payloadEditable(`${editablePath}.steps.${index}.title`)}
-                  className="mt-6 font-serif text-2xl font-normal text-[#0B1025] transition-colors group-hover:text-[#C59A3F]"
-                >
+                <h3 className="mt-6 font-serif text-2xl font-normal text-[#0B1025] transition-colors group-hover:text-[#C59A3F]">
                   {step.title}
                 </h3>
 
                 {step.description && (
-                  <p
-                    {...payloadEditable(`${editablePath}.steps.${index}.description`)}
-                    className="mt-4 text-sm leading-relaxed text-stone-600"
-                  >
+                  <p className="mt-4 text-sm leading-relaxed text-stone-600">
                     {step.description}
                   </p>
                 )}

@@ -1,8 +1,10 @@
+
 import type { Block } from 'payload'
 
 export const Process: Block = {
   slug: 'process',
   interfaceName: 'ProcessBlock',
+
   labels: {
     singular: 'Our Process Section',
     plural: 'Our Process Sections',
@@ -35,21 +37,13 @@ export const Process: Block = {
     },
     {
       name: 'steps',
-      type: 'array',
-      label: 'Process Steps',
-      minRows: 2,
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-        },
-      ],
+      type: 'relationship',
+      relationTo: 'process-steps',
+      hasMany: true,
+      required: true,
+      admin: {
+        description: 'Select the process steps to display in this section.',
+      },
     },
   ],
 }

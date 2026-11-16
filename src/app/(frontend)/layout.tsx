@@ -9,39 +9,73 @@ import { VisualEditing } from '@payload-inline-visual-editor/react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { RefreshRouteOnSave } from '@/components/preview/RefreshRouteOnSave'
+import { getPayloadClient } from '@/lib/payload/getPayloadClient'
 
-export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
-  ),
+const DEFAULT_DESCRIPTION =
+  'A trusted legal partner providing professional legal services, expert legal guidance, and dedicated client support.'
 
-  title: {
-    default: 'Law Firm | Trusted Legal Services',
-    template: '%s | Law Firm',
-  },
+async function getSiteSettings() {
+  const payload = await getPayloadClient()
 
-  description:
-    'A trusted legal partner providing professional legal services, expert legal guidance, and dedicated client support.',
+  return payload.findGlobal({
+    slug: 'site-settings',
+    depth: 1,
+  })
+}
 
-  openGraph: {
-    type: 'website',
-    siteName: 'Law Firm',
-    title: 'Law Firm | Trusted Legal Services',
-    description:
-      'A trusted legal partner providing professional legal services, expert legal guidance, and dedicated client support.',
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings()
 
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Law Firm | Trusted Legal Services',
-    description:
-      'A trusted legal partner providing professional legal services, expert legal guidance, and dedicated client support.',
-  },
+  const siteName = settings.siteName || 'Law Firm'
 
-  robots: {
-    index: true,
-    follow: true,
-  },
+  const siteDescription =
+    settings.siteDescription || DEFAULT_DESCRIPTION
+
+  const favicon =
+    typeof settings.favicon === 'object' && settings.favicon !== null
+      ? settings.favicon.url
+      : null
+
+  const defaultTitle = `${siteName} | Trusted Legal Services`
+
+  return {
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+    ),
+
+    title: {
+      default: defaultTitle,
+      template: `%s | ${siteName}`,
+    },
+
+    description: siteDescription,
+
+    icons: favicon
+      ? {
+          icon: favicon,
+          shortcut: favicon,
+          apple: favicon,
+        }
+      : undefined,
+
+    openGraph: {
+      type: 'website',
+      siteName,
+      title: defaultTitle,
+      description: siteDescription,
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: defaultTitle,
+      description: siteDescription,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
+  }
 }
 
 export default async function RootLayout({

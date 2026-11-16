@@ -63,19 +63,27 @@ export const Posts: CollectionConfig = {
     },
 
     {
-      name: 'author',
-      type: 'relationship',
-      relationTo: 'attorneys',
-    },
-
-    {
-      name: 'publishedAt',
-      type: 'date',
-      admin: {
-        date: {
-          pickerAppearance: 'dayAndTime',
+      type: 'row',
+      fields: [
+        {
+          name: 'author',
+          type: 'relationship',
+          relationTo: 'attorneys',
+          admin: {
+            width: '50%',
+          },
         },
-      },
+        {
+          name: 'publishedAt',
+          type: 'date',
+          admin: {
+            width: '50%',
+            date: {
+              pickerAppearance: 'dayAndTime',
+            },
+          },
+        },
+      ],
     },
 
     {

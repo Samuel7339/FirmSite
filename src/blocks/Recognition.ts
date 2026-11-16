@@ -1,8 +1,14 @@
+
 import type { Block } from 'payload'
+
+type RecognitionData = {
+  displayMode?: 'selected' | 'all'
+}
 
 export const Recognition: Block = {
   slug: 'recognition',
   interfaceName: 'RecognitionBlock',
+
   labels: {
     singular: 'Recognition & Awards',
     plural: 'Recognition & Awards Sections',
@@ -23,6 +29,7 @@ export const Recognition: Block = {
           name: 'heading',
           type: 'text',
           required: true,
+          defaultValue: 'Recognised for Our Commitment to Excellence',
           admin: {
             width: '50%',
           },
@@ -34,50 +41,48 @@ export const Recognition: Block = {
       type: 'textarea',
     },
     {
-      name: 'featuredAwards',
-      type: 'array',
-      label: 'Featured Award Cards',
-      minRows: 3,
-      maxRows: 3,
-      fields: [
+      name: 'displayMode',
+      type: 'select',
+      label: 'Awards Display Mode',
+      defaultValue: 'selected',
+      options: [
         {
-          name: 'title',
-          type: 'text',
-          required: true,
+          label: 'Selected Awards & Recognitions',
+          value: 'selected',
         },
         {
-          name: 'organization',
-          type: 'text',
-        },
-        {
-          name: 'logo',
-          type: 'upload',
-          relationTo: 'media',
+          label: 'All Awards & Recognitions',
+          value: 'all',
         },
       ],
+      admin: {
+        description:
+          'Choose specific awards and recognitions or automatically display all published records.',
+      },
     },
     {
-      name: 'recognitions',
-      type: 'array',
-      label: 'Recognition Items',
-      minRows: 6,
-      maxRows: 6,
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'organization',
-          type: 'text',
-        },
-        {
-          name: 'logo',
-          type: 'upload',
-          relationTo: 'media',
-        },
-      ],
+      name: 'awards',
+      type: 'relationship',
+      relationTo: 'awards',
+      hasMany: true,
+      admin: {
+        condition: (_, siblingData) =>
+          (siblingData as RecognitionData)?.displayMode === 'selected',
+        description:
+          'Select the awards and recognitions to display in this section.',
+      },
+      validate: (value, { siblingData }) => {
+        const data = siblingData as RecognitionData
+
+        if (
+          data?.displayMode === 'selected' &&
+          (!Array.isArray(value) || value.length === 0)
+        ) {
+          return 'Please select at least one award or recognition.'
+        }
+
+        return true
+      },
     },
   ],
 }

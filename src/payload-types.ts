@@ -75,7 +75,9 @@ export interface Config {
     cases: Case;
     testimonials: Testimonial;
     faqs: Faq;
+    awards: Award;
     pages: Page;
+    'process-steps': ProcessStep;
     forms: Form;
     'form-submissions': FormSubmission;
     'payload-kv': PayloadKv;
@@ -93,7 +95,9 @@ export interface Config {
     cases: CasesSelect<false> | CasesSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
+    awards: AwardsSelect<false> | AwardsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    'process-steps': ProcessStepsSelect<false> | ProcessStepsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -149,10 +153,10 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  email: string;
   role: 'admin' | 'editor';
   updatedAt: string;
   createdAt: string;
-  email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -251,14 +255,14 @@ export interface Attorney {
   name: string;
   sortOrder?: number | null;
   /**
+   * Example: Senior Partner, Managing Partner, Associate.
+   */
+  position: string;
+  /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
   slug: string;
-  /**
-   * Example: Senior Partner, Managing Partner, Associate.
-   */
-  position: string;
   portrait?: (string | null) | Media;
   shortBio: string;
   biography?: {
@@ -366,9 +370,9 @@ export interface Case {
    * Example: Corporate Dispute, Property Dispute.
    */
   caseType: string;
+  practiceArea?: (string | null) | PracticeArea;
   summary: string;
   featuredImage?: (string | null) | Media;
-  practiceArea?: (string | null) | PracticeArea;
   /**
    * Publicly approved case outcome or result.
    */
@@ -437,6 +441,38 @@ export interface Faq {
    * Optional: associate this FAQ with a practice area.
    */
   practiceArea?: (string | null) | PracticeArea;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "awards".
+ */
+export interface Award {
+  id: string;
+  title: string;
+  category: 'award' | 'recognition';
+  /**
+   * Name of the organization that granted the award or recognition.
+   */
+  organization: string;
+  /**
+   * Controls the display order. Lower numbers appear first.
+   */
+  sortOrder?: number | null;
+  /**
+   * Optional details about this award or recognition.
+   */
+  description?: string | null;
+  /**
+   * Optional Lucide icon name, for example: trophy, award, star, scale.
+   */
+  icon?: string | null;
+  /**
+   * Optional logo or image for this award or recognition.
+   */
+  logo?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -772,22 +808,14 @@ export interface RecognitionBlock {
   eyebrow?: string | null;
   heading: string;
   description?: string | null;
-  featuredAwards?:
-    | {
-        title: string;
-        organization?: string | null;
-        logo?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
-  recognitions?:
-    | {
-        title: string;
-        organization?: string | null;
-        logo?: (string | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * Choose specific awards and recognitions or automatically display all published records.
+   */
+  displayMode?: ('selected' | 'all') | null;
+  /**
+   * Select the awards and recognitions to display in this section.
+   */
+  awards?: (string | Award)[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'recognition';
@@ -825,16 +853,29 @@ export interface ProcessBlock {
   eyebrow?: string | null;
   heading: string;
   description?: string | null;
-  steps?:
-    | {
-        title: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * Select the process steps to display in this section.
+   */
+  steps: (string | ProcessStep)[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'process';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "process-steps".
+ */
+export interface ProcessStep {
+  id: string;
+  title: string;
+  /**
+   * Controls the display order. Lower numbers appear first.
+   */
+  sortOrder?: number | null;
+  description: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1118,8 +1159,16 @@ export interface PayloadLockedDocument {
         value: string | Faq;
       } | null)
     | ({
+        relationTo: 'awards';
+        value: string | Award;
+      } | null)
+    | ({
         relationTo: 'pages';
         value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'process-steps';
+        value: string | ProcessStep;
       } | null)
     | ({
         relationTo: 'forms';
@@ -1176,10 +1225,10 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  email?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;
-  email?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;
@@ -1248,9 +1297,9 @@ export interface PracticeAreasSelect<T extends boolean = true> {
 export interface AttorneysSelect<T extends boolean = true> {
   name?: T;
   sortOrder?: T;
+  position?: T;
   generateSlug?: T;
   slug?: T;
-  position?: T;
   portrait?: T;
   shortBio?: T;
   biography?: T;
@@ -1314,9 +1363,9 @@ export interface CasesSelect<T extends boolean = true> {
   generateSlug?: T;
   slug?: T;
   caseType?: T;
+  practiceArea?: T;
   summary?: T;
   featuredImage?: T;
-  practiceArea?: T;
   outcome?: T;
   content?: T;
   caseDate?: T;
@@ -1356,6 +1405,22 @@ export interface FaqsSelect<T extends boolean = true> {
   category?: T;
   sortOrder?: T;
   practiceArea?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "awards_select".
+ */
+export interface AwardsSelect<T extends boolean = true> {
+  title?: T;
+  category?: T;
+  organization?: T;
+  sortOrder?: T;
+  description?: T;
+  icon?: T;
+  logo?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1478,22 +1543,8 @@ export interface RecognitionBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   description?: T;
-  featuredAwards?:
-    | T
-    | {
-        title?: T;
-        organization?: T;
-        logo?: T;
-        id?: T;
-      };
-  recognitions?:
-    | T
-    | {
-        title?: T;
-        organization?: T;
-        logo?: T;
-        id?: T;
-      };
+  displayMode?: T;
+  awards?: T;
   id?: T;
   blockName?: T;
 }
@@ -1522,13 +1573,7 @@ export interface ProcessBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   description?: T;
-  steps?:
-    | T
-    | {
-        title?: T;
-        description?: T;
-        id?: T;
-      };
+  steps?: T;
   id?: T;
   blockName?: T;
 }
@@ -1682,6 +1727,18 @@ export interface FinalCTABlockSelect<T extends boolean = true> {
   customUrl?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "process-steps_select".
+ */
+export interface ProcessStepsSelect<T extends boolean = true> {
+  title?: T;
+  sortOrder?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

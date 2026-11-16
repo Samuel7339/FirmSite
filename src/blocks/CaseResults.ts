@@ -7,6 +7,16 @@ type CaseResultsData = {
   viewAllDestinationType?: 'page' | 'custom'
 }
 
+const pageOptions = [
+  { label: 'Home', value: '/' },
+  { label: 'About Us', value: '/about' },
+  { label: 'Practice Areas', value: '/practice-areas' },
+  { label: 'Attorneys', value: '/attorneys' },
+  { label: 'Cases', value: '/cases' },
+  { label: 'Insights', value: '/insights' },
+  { label: 'Contact', value: '/contact' },
+]
+
 export const CaseResults: Block = {
   slug: 'caseResults',
   interfaceName: 'CaseResultsBlock',
@@ -17,6 +27,7 @@ export const CaseResults: Block = {
   },
 
   fields: [
+    // Section Heading
     {
       type: 'row',
       fields: [
@@ -38,10 +49,12 @@ export const CaseResults: Block = {
         },
       ],
     },
+
     {
       name: 'description',
       type: 'textarea',
     },
+
     {
       name: 'displayMode',
       type: 'select',
@@ -56,6 +69,7 @@ export const CaseResults: Block = {
           'Choose specific cases or automatically display all published cases.',
       },
     },
+
     {
       name: 'cases',
       type: 'relationship',
@@ -79,6 +93,8 @@ export const CaseResults: Block = {
         return true
       },
     },
+
+    // View All Button
     {
       type: 'row',
       fields: [
@@ -87,7 +103,7 @@ export const CaseResults: Block = {
           type: 'text',
           label: 'Button Label',
           admin: {
-            width: '50%',
+            width: '25%',
           },
         },
         {
@@ -99,53 +115,47 @@ export const CaseResults: Block = {
             { label: 'Enter a Custom URL', value: 'custom' },
           ],
           admin: {
-            width: '50%',
+            width: '35%',
             condition: (_, siblingData) =>
               Boolean(
                 (siblingData as CaseResultsData)?.viewAllLabel?.trim(),
               ),
           },
         },
-      ],
-    },
-    {
-      name: 'selectedViewAllPage',
-      type: 'select',
-      label: 'Select Page',
-      options: [
-        { label: 'Home', value: '/' },
-        { label: 'About Us', value: '/about' },
-        { label: 'Practice Areas', value: '/practice-areas' },
-        { label: 'Attorneys', value: '/attorneys' },
-        { label: 'Cases', value: '/cases' },
-        { label: 'Insights', value: '/insights' },
-        { label: 'Contact', value: '/contact' },
-      ],
-      admin: {
-        condition: (_, siblingData) => {
-          const data = siblingData as CaseResultsData
+        {
+          name: 'selectedViewAllPage',
+          type: 'select',
+          label: 'Select Page',
+          options: pageOptions,
+          admin: {
+            width: '40%',
+            condition: (_, siblingData) => {
+              const data = siblingData as CaseResultsData
 
-          return (
-            Boolean(data?.viewAllLabel?.trim()) &&
-            data?.viewAllDestinationType === 'page'
-          )
+              return (
+                Boolean(data?.viewAllLabel?.trim()) &&
+                data?.viewAllDestinationType === 'page'
+              )
+            },
+          },
         },
-      },
-    },
-    {
-      name: 'viewAllUrl',
-      type: 'text',
-      label: 'Custom Button URL',
-      admin: {
-        condition: (_, siblingData) => {
-          const data = siblingData as CaseResultsData
+        {
+          name: 'viewAllUrl',
+          type: 'text',
+          label: 'Custom Button URL',
+          admin: {
+            width: '40%',
+            condition: (_, siblingData) => {
+              const data = siblingData as CaseResultsData
 
-          return (
-            Boolean(data?.viewAllLabel?.trim()) &&
-            data?.viewAllDestinationType === 'custom'
-          )
+              return (
+                Boolean(data?.viewAllLabel?.trim()) &&
+                data?.viewAllDestinationType === 'custom'
+              )
+            },
+          },
         },
-      },
+      ],
     },
   ],
 }

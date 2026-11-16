@@ -5,6 +5,16 @@ type ButtonData = {
   destinationType?: 'page' | 'custom'
 }
 
+const pageOptions = [
+  { label: 'Home', value: '/' },
+  { label: 'About Us', value: '/about' },
+  { label: 'Practice Areas', value: '/practice-areas' },
+  { label: 'Attorneys', value: '/attorneys' },
+  { label: 'Cases', value: '/cases' },
+  { label: 'Insights', value: '/insights' },
+  { label: 'Contact', value: '/contact' },
+]
+
 export const HomeHero: Block = {
   slug: 'HomeHero',
   interfaceName: 'HeroBlock',
@@ -15,6 +25,7 @@ export const HomeHero: Block = {
   },
 
   fields: [
+    // Hero Heading
     {
       type: 'row',
       fields: [
@@ -36,10 +47,12 @@ export const HomeHero: Block = {
         },
       ],
     },
+
     {
       name: 'description',
       type: 'textarea',
     },
+
     {
       name: 'backgroundImage',
       type: 'upload',
@@ -60,7 +73,7 @@ export const HomeHero: Block = {
               type: 'text',
               label: 'Button Label',
               admin: {
-                width: '50%',
+                width: '25%',
               },
             },
             {
@@ -73,37 +86,31 @@ export const HomeHero: Block = {
                 { label: 'Enter a Custom URL', value: 'custom' },
               ],
               admin: {
-                width: '50%',
+                width: '35%',
+              },
+            },
+            {
+              name: 'selectedPage',
+              type: 'select',
+              label: 'Select Page',
+              options: pageOptions,
+              admin: {
+                width: '40%',
+                condition: (_, siblingData) =>
+                  (siblingData as ButtonData)?.destinationType === 'page',
+              },
+            },
+            {
+              name: 'customUrl',
+              type: 'text',
+              label: 'Custom Button URL',
+              admin: {
+                width: '40%',
+                condition: (_, siblingData) =>
+                  (siblingData as ButtonData)?.destinationType === 'custom',
               },
             },
           ],
-        },
-        {
-          name: 'selectedPage',
-          type: 'select',
-          label: 'Select Page',
-          options: [
-            { label: 'Home', value: '/' },
-            { label: 'About Us', value: '/about' },
-            { label: 'Practice Areas', value: '/practice-areas' },
-            { label: 'Attorneys', value: '/attorneys' },
-            { label: 'Cases', value: '/cases' },
-            { label: 'Insights', value: '/insights' },
-            { label: 'Contact', value: '/contact' },
-          ],
-          admin: {
-            condition: (_, siblingData) =>
-              (siblingData as ButtonData)?.destinationType === 'page',
-          },
-        },
-        {
-          name: 'customUrl',
-          type: 'text',
-          label: 'Custom Button URL',
-          admin: {
-            condition: (_, siblingData) =>
-              (siblingData as ButtonData)?.destinationType === 'custom',
-          },
         },
       ],
     },
@@ -122,7 +129,7 @@ export const HomeHero: Block = {
               type: 'text',
               label: 'Button Label',
               admin: {
-                width: '50%',
+                width: '25%',
               },
             },
             {
@@ -135,37 +142,31 @@ export const HomeHero: Block = {
                 { label: 'Enter a Custom URL', value: 'custom' },
               ],
               admin: {
-                width: '50%',
+                width: '35%',
+              },
+            },
+            {
+              name: 'selectedPage',
+              type: 'select',
+              label: 'Select Page',
+              options: pageOptions,
+              admin: {
+                width: '40%',
+                condition: (_, siblingData) =>
+                  (siblingData as ButtonData)?.destinationType === 'page',
+              },
+            },
+            {
+              name: 'customUrl',
+              type: 'text',
+              label: 'Custom Button URL',
+              admin: {
+                width: '40%',
+                condition: (_, siblingData) =>
+                  (siblingData as ButtonData)?.destinationType === 'custom',
               },
             },
           ],
-        },
-        {
-          name: 'selectedPage',
-          type: 'select',
-          label: 'Select Page',
-          options: [
-            { label: 'Home', value: '/' },
-            { label: 'About Us', value: '/about' },
-            { label: 'Practice Areas', value: '/practice-areas' },
-            { label: 'Attorneys', value: '/attorneys' },
-            { label: 'Cases', value: '/cases' },
-            { label: 'Insights', value: '/insights' },
-            { label: 'Contact', value: '/contact' },
-          ],
-          admin: {
-            condition: (_, siblingData) =>
-              (siblingData as ButtonData)?.destinationType === 'page',
-          },
-        },
-        {
-          name: 'customUrl',
-          type: 'text',
-          label: 'Custom Button URL',
-          admin: {
-            condition: (_, siblingData) =>
-              (siblingData as ButtonData)?.destinationType === 'custom',
-          },
         },
       ],
     },

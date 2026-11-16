@@ -35,25 +35,19 @@ export const Testimonials: CollectionConfig = {
           name: 'clientName',
           type: 'text',
           required: true,
-          admin: { width: '60%' },
+          admin: { width: '20%' },
         },
         {
           name: 'sortOrder',
           type: 'number',
           defaultValue: 0,
-          admin: { width: '40%' },
+          admin: { width: '15%' },
         },
-      ],
-    },
-
-    {
-      type: 'row',
-      fields: [
         {
           name: 'designation',
           type: 'text',
           admin: {
-            width: '50%',
+            width: '35%',
             description: 'Optional client designation or organization.',
           },
         },
@@ -63,7 +57,7 @@ export const Testimonials: CollectionConfig = {
           min: 1,
           max: 5,
           admin: {
-            width: '50%',
+            width: '25%',
             description: 'Optional rating from 1 to 5.',
           },
         },

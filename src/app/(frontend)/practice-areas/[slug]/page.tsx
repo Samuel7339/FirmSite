@@ -267,7 +267,7 @@ export default async function PracticeAreaDetailPage({
               href="/contact"
               className="inline-flex min-h-11 items-center justify-center bg-[#182A3A] px-8 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-md transition-all duration-300 hover:bg-[#34495A]"
             >
-              Schedule a Consultation
+              Contact Us
             </Link>
           </div>
         </div>

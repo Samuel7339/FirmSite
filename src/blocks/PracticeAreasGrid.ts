@@ -87,7 +87,7 @@ export const PracticeAreasGrid: Block = {
           type: 'text',
           label: 'Button Label',
           admin: {
-            width: '50%',
+            width: '30%',
           },
         },
         {
@@ -99,53 +99,55 @@ export const PracticeAreasGrid: Block = {
             { label: 'Enter a Custom URL', value: 'custom' },
           ],
           admin: {
-            width: '50%',
+            width: '45%',
             condition: (_, siblingData) =>
               Boolean(
                 (siblingData as PracticeAreasGridData)?.viewAllLabel?.trim(),
               ),
           },
         },
-      ],
-    },
-    {
-      name: 'selectedViewAllPage',
-      type: 'select',
-      label: 'Select Page',
-      options: [
-        { label: 'Home', value: '/' },
-        { label: 'About Us', value: '/about' },
-        { label: 'Practice Areas', value: '/practice-areas' },
-        { label: 'Attorneys', value: '/attorneys' },
-        { label: 'Cases', value: '/cases' },
-        { label: 'Insights', value: '/insights' },
-        { label: 'Contact', value: '/contact' },
-      ],
-      admin: {
-        condition: (_, siblingData) => {
-          const data = siblingData as PracticeAreasGridData
+        {
+          name: 'selectedViewAllPage',
+          type: 'select',
+          label: 'Select Page',
+          options: [
+            { label: 'Home', value: '/' },
+            { label: 'About Us', value: '/about' },
+            { label: 'Practice Areas', value: '/practice-areas' },
+            { label: 'Attorneys', value: '/attorneys' },
+            { label: 'Cases', value: '/cases' },
+            { label: 'Insights', value: '/insights' },
+            { label: 'Contact', value: '/contact' },
+          ],
+          admin: {
+            width: '25%',
+            condition: (_, siblingData) => {
+              const data = siblingData as PracticeAreasGridData
 
-          return (
-            Boolean(data?.viewAllLabel?.trim()) &&
-            data?.viewAllDestinationType === 'page'
-          )
+              return (
+                Boolean(data?.viewAllLabel?.trim()) &&
+                data?.viewAllDestinationType === 'page'
+              )
+            },
+          },
         },
-      },
-    },
-    {
-      name: 'viewAllUrl',
-      type: 'text',
-      label: 'Custom Button URL',
-      admin: {
-        condition: (_, siblingData) => {
-          const data = siblingData as PracticeAreasGridData
+        {
+          name: 'viewAllUrl',
+          type: 'text',
+          label: 'Custom Button URL',
+          admin: {
+            width: '25%',
+            condition: (_, siblingData) => {
+              const data = siblingData as PracticeAreasGridData
 
-          return (
-            Boolean(data?.viewAllLabel?.trim()) &&
-            data?.viewAllDestinationType === 'custom'
-          )
+              return (
+                Boolean(data?.viewAllLabel?.trim()) &&
+                data?.viewAllDestinationType === 'custom'
+              )
+            },
+          },
         },
-      },
+      ],
     },
   ],
 }

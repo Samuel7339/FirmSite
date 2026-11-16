@@ -1,4 +1,3 @@
-
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
@@ -37,13 +36,22 @@ export const Attorneys: CollectionConfig = {
           name: 'name',
           type: 'text',
           required: true,
-          admin: { width: '60%' },
+          admin: { width: '30%' },
         },
         {
           name: 'sortOrder',
           type: 'number',
           defaultValue: 0,
-          admin: { width: '40%' },
+          admin: { width: '20%' },
+        },
+        {
+          name: 'position',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Example: Senior Partner, Managing Partner, Associate.',
+            width: '50%',
+          },
         },
       ],
     },
@@ -52,14 +60,7 @@ export const Attorneys: CollectionConfig = {
       fieldToUse: 'name',
     }),
 
-    {
-      name: 'position',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'Example: Senior Partner, Managing Partner, Associate.',
-      },
-    },
+
 
     {
       name: 'portrait',

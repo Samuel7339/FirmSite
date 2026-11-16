@@ -1,5 +1,5 @@
 
-import type { Page, Faq } from '@/payload-types'
+import type { Page, Faq, Award } from '@/payload-types'
 import { payloadEditable } from '@payload-inline-visual-editor/react'
 
 import { HomeHero } from '@/components/sections/HomeHero'
@@ -24,6 +24,7 @@ type PageLayoutRendererProps = {
   pageId: Page['id']
   pageSlug?: string
   allFaqs?: Faq[]
+  allAwards?: Award[]
 }
 
 export function PageLayoutRenderer({
@@ -31,6 +32,7 @@ export function PageLayoutRenderer({
   pageId,
   pageSlug,
   allFaqs,
+  allAwards,
 }: PageLayoutRendererProps) {
   return (
     <div
@@ -49,20 +51,20 @@ export function PageLayoutRenderer({
           const editablePath = `layout.${index}`
 
           let section: React.ReactNode = null
-
+        
           switch (block.blockType) {
             case 'HomeHero':
               section = (
                 <HomeHero {...block} editablePath={editablePath} />
               )
               break
-
+            
             case 'aboutFirm':
               section = (
                 <AboutFirm {...block} editablePath={editablePath} />
               )
               break
-
+            
             case 'contact':
               section = (
                 <Contact {...block} editablePath={editablePath} />
@@ -77,7 +79,11 @@ export function PageLayoutRenderer({
 
             case 'recognition':
               section = (
-                <Recognition {...block} editablePath={editablePath} />
+                <Recognition
+                  {...block}
+                  editablePath={editablePath}
+                  allAwards={allAwards}
+                />
               )
               break
 

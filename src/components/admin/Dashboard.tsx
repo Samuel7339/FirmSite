@@ -1,5 +1,5 @@
 
-import type { AdminViewServerProps } from 'payload'
+import type { AdminViewServerProps, CollectionSlug } from 'payload'
 
 const hiddenCollectionSlugs = new Set([
   'payload-kv',
@@ -24,6 +24,7 @@ export default async function Dashboard({
   }
 
   const payloadConfig = initPageResult.req.payload.config
+  const isAdmin = currentUser.role === 'admin'
 
   const getLabel = (value: unknown, fallback: string): string => {
     if (typeof value === 'string') return value
@@ -39,6 +40,74 @@ export default async function Dashboard({
 
     return fallback
   }
+
+  // Retrieve the latest version of each record from collections that support drafts.
+  const pendingDrafts = isAdmin
+    ? (
+        await Promise.all(
+          payloadConfig.collections.map(async (collection) => {
+            const versionsConfig = collection.versions as
+              | { drafts?: boolean }
+              | undefined
+
+            if (!versionsConfig?.drafts) {
+              return []
+            }
+
+            const result = await initPageResult.req.payload.findVersions({
+              collection: collection.slug as CollectionSlug,
+              limit: 1000,
+              sort: '-updatedAt',
+              depth: 0,
+              overrideAccess: true,
+            })
+
+            const collectionLabel = getLabel(
+              collection.labels?.singular,
+              collection.slug,
+            )
+
+            // Store only the latest version for each original record.
+            const latestVersionByParent = new Map<
+              string,
+              (typeof result.docs)[number]
+            >()
+
+            for (const versionDoc of result.docs) {
+              const parentId = versionDoc.parent as unknown as string | number
+
+const key = String(parentId)
+
+              if (!latestVersionByParent.has(key)) {
+                latestVersionByParent.set(key, versionDoc)
+              }
+            }
+
+            // Include only records whose latest version is a draft.
+            return Array.from(latestVersionByParent.values())
+              .filter((versionDoc) => {
+                const versionData = versionDoc.version as
+                  | { _status?: string }
+                  | null
+                  | undefined
+
+                return versionData?._status === 'draft'
+              })
+              .map((draft) => ({
+                id: draft.id,
+                parent: draft.parent,
+                version: draft.version,
+                collection: collection.slug,
+                collectionLabel,
+                updatedAt: draft.updatedAt,
+              }))
+          }),
+        )
+      ).flat()
+    : []
+
+  // Each record is already deduplicated by its latest version.
+  const uniqueDrafts = pendingDrafts
 
   const groups = new Map<
     string,
@@ -306,6 +375,146 @@ export default async function Dashboard({
           {/* Gold Bottom Accent */}
           <div className="h-[3px] w-full bg-gradient-to-r from-[#192B3D] via-[#D8B982] to-[#192B3D]" />
         </section>
+
+        {/* Pending Review */}
+        {isAdmin && (
+          <section
+            aria-labelledby="pending-review-heading"
+            className="border-t border-[#E5E0D7] pt-10"
+          >
+            <div className="mb-6 flex flex-col gap-5 rounded-2xl border border-[#E8DFCD] bg-[#F7F4ED] p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-8">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#C5A052]" />
+
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9A7A42]">
+                    Content Approval
+                  </p>
+                </div>
+
+                <h2
+                  id="pending-review-heading"
+                  className="mt-3 font-serif text-2xl font-semibold tracking-tight text-[#192B3D] sm:text-3xl"
+                >
+                  Pending Review
+                </h2>
+
+                <p className="mt-2 max-w-xl text-sm leading-6 text-[#64717D] sm:text-base">
+                  Review unpublished content across your website before approving and publishing it.
+                </p>
+              </div>
+
+              <div className="flex shrink-0 items-center gap-4 rounded-xl border border-[#E8DFCD] bg-white px-5 py-4">
+                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#F7F4ED] text-xl text-[#9A7A42]">
+                  ▤
+                </div>
+
+                <div>
+                  <p className="text-2xl font-semibold leading-none text-[#192B3D]">
+                    {uniqueDrafts.length}
+                  </p>
+
+                  <p className="mt-1.5 text-xs font-medium text-[#64717D]">
+                    {uniqueDrafts.length === 1
+                      ? 'Draft awaiting review'
+                      : 'Drafts awaiting review'}
+                  </p>
+                </div>
+              </div>
+            </div>
+                     
+            {/* Draft List */}
+            {uniqueDrafts.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-[#D9DDE4] bg-white px-6 py-12 text-center shadow-sm sm:py-14">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F7F4ED] text-3xl text-[#9A7A42]">
+                  ✓
+                </div>
+
+                <h3 className="mt-5 font-serif text-xl font-semibold text-[#192B3D] sm:text-2xl">
+                  All caught up!
+                </h3>
+
+                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#7A8792] sm:text-base">
+                  There are no unpublished content drafts waiting for review.
+                  New drafts will appear here when they are saved.
+                </p>
+
+                <div className="mx-auto mt-6 h-1 w-12 rounded-full bg-[#C5A052]" />
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {uniqueDrafts.map((draft) => {
+                  const parentId = draft.parent as unknown as string | number
+
+                  const versionData = draft.version as unknown as Record<
+  string,
+  unknown
+>
+
+                  const contentTitle =
+                    [
+                      versionData.title,
+                      versionData.name,
+                      versionData.question,
+                      versionData.heading,
+                    ].find(
+                      (value): value is string =>
+                        typeof value === 'string' &&
+                        value.trim().length > 0,
+                    ) || 'Untitled content'
+
+                  return (
+                    <div
+                      key={`${draft.collection}-${String(parentId)}`}
+                      className="group flex flex-col gap-5 rounded-xl border border-[#E7E2D9] bg-white p-5 shadow-sm transition-all duration-200 hover:border-[#D8C49A] hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:p-6"
+                    >
+                      <div className="flex min-w-0 items-start gap-4">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#F7F4ED] text-xl text-[#9A7A42] transition-colors group-hover:bg-[#EFE6D4]">
+                          ▤
+                        </div>
+
+                        <div className="min-w-0 flex-1">
+                          <h3 className="break-words text-base font-semibold text-[#192B3D] sm:text-lg">
+                            {contentTitle}
+                          </h3>
+
+                          <div className="mt-2 flex flex-wrap items-center gap-2">
+                            <span className="rounded-md border border-[#E8DFCD] bg-[#FAF8F3] px-2.5 py-1 text-xs font-medium text-[#8C713F]">
+                              {draft.collectionLabel}
+                            </span>
+
+                            <span className="text-xs text-[#8A9299]">
+                              Updated ·{' '}
+                              {draft.updatedAt
+                                ? new Date(
+                                    draft.updatedAt,
+                                  ).toLocaleDateString()
+                                : 'Date unavailable'}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <a
+                        href={`/admin/collections/${draft.collection}/${encodeURIComponent(String(parentId))}`}
+                        className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-[#192B3D] bg-[#192B3D] px-5 py-2.5 text-sm font-semibold text-white no-underline transition-all duration-200 hover:border-[#344B64] hover:bg-[#344B64] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9A7A42]"
+                      >
+                        Open Draft
+
+                        <span
+                          aria-hidden="true"
+                          className="transition-transform duration-200 group-hover:translate-x-1"
+                        >
+                          →
+                        </span>
+                      </a>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </section>
+        )}
 
         {/* Overview */}
         <section className="flex flex-col gap-6">

@@ -145,6 +145,7 @@ export function ConsultationForm({
 
     return (
       <div
+        id="consultation-form"
         key={field.id ?? field.name}
         className="min-w-0"
         style={{ width: `${field.width ?? 100}%` }}
@@ -279,7 +280,7 @@ export function ConsultationForm({
             >
               {heading}
             </h2>
-
+          
             {description && (
               <p
                 {...payloadEditable(`${editablePath}.description`)}
@@ -338,9 +339,9 @@ export function ConsultationForm({
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex min-h-12 shrink-0 items-center justify-center bg-[#182A3A] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-md transition-all duration-300 hover:bg-[#34495A] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex min-h-12 shrink-0 items-center justify-center bg-[#182A3A] text-white px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] shadow-md transition-all duration-300 hover:bg-[#34495A] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <span
+                    <span className='text-white'
                       {...payloadEditable(`${editablePath}.submitButtonLabel`)}
                     >
                       {isSubmitting

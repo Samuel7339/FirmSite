@@ -53,12 +53,26 @@ export const Cases: CollectionConfig = {
     }),
 
     {
-      name: 'caseType',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'Example: Corporate Dispute, Property Dispute.',
-      },
+      type: 'row',
+      fields: [
+        {
+          name: 'caseType',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'Example: Corporate Dispute, Property Dispute.',
+            width: '50%',
+          },
+        },
+        {
+          name: 'practiceArea',
+          type: 'relationship',
+          relationTo: 'practice-areas',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
 
     {
@@ -71,12 +85,6 @@ export const Cases: CollectionConfig = {
       name: 'featuredImage',
       type: 'upload',
       relationTo: 'media',
-    },
-
-    {
-      name: 'practiceArea',
-      type: 'relationship',
-      relationTo: 'practice-areas',
     },
 
     {
@@ -96,6 +104,5 @@ export const Cases: CollectionConfig = {
       name: 'caseDate',
       type: 'date',
     },
-
   ],
 }

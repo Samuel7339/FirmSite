@@ -18,6 +18,9 @@ import { Cases } from './collections/Cases'
 import { Testimonials } from './collections/Testimonials'
 import { FAQs } from './collections/FAQs'
 import { Pages } from './collections/Pages'
+import { Awards } from './collections/Awards'
+import { ProcessSteps } from './collections/ProcessSteps'
+
 
 import { SiteSettings } from './globals/SiteSettings'
 import { Header } from './globals/Header'
@@ -350,7 +353,9 @@ export default buildConfig({
     Cases,
     Testimonials,
     FAQs,
+    Awards,
     Pages,
+    ProcessSteps,
   ],
 
   globals: [SiteSettings, Header, Footer],
