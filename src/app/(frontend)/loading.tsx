@@ -5,8 +5,8 @@ export default function Loading() {
       <div className="flex w-full max-w-sm flex-col items-center text-center">
         {/* Brand */}
         <div className="mb-10 flex flex-col items-center">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-[#D6A84B]/40 bg-white shadow-[0_4px_20px_rgba(17,24,39,0.05)]">
-            <span className="font-serif text-4xl text-[#C49A43]">
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-gold/40 bg-white shadow-[0_4px_20px_rgba(17,24,39,0.05)]">
+            <span className="font-serif text-4xl text-[rgb(196,154,67)]">
               H
             </span>
           </div>
@@ -37,7 +37,7 @@ export default function Loading() {
         </p>
 
         {/* Animated progress indicator */}
-        <div className="mt-8 h-[2px] w-36 overflow-hidden rounded-full bg-[#E8E4DC]">
+        <div className="mt-8 h-0.5 w-36 overflow-hidden rounded-full bg-[#E8E4DC]">
           <div className="h-full w-1/2 animate-pulse rounded-full bg-[#C49A43]" />
         </div>
       </div>

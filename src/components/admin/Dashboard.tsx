@@ -1,4 +1,7 @@
 
+import GlobalContentSearch from './GlobalContentSearch'
+
+
 import type { AdminViewServerProps, CollectionSlug } from 'payload'
 
 const hiddenCollectionSlugs = new Set([

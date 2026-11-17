@@ -217,7 +217,7 @@ export function Recognition({
                       {logoUrl ? (
                         <img
                           src={logoUrl}
-                          alt={item.title}
+                          alt={item.title}                                
                           className="h-full w-full object-contain opacity-80 transition-opacity group-hover:opacity-100"
                         />
                       ) : (

@@ -66,7 +66,7 @@ export function AboutFirm({
                         </div>
                     )}
 
-                    {buttonLabel && buttonUrl && (
+                    {buttonLabel && buttonUrl && (    
                         <Link
                             href={buttonUrl}
                             className="mt-8 inline-flex min-h-12 items-center justify-center border border-[#0B1025] bg-[#0B1025] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-[#D6A84B] hover:bg-[#D6A84B] hover:text-[#0B1025]"

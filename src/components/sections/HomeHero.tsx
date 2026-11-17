@@ -113,6 +113,11 @@ export function HomeHero({
     color: #526171 !important;
   }
 
+
+  div:has(> #home-hero) + div button[type="submit"] span {
+  color: #FFFFFF !important;
+}
+
   div:has(> #home-hero) + div p.text-xs,
   div:has(> #home-hero) + div [class*="tracking-[0.2"],
   div:has(> #home-hero) + div [class*="tracking-[0.25"],

@@ -291,7 +291,7 @@ export default async function CaseDetailPage({
               </div>
             </div>
           )}
-
+        
           {/* Back to Cases */}
           <div className="mt-12 border-t border-stone-200 pt-6">
             <Link

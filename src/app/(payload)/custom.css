@@ -4081,4 +4081,71 @@ body:has(form.collection-edit__form[action^="/api/media"])
   outline: none !important;
 }
 
+/* Make Payload Row responsive to its available container width */
+.render-fields.row__fields {
+  container-type: inline-size;
+}
+
+@container (max-width: 600px) {
+  .field-type.row > .row__fields {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .field-type.row > .row__fields > .field-type {
+    --field-width: 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+}
+
+/* =====================================================
+   FIX: DOCUMENT CONTROLS MOBILE OVERFLOW
+   Pages collection only
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .collection-edit--pages .doc-controls,
+  .collection-edit--pages .doc-controls__wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .collection-edit--pages .doc-controls__meta,
+  .collection-edit--pages .doc-controls__controls-wrapper,
+  .collection-edit--pages .doc-controls__controls {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .collection-edit--pages .doc-controls__controls-wrapper {
+    display: flex !important;
+    flex-wrap: wrap !important;
+  }
+
+  .collection-edit--pages .doc-controls__controls {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .collection-edit--pages .doc-controls__controls > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .collection-edit--pages .doc-controls .form-submit {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+
+
 

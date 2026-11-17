@@ -8,6 +8,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { searchPlugin } from '@payloadcms/plugin-search'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -324,24 +325,28 @@ export default buildConfig({
         {
           label: 'Desktop',
           name: 'desktop',
-          width: 1440,
+          width: 1040,
           height: 900,
         },
       ],
     },
 
     components: {
-      graphics: {
-        Logo: '/components/graphics/Logo',
-        Icon: '/components/graphics/Icon',
-      },
+  graphics: {
+    Logo: '/components/graphics/Logo',
+    Icon: '/components/graphics/Icon',
+  },
 
-      views: {
-        dashboard: {
-          Component: '/components/admin/Dashboard',
-        },
-      },
+  actions: [
+    '/components/admin/GlobalContentSearch',
+  ],
+
+  views: {
+    dashboard: {
+      Component: '/components/admin/Dashboard',
     },
+  },
+},
   },
 
   collections: [
@@ -436,5 +441,31 @@ export default buildConfig({
 
     // Inline Visual Editor
     visualEditor(),
+
+    // Search Plugin
+    searchPlugin({
+  collections: [
+    'attorneys',
+    'practice-areas',
+    'posts',
+    'cases',
+    'faqs',
+    'pages',
+  ],
+
+  beforeSync: ({ originalDoc, searchDoc }) => {
+    if (searchDoc.doc.relationTo === 'attorneys') {
+      return {
+        ...searchDoc,
+        title:
+          typeof originalDoc.name === 'string'
+            ? originalDoc.name
+            : searchDoc.title,
+      }
+    }
+
+    return searchDoc
+  },
+}),
   ],
 })

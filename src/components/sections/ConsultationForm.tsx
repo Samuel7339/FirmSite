@@ -341,7 +341,7 @@ export function ConsultationForm({
                     disabled={isSubmitting}
                     className="inline-flex min-h-12 shrink-0 items-center justify-center bg-[#182A3A] text-white px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] shadow-md transition-all duration-300 hover:bg-[#34495A] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <span className='text-white'
+                    <span className=''
                       {...payloadEditable(`${editablePath}.submitButtonLabel`)}
                     >
                       {isSubmitting
