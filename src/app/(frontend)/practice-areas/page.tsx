@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPageData } from '@/lib/payload/pages'
 import { PageLayoutRenderer } from '@/components/layout/PageLayoutRenderer'
+import { PageLivePreview } from '@/components/preview/PageLivePreview'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
@@ -83,8 +84,9 @@ export default async function PracticeAreasPage() {
   }
   
   return (
-    <main>
-      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
-    </main>
-  )
+  <PageLivePreview
+    page={page}
+    pageSlug="practice-areas"
+  />
+)
 }

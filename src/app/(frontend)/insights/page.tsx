@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPageData } from '@/lib/payload/pages'
+import { PageLivePreview } from '@/components/preview/PageLivePreview'
 import { PageLayoutRenderer } from '@/components/layout/PageLayoutRenderer'
 
 const SITE_URL =
@@ -63,8 +64,9 @@ export default async function InsightsPage() {
   }
 
   return (
-    <main>
-      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
-    </main>
-  )
+  <PageLivePreview
+    page={page}
+    pageSlug="insights"
+  />
+)
 }

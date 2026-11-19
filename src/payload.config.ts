@@ -22,7 +22,6 @@ import { Pages } from './collections/Pages'
 import { Awards } from './collections/Awards'
 import { ProcessSteps } from './collections/ProcessSteps'
 
-
 import { SiteSettings } from './globals/SiteSettings'
 import { Header } from './globals/Header'
 import { Footer } from './globals/Footer'
@@ -299,15 +298,27 @@ export default buildConfig({
       ],
     },
 
-    // Live Preview — initially enabled only for Pages.
+    // Live Preview for Pages and Forms.
     livePreview: {
-      url: ({ data }) => {
-        const slug = typeof data.slug === 'string' ? data.slug : ''
+      url: ({ data, collectionConfig }) => {
+        // Forms use their dedicated preview route.
+        if (collectionConfig?.slug === 'forms') {
+          const formId = data?.id
+
+          if (!formId) {
+            return '/form-preview?new=true'
+          }
+
+          return `/form-preview?formId=${encodeURIComponent(String(formId))}`
+        }
+
+        // Preserve the existing Pages preview behavior.
+        const slug = typeof data?.slug === 'string' ? data.slug : ''
 
         return slug === 'home' || !slug ? '/' : `/${slug}`
       },
 
-      collections: ['pages'],
+      collections: ['pages', 'forms'],
 
       breakpoints: [
         {
@@ -332,21 +343,21 @@ export default buildConfig({
     },
 
     components: {
-  graphics: {
-    Logo: '/components/graphics/Logo',
-    Icon: '/components/graphics/Icon',
-  },
+      graphics: {
+        Logo: '/components/graphics/Logo',
+        Icon: '/components/graphics/Icon',
+      },
 
-  actions: [
-    '/components/admin/GlobalContentSearch',
-  ],
+      actions: [
+        '/components/admin/GlobalContentSearch',
+      ],
 
-  views: {
-    dashboard: {
-      Component: '/components/admin/Dashboard',
+      views: {
+        dashboard: {
+          Component: '/components/admin/Dashboard',
+        },
+      },
     },
-  },
-},
   },
 
   collections: [
@@ -381,6 +392,60 @@ export default buildConfig({
 
   plugins: [
     formBuilderPlugin({
+      formOverrides: {
+        admin: {
+          livePreview: {
+            url: ({ data }) => {
+              const formId = data?.id
+
+              if (!formId) {
+                return '/form-preview?new=true'
+              }
+
+              return `/form-preview?formId=${encodeURIComponent(String(formId))}`
+            },
+
+            breakpoints: [
+              {
+                label: 'Mobile',
+                name: 'mobile',
+                width: 375,
+                height: 667,
+              },
+              {
+                label: 'Tablet',
+                name: 'tablet',
+                width: 768,
+                height: 1024,
+              },
+              {
+                label: 'Desktop',
+                name: 'desktop',
+                width: 1040,
+                height: 900,
+              },
+            ],
+          },
+          components: {
+            views: {
+              edit: {
+                default: {
+                  Component: '/components/admin/FormsEditView',
+                },
+              },
+            },
+          },
+
+          // components: {
+          //   edit: {
+          //     beforeDocumentControls: [
+          //       '/components/admin/FormLivePreview#FormLivePreview',
+          //     ],
+          //   },
+          // },
+        },
+      },
+
       fields: {
         text: true,
         textarea: true,
@@ -393,6 +458,7 @@ export default buildConfig({
         date: false,
         payment: false,
       },
+
       redirectRelationships: ['pages'],
     }),
 
@@ -439,33 +505,37 @@ export default buildConfig({
       },
     }),
 
-    // Inline Visual Editor
-    visualEditor(),
+    // Inline Visual Editor: enabled only for Pages.
+    visualEditor({
+      collections: {
+        pages: true,
+      },
+    }),
 
     // Search Plugin
     searchPlugin({
-  collections: [
-    'attorneys',
-    'practice-areas',
-    'posts',
-    'cases',
-    'faqs',
-    'pages',
-  ],
+      collections: [
+        'attorneys',
+        'practice-areas',
+        'posts',
+        'cases',
+        'faqs',
+        'pages',
+      ],
 
-  beforeSync: ({ originalDoc, searchDoc }) => {
-    if (searchDoc.doc.relationTo === 'attorneys') {
-      return {
-        ...searchDoc,
-        title:
-          typeof originalDoc.name === 'string'
-            ? originalDoc.name
-            : searchDoc.title,
-      }
-    }
+      beforeSync: ({ originalDoc, searchDoc }) => {
+        if (searchDoc.doc.relationTo === 'attorneys') {
+          return {
+            ...searchDoc,
+            title:
+              typeof originalDoc.name === 'string'
+                ? originalDoc.name
+                : searchDoc.title,
+          }
+        }
 
-    return searchDoc
-  },
-}),
+        return searchDoc
+      },
+    }),
   ],
 })

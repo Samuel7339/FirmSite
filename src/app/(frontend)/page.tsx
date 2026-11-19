@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getHomePageData } from '@/lib/payload/pages'
 import { PageLayoutRenderer } from '@/components/layout/PageLayoutRenderer'
+import { PageLivePreview } from '@/components/preview/PageLivePreview'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
@@ -65,7 +66,10 @@ export default async function HomePage() {
 
   return (
     <main>
-      <PageLayoutRenderer layout={homePage.layout} pageId={homePage.id} />
+      {/* <PageLayoutRenderer layout={homePage.layout} pageId={homePage.id} /> */}
+      
+      <PageLivePreview page={homePage} />
+
     </main>
   )
 }

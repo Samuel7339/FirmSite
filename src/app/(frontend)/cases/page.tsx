@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPageData } from '@/lib/payload/pages'
 import { PageLayoutRenderer } from '@/components/layout/PageLayoutRenderer'
+import { PageLivePreview } from '@/components/preview/PageLivePreview'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
@@ -41,11 +42,11 @@ export async function generateMetadata(): Promise<Metadata> {
       type: 'website',
       images: imageUrl
         ? [
-            {
-              url: imageUrl,
-              alt: image?.alt || 'Legal Case Results',
-            },
-          ]
+          {
+            url: imageUrl,
+            alt: image?.alt || 'Legal Case Results',
+          },
+        ]
         : undefined,
     },
     twitter: {
@@ -66,7 +67,10 @@ export default async function CasesPage() {
 
   return (
     <main>
-      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
+      <PageLivePreview
+        page={page}
+        pageSlug="cases"
+      />
     </main>
   )
 }

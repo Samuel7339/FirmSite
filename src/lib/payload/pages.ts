@@ -144,6 +144,44 @@ async function getPageBySlug(slug: string) {
         }
       }
 
+      if (
+        block.blockType === 'caseResults' &&
+        block.displayMode === 'all'
+      ) {
+        const casesResult = await payload.find({
+          collection: 'cases',
+          user: authResult.user ?? undefined,
+          overrideAccess: false,
+          draft: isDraft,
+          sort: 'sortOrder',
+          limit: 100,
+          depth: 1,
+        })
+        return {
+          ...block,
+          cases: casesResult.docs,
+        }
+      }
+
+      if (
+        block.blockType === 'insights' &&
+        block.displayMode === 'all'
+      ) {
+        const postsResult = await payload.find({
+          collection: 'posts',
+          user: authResult.user ?? undefined,
+          overrideAccess: false,
+          draft: isDraft,
+          sort: '-publishedAt',
+          limit: 100,
+          depth: 1,
+        })
+        return {
+          ...block,
+          posts: postsResult.docs,
+        }
+      }
+
       return block
     }),
   )

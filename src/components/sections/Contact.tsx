@@ -6,7 +6,8 @@ import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { ContactBlock, Form, Media } from '@/payload-types'
 
 type ContactProps = ContactBlock & {
-  editablePath: string
+  editablePath?: string
+  previewMode?: boolean
 }
 
 type FormField = NonNullable<Form['fields']>[number]
@@ -44,6 +45,7 @@ export function Contact({
   image,
   form,
   editablePath,
+  previewMode = false,
 }: ContactProps) {
   const imageUrl = getImageUrl(image)
 
@@ -64,6 +66,12 @@ export function Contact({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    // Never submit real data from the admin preview.
+    if (previewMode) {
+      setError('Preview mode: form submissions are disabled.')
+      return
+    }
 
     if (!selectedForm) return
 
@@ -176,7 +184,7 @@ export function Contact({
         ) : (
           <>
             <label
-              htmlFor={field.name}
+              htmlFor={`contact-${field.name}`}
               className="text-sm font-medium text-[#17243A]"
             >
               {label}
@@ -187,7 +195,7 @@ export function Contact({
 
             {field.blockType === 'textarea' ? (
               <textarea
-                id={field.name}
+                id={`contact-${field.name}`}
                 name={field.name}
                 value={value}
                 required={Boolean(field.required)}
@@ -199,7 +207,7 @@ export function Contact({
               />
             ) : field.blockType === 'select' ? (
               <select
-                id={field.name}
+                id={`contact-${field.name}`}
                 name={field.name}
                 value={value}
                 required={Boolean(field.required)}
@@ -242,7 +250,7 @@ export function Contact({
               </div>
             ) : (
               <input
-                id={field.name}
+                id={`contact-${field.name}`}
                 name={field.name}
                 type={
                   field.blockType === 'email'
@@ -273,17 +281,21 @@ export function Contact({
     <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:px-20">
       <div
         className={`mx-auto grid max-w-7xl items-center gap-12 lg:gap-20 ${
-          imageUrl
-            ? 'lg:grid-cols-2'
-            : 'grid-cols-1'
+          imageUrl ? 'lg:grid-cols-2' : 'grid-cols-1'
         }`}
       >
         <div className={imageUrl ? '' : 'mx-auto w-full max-w-[760px]'}>
           {eyebrow && (
-            <div className={`mb-4 flex items-center gap-3 ${!imageUrl ? 'justify-center' : ''}`}>
+            <div
+              className={`mb-4 flex items-center gap-3 ${
+                !imageUrl ? 'justify-center' : ''
+              }`}
+            >
               <span className="h-px w-6 bg-[#D6A84B]" />
               <p
-                {...payloadEditable(`${editablePath}.eyebrow`)}
+                {...(editablePath
+                  ? payloadEditable(`${editablePath}.eyebrow`)
+                  : {})}
                 className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C59A3F]"
               >
                 {eyebrow}
@@ -295,7 +307,9 @@ export function Contact({
           )}
 
           <h2
-            {...payloadEditable(`${editablePath}.heading`)}
+            {...(editablePath
+              ? payloadEditable(`${editablePath}.heading`)
+              : {})}
             className={`font-serif text-3xl font-normal leading-tight text-[#0B1025] sm:text-4xl md:text-5xl ${
               !imageUrl ? 'text-center' : ''
             }`}
@@ -305,7 +319,9 @@ export function Contact({
 
           {description && (
             <p
-              {...payloadEditable(`${editablePath}.description`)}
+              {...(editablePath
+                ? payloadEditable(`${editablePath}.description`)
+                : {})}
               className={`mt-5 text-base leading-relaxed text-stone-600 ${
                 !imageUrl ? 'mx-auto max-w-2xl text-center' : ''
               }`}
@@ -315,7 +331,9 @@ export function Contact({
           )}
 
           <div
-            {...payloadEditable(`${editablePath}.form`)}
+            {...(editablePath
+              ? payloadEditable(`${editablePath}.form`)
+              : {})}
             className="mt-8 border border-stone-200/80 bg-[#F8F6F0] p-8 shadow-sm md:p-10"
           >
             <h3 className="font-serif text-2xl font-normal text-[#0B1025]">
@@ -367,7 +385,9 @@ export function Contact({
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative overflow-hidden bg-stone-100 shadow-xl">
               <img
-                {...payloadEditable(`${editablePath}.image`)}
+                {...(editablePath
+                  ? payloadEditable(`${editablePath}.image`)
+                  : {})}
                 src={imageUrl}
                 alt={heading}
                 className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-105"

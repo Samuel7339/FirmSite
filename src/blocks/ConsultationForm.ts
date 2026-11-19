@@ -6,8 +6,8 @@ export const ConsultationForm: Block = {
   interfaceName: 'ConsultationFormBlock',
 
   labels: {
-    singular: 'Consultation Form Section',
-    plural: 'Consultation Form Sections',
+    singular: 'Consultation Form Template',
+    plural: 'Consultation Form Templates',
   },
 
   fields: [

@@ -2,6 +2,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getPageData } from '@/lib/payload/pages'
+import { PageLivePreview } from '@/components/preview/PageLivePreview'
 import { PageLayoutRenderer } from '@/components/layout/PageLayoutRenderer'
 // import page from '../page'
 
@@ -12,11 +13,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageData('about')
 
   const title = page?.meta?.title || 'About Our Firm | Legal Services'
-  
+
   const description =
     page?.meta?.description ||
     'Learn about our law firm, our values, experience, and commitment to our clients.'
-  
+
   const image =
     typeof page?.meta?.image === 'object' && page.meta.image !== null
       ? page.meta.image
@@ -42,11 +43,11 @@ export async function generateMetadata(): Promise<Metadata> {
       type: 'website',
       images: imageUrl
         ? [
-            {
-              url: imageUrl,
-              alt: image?.alt || 'About Our Firm',
-            },
-          ]
+          {
+            url: imageUrl,
+            alt: image?.alt || 'About Our Firm',
+          },
+        ]
         : undefined,
     },
     twitter: {
@@ -67,7 +68,12 @@ export default async function AboutPage() {
 
   return (
     <main>
-      <PageLayoutRenderer layout={page.layout} pageId={page.id}/>
+      return (
+      <PageLivePreview
+        page={page}
+        pageSlug="about"
+      />
+      )
     </main>
   )
 }

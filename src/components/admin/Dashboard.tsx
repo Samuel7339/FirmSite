@@ -1,7 +1,6 @@
 
 import GlobalContentSearch from './GlobalContentSearch'
 
-
 import type { AdminViewServerProps, CollectionSlug } from 'payload'
 
 const hiddenCollectionSlugs = new Set([
@@ -28,6 +27,19 @@ export default async function Dashboard({
 
   const payloadConfig = initPageResult.req.payload.config
   const isAdmin = currentUser.role === 'admin'
+
+  // Fetch website pages for Visual Editing.
+  const pagesResult = await initPageResult.req.payload.find({
+    collection: 'pages',
+    user: currentUser,
+    overrideAccess: false,
+    draft: true,
+    depth: 0,
+    limit: 1000,
+    sort: 'title',
+  })
+
+  const visualEditingPages = pagesResult.docs
 
   const getLabel = (value: unknown, fallback: string): string => {
     if (typeof value === 'string') return value
@@ -79,7 +91,7 @@ export default async function Dashboard({
             for (const versionDoc of result.docs) {
               const parentId = versionDoc.parent as unknown as string | number
 
-const key = String(parentId)
+              const key = String(parentId)
 
               if (!latestVersionByParent.has(key)) {
                 latestVersionByParent.set(key, versionDoc)
@@ -259,7 +271,6 @@ const key = String(parentId)
 
         {/* Welcome Section */}
         <section className="relative overflow-hidden rounded-2xl border border-[#34495A] bg-[#192B3D] shadow-[0_12px_35px_rgba(25,43,61,0.12)]">
-          {/* Decorative Elements */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -right-24 -top-40 h-[430px] w-[430px] rounded-full border border-[#D8B982]/15"
@@ -375,9 +386,197 @@ const key = String(parentId)
             </div>
           </div>
 
-          {/* Gold Bottom Accent */}
           <div className="h-[3px] w-full bg-gradient-to-r from-[#192B3D] via-[#D8B982] to-[#192B3D]" />
         </section>
+
+        
+{/* Visual Editing */}
+<section
+  aria-labelledby="visual-editing-heading"
+  className="flex flex-col gap-7"
+>
+  {/* Section Heading */}
+  <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+    <div>
+      <div className="flex items-center gap-3">
+        <span className="h-px w-7 bg-[#A17C4B]" />
+
+        <p className="text-[10px] font-bold uppercase tracking-[0.23em] text-[#A17C4B]">
+          Website Experience
+        </p>
+      </div>
+
+      <h2
+        id="visual-editing-heading"
+        className="mt-3 font-serif text-2xl font-normal tracking-tight text-[#192B3D] sm:text-3xl"
+      >
+        Visual Editing
+      </h2>
+
+      <p className="mt-2 max-w-xl text-sm leading-7 text-[#71808D]">
+        Select a website page to open its visual editor and make changes
+        directly to your website content.
+      </p>
+    </div>
+
+    {/* Page Count */}
+    <div className="flex w-fit items-center gap-2 rounded-full border border-[#E9E2D7] bg-white px-4 py-2">
+      <span className="flex h-2 w-2 rounded-full bg-[#A17C4B]" />
+
+      <span className="text-xs font-semibold text-[#192B3D]">
+        {visualEditingPages.length}
+      </span>
+
+      <span className="text-xs text-[#71808D]">
+        {visualEditingPages.length === 1 ? 'Website Page' : 'Website Pages'}
+      </span>
+    </div>
+  </div>
+
+  {/* Page Cards */}
+  {visualEditingPages.length > 0 ? (
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      {visualEditingPages.map((page) => {
+        const isHomePage = page.slug === 'home'
+
+        return (
+          <a
+            key={page.id}
+            href={`/admin/visual-editor/pages/${encodeURIComponent(String(page.id))}`}
+            aria-label={`Open visual editor for ${page.title}`}
+            className="group relative flex min-h-[190px] flex-col justify-between overflow-hidden rounded-2xl border border-[#E8E3DA] bg-white p-6 no-underline shadow-[0_3px_14px_rgba(25,43,61,0.035)] transition-all duration-300 hover:-translate-y-1 hover:border-[#C9B18A] hover:shadow-[0_12px_30px_rgba(25,43,61,0.09)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A17C4B] focus-visible:ring-offset-2"
+          >
+            {/* Decorative Background */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-[#F8F5EF] transition-transform duration-500 group-hover:scale-150"
+            />
+
+            <div className="relative z-10">
+              <div className="flex items-start justify-between gap-3">
+                {/* Page Icon */}
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#EAE2D5] bg-[#F8F5EF] text-[#A17C4B] transition-all duration-300 group-hover:border-[#D8C49A] group-hover:bg-[#F2EBDD]">
+                  {isHomePage ? (
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1V10Z"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M14 3v5h5M9 13h6M9 17h6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                </div>
+
+                {/* Page Type */}
+                <span
+                  className={`rounded-full px-3 py-1 text-[9px] font-bold uppercase tracking-[0.13em] ${
+                    isHomePage
+                      ? 'border border-[#E8D9B9] bg-[#F8F1E4] text-[#98713D]'
+                      : 'border border-[#E8E9EB] bg-[#F6F7F8] text-[#71808D]'
+                  }`}
+                >
+                  {isHomePage ? 'Main Page' : 'Website Page'}
+                </span>
+              </div>
+
+              {/* Page Details */}
+              <div className="mt-6">
+                <h3 className="truncate font-serif text-xl font-semibold text-[#192B3D] transition-colors duration-200 group-hover:text-[#A17C4B]">
+                  {page.title}
+                </h3>
+
+                <p className="mt-1.5 truncate text-xs text-[#8A959E]">
+                  {page.slug === 'home' ? '/' : `/${page.slug}`}
+                </p>
+              </div>
+            </div>
+
+            {/* Card Action */}
+            <div className="relative z-10 mt-6 flex items-center justify-between border-t border-[#F0ECE6] pt-4">
+              <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#A17C4B]">
+                Open Visual Editor
+              </span>
+
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#EAE2D5] text-[#A17C4B] transition-all duration-300 group-hover:border-[#A17C4B] group-hover:bg-[#A17C4B] group-hover:text-white">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+                >
+                  <path
+                    d="M5 12h14m-6-6 6 6-6 6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </div>
+          </a>
+        )
+      })}
+    </div>
+  ) : (
+    /* Empty State */
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[#DCD4C8] bg-white px-6 py-14 text-center">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F8F5EF] text-[#A17C4B]">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          className="h-7 w-7"
+        >
+          <path
+            d="M4 5h16v14H4zM8 9h8M8 13h5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+
+      <h3 className="mt-5 font-serif text-xl text-[#192B3D]">
+        No website pages yet
+      </h3>
+
+      <p className="mt-2 max-w-sm text-sm leading-6 text-[#71808D]">
+        Once you create website pages in Website Content, they will
+        appear here for visual editing.
+      </p>
+    </div>
+  )}
+</section>
+
 
         {/* Pending Review */}
         {isAdmin && (
@@ -425,7 +624,7 @@ const key = String(parentId)
                 </div>
               </div>
             </div>
-                     
+
             {/* Draft List */}
             {uniqueDrafts.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-[#D9DDE4] bg-white px-6 py-12 text-center shadow-sm sm:py-14">
@@ -450,9 +649,9 @@ const key = String(parentId)
                   const parentId = draft.parent as unknown as string | number
 
                   const versionData = draft.version as unknown as Record<
-  string,
-  unknown
->
+                    string,
+                    unknown
+                  >
 
                   const contentTitle =
                     [

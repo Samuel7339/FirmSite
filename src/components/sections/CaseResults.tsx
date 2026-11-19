@@ -1,9 +1,7 @@
 
-import { draftMode, headers } from 'next/headers'
 import Link from 'next/link'
 import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { Case, CaseResultsBlock, Media } from '@/payload-types'
-import { getPayloadClient } from '@/lib/payload/getPayloadClient'
 
 type CaseResultsProps = CaseResultsBlock & {
   editablePath: string
@@ -19,11 +17,10 @@ function getImageUrl(
   return undefined
 }
 
-export async function CaseResults({
+export function CaseResults({
   eyebrow,
   heading,
   description,
-  displayMode,
   cases,
   viewAllLabel,
   viewAllDestinationType,
@@ -31,38 +28,10 @@ export async function CaseResults({
   viewAllUrl,
   editablePath,
 }: CaseResultsProps) {
-  let items: Case[] = []
-
-  if (displayMode === 'all') {
-    const payload = await getPayloadClient()
-    const { isEnabled } = await draftMode()
-    const requestHeaders = await headers()
-
-    const authResult = await payload.auth({
-      headers: requestHeaders,
-      canSetHeaders: false,
-    })
-
-    const isStaff = Boolean(authResult.user)
-    const isDraft = isStaff || isEnabled
-
-    const result = await payload.find({
-      collection: 'cases',
-      user: authResult.user ?? undefined,
-      overrideAccess: false,
-      draft: isDraft,
-      sort: 'sortOrder',
-      limit: 100,
-      depth: 1,
-    })
-
-    items = result.docs
-  } else {
-    items = (cases ?? []).filter(
-      (item): item is Case =>
-        typeof item === 'object' && item !== null,
-    )
-  }
+  const items = (cases ?? []).filter(
+    (item): item is Case =>
+      typeof item === 'object' && item !== null,
+  )
 
   const buttonUrl =
     viewAllDestinationType === 'page'

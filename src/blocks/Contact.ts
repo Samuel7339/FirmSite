@@ -6,8 +6,8 @@ export const Contact: Block = {
   interfaceName: 'ContactBlock',
 
   labels: {
-    singular: 'Contact Section',
-    plural: 'Contact Sections',
+    singular: 'Contact Form Template',
+    plural: 'Contact Form Templates',
   },
 
   fields: [

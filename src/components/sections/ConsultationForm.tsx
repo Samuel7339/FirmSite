@@ -6,7 +6,8 @@ import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { ConsultationFormBlock, Form } from '@/payload-types'
 
 type ConsultationFormProps = ConsultationFormBlock & {
-  editablePath: string
+  editablePath?: string
+  previewMode?: boolean
 }
 
 type FormField = NonNullable<Form['fields']>[number]
@@ -35,6 +36,7 @@ export function ConsultationForm({
   submitButtonLabel,
   privacyNotice,
   editablePath,
+  previewMode = false,
 }: ConsultationFormProps) {
   const selectedForm =
     typeof form === 'object' && form !== null ? form : null
@@ -54,6 +56,12 @@ export function ConsultationForm({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
+    // Never submit real data from the admin preview.
+    if (previewMode) {
+      setError('Preview mode: form submissions are disabled.')
+      return
+    }
+
     if (!selectedForm) return
 
     setIsSubmitting(true)
@@ -69,8 +77,8 @@ export function ConsultationForm({
             String(
               field.blockType === 'checkbox'
                 ? Boolean(
-                    'defaultValue' in field ? field.defaultValue : false,
-                  )
+                  'defaultValue' in field ? field.defaultValue : false,
+                )
                 : 'defaultValue' in field
                   ? field.defaultValue ?? ''
                   : '',
@@ -93,8 +101,8 @@ export function ConsultationForm({
       if (!response.ok) {
         throw new Error(
           result.errors?.[0]?.message ||
-            result.message ||
-            'Unable to submit your consultation request. Please try again.',
+          result.message ||
+          'Unable to submit your consultation request. Please try again.',
         )
       }
 
@@ -130,13 +138,13 @@ export function ConsultationForm({
     const defaultValue =
       field.blockType === 'checkbox'
         ? String(
-            Boolean(
-              'defaultValue' in field ? field.defaultValue : false,
-            ),
-          )
+          Boolean(
+            'defaultValue' in field ? field.defaultValue : false,
+          ),
+        )
         : String(
-            'defaultValue' in field ? field.defaultValue ?? '' : '',
-          )
+          'defaultValue' in field ? field.defaultValue ?? '' : '',
+        )
 
     const value = values[field.name] ?? defaultValue
 
@@ -260,14 +268,32 @@ export function ConsultationForm({
     : ''
 
   return (
-    <section className="relative px-4 pb-20 sm:px-6 md:pb-28 lg:px-8">
-      <div className="mx-auto max-w-6xl border border-[#D8C2A2]/60 border-l-4 border-l-[#B58B60] bg-[#F3EEE5] p-8 shadow-2xl sm:p-10 lg:p-12">
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
+    <section
+      className={
+        previewMode
+          ? 'relative w-full p-3 sm:p-4'
+          : 'relative px-4 pb-20 sm:px-6 md:pb-28 lg:px-8'
+      }
+    >
+      <div className={
+  previewMode
+    ? 'mx-auto w-full border border-[#D8C2A2]/60 border-l-4 border-l-[#B58B60] bg-[#F3EEE5] p-4 shadow-sm'
+    : 'mx-auto max-w-6xl border border-[#D8C2A2]/60 border-l-4 border-l-[#B58B60] bg-[#F3EEE5] p-8 shadow-2xl sm:p-10 lg:p-12'
+}>
+        <div
+  className={
+    previewMode
+      ? 'grid grid-cols-1 items-start gap-5'
+      : 'grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14'
+  }
+>
           {/* Left Column */}
-          <div className="lg:col-span-5">
+          <div className={previewMode ? 'min-w-0' : 'lg:col-span-5'}>
             {eyebrow && (
               <p
-                {...payloadEditable(`${editablePath}.eyebrow`)}
+                {...(editablePath
+                  ? payloadEditable(`${editablePath}.eyebrow`)
+                  : {})}
                 className="text-xs font-semibold uppercase tracking-[0.25em] text-[#A77C50]"
               >
                 {eyebrow}
@@ -275,15 +301,19 @@ export function ConsultationForm({
             )}
 
             <h2
-              {...payloadEditable(`${editablePath}.heading`)}
+              {...(editablePath
+                ? payloadEditable(`${editablePath}.heading`)
+                : {})}
               className="mt-2 font-serif text-3xl font-normal leading-tight text-[#182A3A] sm:text-4xl"
             >
               {heading}
             </h2>
-          
+
             {description && (
               <p
-                {...payloadEditable(`${editablePath}.description`)}
+                {...(editablePath
+                  ? payloadEditable(`${editablePath}.description`)
+                  : {})}
                 className="mt-4 text-sm leading-relaxed text-[#526171] sm:text-base"
               >
                 {description}
@@ -292,7 +322,7 @@ export function ConsultationForm({
           </div>
 
           {/* Right Column: Dynamic Payload Form */}
-          <div className="lg:col-span-7">
+          <div className={previewMode ? 'min-w-0' : 'lg:col-span-7'}>
             {isSubmitted ? (
               <div
                 className="border border-green-200 bg-green-50 p-6 text-sm leading-relaxed text-green-800"
@@ -321,7 +351,9 @@ export function ConsultationForm({
                     className="text-[11px] leading-tight text-[#526171]"
                   >
                     <span
-                      {...payloadEditable(`${editablePath}.privacyNotice`)}
+                      {...(editablePath
+                        ? payloadEditable(`${editablePath}.privacyNotice`)
+                        : {})}
                     >
                       {privacyNotice ||
                         'I understand this communication does not create an attorney-client relationship.'}
@@ -341,14 +373,16 @@ export function ConsultationForm({
                     disabled={isSubmitting}
                     className="inline-flex min-h-12 shrink-0 items-center justify-center bg-[#182A3A] text-white px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] shadow-md transition-all duration-300 hover:bg-[#34495A] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <span className=''
-                      {...payloadEditable(`${editablePath}.submitButtonLabel`)}
+                    <span
+                      {...(editablePath
+                        ? payloadEditable(`${editablePath}.submitButtonLabel`)
+                        : {})}
                     >
                       {isSubmitting
                         ? 'Submitting...'
                         : submitButtonLabel ||
-                          selectedForm.submitButtonLabel ||
-                          'Request Consultation'}
+                        selectedForm.submitButtonLabel ||
+                        'Request Consultation'}
                     </span>
                   </button>
                 </div>

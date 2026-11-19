@@ -1,9 +1,7 @@
 
-import { draftMode, headers } from 'next/headers'
 import Link from 'next/link'
 import { payloadEditable } from '@payload-inline-visual-editor/react'
 import type { InsightsBlock, Media, Post, Attorney } from '@/payload-types'
-import { getPayloadClient } from '@/lib/payload/getPayloadClient'
 
 type InsightsProps = InsightsBlock & {
   editablePath: string
@@ -19,11 +17,10 @@ function getImageUrl(
   return undefined
 }
 
-export async function Insights({
+export function Insights({
   eyebrow,
   heading,
   description,
-  displayMode,
   posts,
   viewAllLabel,
   viewAllDestinationType,
@@ -31,38 +28,10 @@ export async function Insights({
   viewAllUrl,
   editablePath,
 }: InsightsProps) {
-  let items: Post[] = []
-
-  if (displayMode === 'all') {
-    const payload = await getPayloadClient()
-    const { isEnabled } = await draftMode()
-    const requestHeaders = await headers()
-
-    const authResult = await payload.auth({
-      headers: requestHeaders,
-      canSetHeaders: false,
-    })
-
-    const isStaff = Boolean(authResult.user)
-    const isDraft = isStaff || isEnabled
-
-    const result = await payload.find({
-      collection: 'posts',
-      user: authResult.user ?? undefined,
-      overrideAccess: false,
-      draft: isDraft,
-      sort: '-publishedAt',
-      limit: 100,
-      depth: 1,
-    })
-
-    items = result.docs
-  } else {
-    items = (posts ?? []).filter(
-      (item): item is Post =>
-        typeof item === 'object' && item !== null,
-    )
-  }
+  const items = (posts ?? []).filter(
+    (item): item is Post =>
+      typeof item === 'object' && item !== null,
+  )
 
   const buttonUrl =
     viewAllDestinationType === 'page'

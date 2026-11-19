@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { getPageData } from '@/lib/payload/pages'
 import { PageLayoutRenderer } from '@/components/layout/PageLayoutRenderer'
+import { PageLivePreview } from '@/components/preview/PageLivePreview'
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
@@ -66,11 +67,9 @@ export default async function FAQsPage() {
   }
 
   return (
-    <PageLayoutRenderer
-      layout={page.layout ?? []}
-      pageSlug="faqs"
-      allFaqs={page.allFaqs ?? []}
-      pageId={page.id}
-    />
-  )
+  <PageLivePreview
+    page={page}
+    pageSlug="faqs"
+  />
+)
 }

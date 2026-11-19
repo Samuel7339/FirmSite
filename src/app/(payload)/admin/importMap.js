@@ -28,10 +28,7 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { VisualEditorController as VisualEditorController_3a8e3d5bdeeaec64e402b668680114ed } from 'payload-inline-visual-editor/client'
-import { PreviewControl as PreviewControl_84a627aec9787bc09d5479f7f402083f } from '../../../components/admin/DocumentControls'
-import { PublishControl as PublishControl_84a627aec9787bc09d5479f7f402083f } from '../../../components/admin/DocumentControls'
-import { SaveDraftControl as SaveDraftControl_84a627aec9787bc09d5479f7f402083f } from '../../../components/admin/DocumentControls'
-import { default as default_70f699ba6a16b054c5dae11abecd7a5f } from '../../../components/admin/CustomPageEditView'
+import { default as default_b2b9c2062c93860c34d9a2ae44870382 } from '../../../components/admin/FormsEditView'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { default as default_c6286fbc7f62f2ce3ef9c604e9c02147 } from '../../../components/graphics/Icon'
@@ -73,10 +70,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "payload-inline-visual-editor/client#VisualEditorController": VisualEditorController_3a8e3d5bdeeaec64e402b668680114ed,
-  "/components/admin/DocumentControls#PreviewControl": PreviewControl_84a627aec9787bc09d5479f7f402083f,
-  "/components/admin/DocumentControls#PublishControl": PublishControl_84a627aec9787bc09d5479f7f402083f,
-  "/components/admin/DocumentControls#SaveDraftControl": SaveDraftControl_84a627aec9787bc09d5479f7f402083f,
-  "/components/admin/CustomPageEditView#default": default_70f699ba6a16b054c5dae11abecd7a5f,
+  "/components/admin/FormsEditView#default": default_b2b9c2062c93860c34d9a2ae44870382,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "/components/graphics/Icon#default": default_c6286fbc7f62f2ce3ef9c604e9c02147,
